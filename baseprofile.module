@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * @file
+ *
+ * Base Code for use with ombuprofile.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function baseprofile_menu() {
+  $items = array();
+
+  $items['baseprofile_404'] = array(
+    'title' => t('Page not found'),
+    'access callback' => TRUE,
+    'page callback' => 'baseprofile_404_page',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function baseprofile_ctools_plugin_api($module, $api) {
+  if ($module == 'context' && $api == 'plugins') {
+    return array('version' => 3);
+  }
+}
+
+/**
+ * Implements hook_context_plugins().
+ */
+function baseprofile_context_plugins() {
+  $plugins = array();
+  $plugins['context_condition_frontend'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'baseprofile') . '/plugins',
+      'file' => 'context_condition_frontend.inc',
+      'class' => 'context_condition_frontend',
+      'parent' => 'context_condition',
+    ),
+  );
+  return $plugins;
+}
+
+/**
+ * Implements of hook_context_registry().
+ */
+function baseprofile_context_registry() {
+  $registry = array();
+
+  $registry['conditions'] = array(
+    'frontend' => array(
+      'title' => t('Front End Theme'),
+      'description' => 'This condition triggers on pages themed with theme_default.',
+      'plugin' => 'context_condition_frontend',
+    ),
+  );
+  return $registry;
+}
+
+/**
+ * Implements of hook_context_page_reaction().
+ */
+function baseprofile_context_page_condition() {
+  global $theme;
+  if ($plugin = context_get_plugin('condition', 'frontend')) {
+    $plugin->execute($theme);
+  }
+}
+
+/**
+ * 404 page callback.
+ */
+function baseprofile_404_page() {
+  drupal_set_title(t('Page not found'));
+  return t('The requested page could not be found.');
+}
+
+/**
+ * Load all profile support code.
+ */
+function baseprofile_load_profile_includes() {
+  module_load_include('inc', 'baseprofile', 'baseprofile.profile');
+}
