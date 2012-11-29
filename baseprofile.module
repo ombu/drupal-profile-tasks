@@ -86,4 +86,12 @@ function baseprofile_404_page() {
  */
 function baseprofile_load_profile_includes() {
   module_load_include('inc', 'baseprofile', 'baseprofile.profile');
+  module_load_include('php', 'baseprofile', '/vendor/autoload');
+}
+
+use Symfony\Component\Yaml\Dumper;
+
+function get_yaml() {
+  $yaml = new Dumper();
+  return $yaml;
 }

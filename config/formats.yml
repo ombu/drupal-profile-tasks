@@ -1,0 +1,268 @@
+comment:
+    format: comment
+    name: Comment
+    cache: '1'
+    status: '1'
+    weight: '0'
+    filters:
+        filter_url:
+            format: comment
+            module: filter
+            name: filter_url
+            weight: '0'
+            status: '1'
+            settings:
+                filter_url_length: 72
+            title: 'Convert URLs into links'
+        filter_html:
+            format: comment
+            module: filter
+            name: filter_html
+            weight: '1'
+            status: '1'
+            settings:
+                allowed_html: '<a><u><em><strong><p>'
+                filter_html_help: 1
+                filter_html_nofollow: 0
+            title: 'Limit allowed HTML tags'
+        filter_autop:
+            format: comment
+            module: filter
+            name: filter_autop
+            weight: '2'
+            status: '1'
+            settings: {  }
+            title: 'Convert line breaks into HTML (i.e. <code>&lt;br&gt;</code> and <code>&lt;p&gt;</code>)'
+        filter_htmlcorrector:
+            format: comment
+            module: filter
+            name: filter_htmlcorrector
+            weight: '10'
+            status: '1'
+            settings: {  }
+            title: 'Correct faulty and chopped off HTML'
+        filter_html_escape:
+            format: comment
+            module: filter
+            name: filter_html_escape
+            weight: '10'
+            status: '0'
+            settings: {  }
+            title: 'Display any HTML as plain text'
+        media_filter:
+            format: comment
+            module: media
+            name: media_filter
+            weight: '10'
+            status: '0'
+            settings: {  }
+            title: 'Convert Media tags to markup'
+        php_code:
+            format: comment
+            module: php
+            name: php_code
+            weight: '10'
+            status: '0'
+            settings: {  }
+            title: 'PHP evaluator'
+default:
+    format: default
+    name: Default
+    cache: '1'
+    status: '1'
+    weight: '0'
+    filters:
+        filter_html:
+            format: default
+            module: filter
+            name: filter_html
+            weight: '0'
+            status: '1'
+            settings:
+                allowed_html: '<a><u><em><strong><ul><ol><li><span><img><h2><h3><h4><h5><h6><dl><dt><dd><br><hr><p><blockquote><table><th><tr><td>'
+                filter_html_help: 1
+                filter_html_nofollow: 0
+            title: 'Limit allowed HTML tags'
+        media_filter:
+            format: default
+            module: media
+            name: media_filter
+            weight: '1'
+            status: '1'
+            settings: {  }
+            title: 'Convert Media tags to markup'
+        filter_url:
+            format: default
+            module: filter
+            name: filter_url
+            weight: '2'
+            status: '1'
+            settings:
+                filter_url_length: '72'
+            title: 'Convert URLs into links'
+        filter_autop:
+            format: default
+            module: filter
+            name: filter_autop
+            weight: '3'
+            status: '1'
+            settings: {  }
+            title: 'Convert line breaks into HTML (i.e. <code>&lt;br&gt;</code> and <code>&lt;p&gt;</code>)'
+        filter_htmlcorrector:
+            format: default
+            module: filter
+            name: filter_htmlcorrector
+            weight: '10'
+            status: '1'
+            settings: {  }
+            title: 'Correct faulty and chopped off HTML'
+        filter_html_escape:
+            format: default
+            module: filter
+            name: filter_html_escape
+            weight: '10'
+            status: '0'
+            settings: {  }
+            title: 'Display any HTML as plain text'
+        php_code:
+            format: default
+            module: php
+            name: php_code
+            weight: '10'
+            status: '0'
+            settings: {  }
+            title: 'PHP evaluator'
+plain_text:
+    format: plain_text
+    name: 'Plain text'
+    cache: '1'
+    status: '1'
+    weight: '10'
+    filters:
+        filter_html_escape:
+            format: plain_text
+            module: filter
+            name: filter_html_escape
+            weight: '0'
+            status: '1'
+            settings: {  }
+            title: 'Display any HTML as plain text'
+        filter_url:
+            format: plain_text
+            module: filter
+            name: filter_url
+            weight: '1'
+            status: '1'
+            settings:
+                filter_url_length: 72
+            title: 'Convert URLs into links'
+        filter_autop:
+            format: plain_text
+            module: filter
+            name: filter_autop
+            weight: '2'
+            status: '1'
+            settings: {  }
+            title: 'Convert line breaks into HTML (i.e. <code>&lt;br&gt;</code> and <code>&lt;p&gt;</code>)'
+        filter_html:
+            format: plain_text
+            module: filter
+            name: filter_html
+            weight: '10'
+            status: '0'
+            settings:
+                allowed_html: '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd>'
+                filter_html_help: 1
+                filter_html_nofollow: 0
+            title: 'Limit allowed HTML tags'
+        filter_htmlcorrector:
+            format: plain_text
+            module: filter
+            name: filter_htmlcorrector
+            weight: '10'
+            status: '0'
+            settings: {  }
+            title: 'Correct faulty and chopped off HTML'
+        media_filter:
+            format: plain_text
+            module: media
+            name: media_filter
+            weight: '10'
+            status: '0'
+            settings: {  }
+            title: 'Convert Media tags to markup'
+        php_code:
+            format: plain_text
+            module: php
+            name: php_code
+            weight: '10'
+            status: '0'
+            settings: {  }
+            title: 'PHP evaluator'
+php_code:
+    format: php_code
+    name: 'PHP code'
+    cache: '0'
+    status: '1'
+    weight: '11'
+    filters:
+        php_code:
+            format: php_code
+            module: php
+            name: php_code
+            weight: '0'
+            status: '1'
+            settings: {  }
+            title: 'PHP evaluator'
+        filter_autop:
+            format: php_code
+            module: filter
+            name: filter_autop
+            weight: '10'
+            status: '0'
+            settings: {  }
+            title: 'Convert line breaks into HTML (i.e. <code>&lt;br&gt;</code> and <code>&lt;p&gt;</code>)'
+        filter_html:
+            format: php_code
+            module: filter
+            name: filter_html
+            weight: '10'
+            status: '0'
+            settings:
+                allowed_html: '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd>'
+                filter_html_help: 1
+                filter_html_nofollow: 0
+            title: 'Limit allowed HTML tags'
+        filter_htmlcorrector:
+            format: php_code
+            module: filter
+            name: filter_htmlcorrector
+            weight: '10'
+            status: '0'
+            settings: {  }
+            title: 'Correct faulty and chopped off HTML'
+        filter_html_escape:
+            format: php_code
+            module: filter
+            name: filter_html_escape
+            weight: '10'
+            status: '0'
+            settings: {  }
+            title: 'Display any HTML as plain text'
+        filter_url:
+            format: php_code
+            module: filter
+            name: filter_url
+            weight: '10'
+            status: '0'
+            settings:
+                filter_url_length: 72
+            title: 'Convert URLs into links'
+        media_filter:
+            format: php_code
+            module: media
+            name: media_filter
+            weight: '10'
+            status: '0'
+            settings: {  }
+            title: 'Convert Media tags to markup'

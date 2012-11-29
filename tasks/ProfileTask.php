@@ -5,6 +5,9 @@
  * Base class for profile tasks.
  */
 
+use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Exception\ParseException;
+
 class ProfileTask implements ProfileTaskInterface {
   /**
    * An array of information about the current install state.
@@ -65,42 +68,37 @@ class ProfileTask implements ProfileTaskInterface {
    *
    * Will load up default settings from baseprofile.module, and will also look
    * in the current active profile for additional settings. Uses base name to
-   * determine file names and variable names within file.
+   * determine file names.
    *
    * @param string $base_name
    *   The name of setting to load. E.g. if $base_name is 'role', then the
-   *   baseprofile.role.inc file will be loaded (which should contain
-   *   a $default_role variable definition). If the active profile has
-   *   a $profile_name.role.inc file (which should contain a $role variable
-   *   definition, that will also be loaded and merged with the $default_role
-   *   variable.
+   *   role.yml file will be loaded and parsed. If the active profile has a
+   *   role.yml file, that will be used instead.
    *
    * @return array
    *   The final settings for given $base_name.
    */
   protected function loadSettings($base_name) {
-    // Loads up the default settings.
-    $default_file = drupal_get_path('module', 'baseprofile') . '/baseprofile.' . $base_name . '.inc';
-    if (file_exists($default_file)) {
-      require $default_file;
-      $default_base = "default_$base_name";
-      $default_settings = $$default_base;
+    // Check if current active profile has a file.
+    $config_file = drupal_get_path('profile', $this->profile) . '/config/' . $base_name . '.yml';
+    if (!file_exists($config_file)) {
+      // Otherwise load up the default settings.
+      $config_file = drupal_get_path('module', 'baseprofile') . '/config/' . $base_name . '.yml';
 
-      // Check if current active profile has a file.
-      $profile_file = drupal_get_path('profile', $this->profile) . $this->profile . '.' . $base_name . '.inc';
-      if (file_exists($profile_file)) {
-        // Will load up additional settings.
-        require $profile_file;
-        $settings = $$base_name;
-
-        return array_merge_recursive($default_settings, $settings);
-      }
-      else {
-        return $default_settings;
+      if (!file_exists($config_file)) {
+        throw new ProfileTaskException('Config file ' . $base_name . '.yml does not exist');
       }
     }
-    else {
-      // @todo: should throw exception.
+
+    try {
+      $parser = new Parser();
+      $settings = $parser->parse(file_get_contents($default_file));
+    }
+    catch (ParseException $e) {
+      throw new ProfileTaskException(st('Unable to parse YAML string for !file: !error', array(
+        '!file' => $base_name . '.yml',
+        '!error' => $e->getMessage(),
+      )));
     }
   }
 

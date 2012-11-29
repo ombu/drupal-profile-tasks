@@ -31,7 +31,8 @@ function baseprofile_drush_command() {
  */
 function drush_baseprofile_dump_roles_perms() {
   $install_profile = variable_get('install_profile', 'ombuprofile');
-  $export_file_path = drupal_get_path('profile', $install_profile) .'/'. $install_profile.'.roles.inc';
+
+  $export_file_path = drupal_get_path('profile', $install_profile) . '/config/roles.yml';
   if (file_exists($export_file_path)) {
     if (!drush_confirm(dt("The file $export_file_path already exists.\nWould you like to overwrite it?"))) {
       drush_die('Aborting.');
@@ -46,9 +47,8 @@ function drush_baseprofile_dump_roles_perms() {
     $content[$role] = array_keys($perms[$rid]);
   }
 
-  $file_contents = "<?php \n\n \$roles = ". var_export($content, TRUE) .';';
-  $result = file_put_contents($export_file_path, $file_contents);
-  drush_print('Users and Roles written to: '. $export_file_path);
+  drush_baseprofile_write_yml($content, $export_file_path);
+  drush_print('Users and Roles written to: ' . $export_file_path);
 }
 
 /**
@@ -58,7 +58,8 @@ function drush_baseprofile_dump_roles_perms() {
  */
 function drush_baseprofile_dump_formats() {
   $install_profile = variable_get('install_profile', 'ombuprofile');
-  $export_file_path = drupal_get_path('profile', $install_profile) .'/'. $install_profile.'.formats.inc';
+
+  $export_file_path = drupal_get_path('profile', $install_profile) . '/config/formats.yml';
   if (file_exists($export_file_path)) {
     if (!drush_confirm(dt("The file $export_file_path already exists.\nWould you like to overwrite it?"))) {
       drush_die('Aborting.');
@@ -67,20 +68,18 @@ function drush_baseprofile_dump_formats() {
 
   $formats = array();
   foreach (filter_formats() as $format_name => $format) {
-    // get the filters
+    // Get the filters.
     $format->filters = filter_list_format($format_name);
 
-    // turn the filter objects into arrays
+    // Turn the filter objects into arrays.
     foreach ($format->filters as $filter_name => $filter_obj) {
       $format->filters[$filter_name] = (array) $filter_obj;
     }
     $formats[$format_name] = (array) $format;
   }
 
-  $file_contents = "<?php \n\n ";
-  $file_contents .= "\$formats = ". var_export($formats, TRUE) .';';
-  $result = file_put_contents($export_file_path, $file_contents);
-  drush_print('Formats written to: '. $export_file_path);
+  drush_baseprofile_write_yml($formats, $export_file_path);
+  drush_print('Formats written to: ' . $export_file_path);
 }
 
 /**
@@ -90,7 +89,8 @@ function drush_baseprofile_dump_formats() {
  */
 function drush_baseprofile_dump_wysiwyg() {
   $install_profile = variable_get('install_profile', 'ombuprofile');
-  $export_file_path = drupal_get_path('profile', $install_profile) .'/'. $install_profile.'.wysiwyg.inc';
+
+  $export_file_path = drupal_get_path('profile', $install_profile) . '/config/wysiwyg.yml';
   if (file_exists($export_file_path)) {
     if (!drush_confirm(dt("The file $export_file_path already exists.\nWould you like to overwrite it?"))) {
       drush_die('Aborting.');
@@ -101,8 +101,20 @@ function drush_baseprofile_dump_wysiwyg() {
     $wysiwyg[$profile_name] = (array) $profile;
   }
 
-  $file_contents = "<?php \n\n ";
-  $file_contents .= "\$wysiwyg = ". var_export($wysiwyg, TRUE) .';';
-  $result = file_put_contents($export_file_path, $file_contents);
-  drush_print('WYSIWYG settings written to: '. $export_file_path);
+  drush_baseprofile_write_yml($wysiwyg, $export_file_path);
+  drush_print('WYSIWYG settings written to: ' . $export_file_path);
+}
+
+/**
+ * Writes a yml file to disk.
+ */
+function drush_baseprofile_write_yml($contents, $file) {
+  baseprofile_load_profile_includes();
+  $dumper = new Symfony\Component\Yaml\Dumper();
+
+  // Make sure directory exists and is writable.
+  file_prepare_directory(dirname($file), FILE_CREATE_DIRECTORY);
+
+  $yaml = $dumper->dump($contents, 5);
+  file_put_contents($file, $yaml);
 }
