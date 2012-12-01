@@ -6,7 +6,7 @@
 
 namespace BaseProfile\Task;
 
-class SetupBlocks extends Task {
+class Blocks extends Task {
   /**
    * @param array
    * Blocks for the default theme

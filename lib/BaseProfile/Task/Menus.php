@@ -6,7 +6,7 @@
 
 namespace BaseProfile\Task;
 
-class SetupMenus extends Task {
+class Menus extends Task {
   /**
    * New menus to create.
    *

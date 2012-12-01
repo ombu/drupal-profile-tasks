@@ -6,7 +6,7 @@
 
 namespace BaseProfile\Task;
 
-class SetupInputFormats extends Task {
+class InputFormats extends Task {
   /**
    * Format settings.
    *

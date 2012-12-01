@@ -15,25 +15,25 @@ function baseprofile_site_install_tasks() {
     'Theme' => array(
       'display_name' => st('Setup Themes'),
     ),
-    'SetupContentTypes' => array(
+    'ContentTypes' => array(
       'display_name' => st('Setup Content Types'),
     ),
-    'SetupVars' => array(
+    'Variables' => array(
       'display_name' => st('Setup Site Variables'),
     ),
-    'SetupTaxonomy' => array(
+    'Taxonomy' => array(
       'display_name' => st('Setup Taxonomy'),
     ),
-    'SetupMenus' => array(
+    'Menus' => array(
       'display_name' => st('Setup Menus'),
     ),
-    'SetupBlocks' => array(
+    'Blocks' => array(
       'display_name' => st('Setup Blocks'),
     ),
-    'SetupInputFormats' => array(
+    'InputFormats' => array(
       'display_name' => st('Setup Input Formats'),
     ),
-    'SetupUsers' => array(
+    'Users' => array(
       'display_name' => st('Setup Roles & Users'),
     ),
     'AddContent' => array(

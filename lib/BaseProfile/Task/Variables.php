@@ -6,7 +6,7 @@
 
 namespace BaseProfile\Task;
 
-class SetupVars extends Task {
+class Variables extends Task {
   /**
    * @var array
    * Variables array

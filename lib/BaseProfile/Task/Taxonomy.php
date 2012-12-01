@@ -6,7 +6,7 @@
 
 namespace BaseProfile\Task;
 
-class SetupTaxonomy extends Task {
+class Taxonomy extends Task {
   /**
    * Vocabulary and terms.
    *

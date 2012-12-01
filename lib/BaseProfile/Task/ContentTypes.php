@@ -6,7 +6,7 @@
 
 namespace BaseProfile\Task;
 
-class SetupContentTypes extends Task {
+class ContentTypes extends Task {
   /**
    * @var boolean
    * TRUE to create basic page content type.

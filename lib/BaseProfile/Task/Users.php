@@ -6,7 +6,7 @@
 
 namespace BaseProfile\Task;
 
-class SetupUsers extends Task {
+class Users extends Task {
   /**
    * Roles and permissions
    *
