@@ -1,0 +1,7 @@
+menus:
+    -
+        menu_name: footer-menu
+        title: 'Footer Menu'
+        description: 'The footer menu displays links in the footer of the site.'
+main_menu: main-menu
+secondary_menu: footer-menu

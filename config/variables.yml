@@ -1,0 +1,57 @@
+menu_secondary_links_source: header-links
+
+# Local settings.
+site_default_country: US
+date_first_day: 1
+
+# Default 404 page.
+site_404: baseprofile_404
+
+# Date & time settings.
+date_default_timezone_name: America/Los_Angeles
+configurable_timezones: 0
+
+# Error reporting:
+#  0 - Write errors to the log.
+#  1 - Write errors to the log and to the screen.
+error_level: 0
+
+# Enable access logs.
+statistics_enable_access_log: true
+
+# Set default contact status (gets added to the users data field)
+contact_default_status: 0;
+
+# Registration settings:
+#  0 - Only site admins can create new accounts.
+#  1 - Visitors can create accounts without admin approval.
+#  2 - Visitors can create accounts with admin approval.
+user_register: 0;
+
+# Require email varification when a visitor creates an account
+user_email_verification: 0;
+
+# Enable SEO on page content types.
+ombuseo_node_page: 1
+
+# oEmbed / media settings
+default_oembedcore_provider:
+    youtube: false
+    vimeo: false
+    flickr: false
+    qik: false
+    revision3: false
+    twitter: false
+
+# Update Action
+#  0 - Do nothing. Leave the old alias intact.
+#  1 - Create a new alias. Leave the existing alias functioning.
+#  2 - Create a new alias. Delete the old alias.
+pathauto_update_action: '2'
+
+# Reduce strings to letters and numbers from ASCII-96.
+pathauto_reduce_ascii: true
+pathauto_node_applytofeeds: ''
+
+# Default node pattern.
+pathauto_node_pattern: 'content/[node:title]'

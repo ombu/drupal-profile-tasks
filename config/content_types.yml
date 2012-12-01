@@ -1,0 +1,9 @@
+create_page_type: true
+node_settings:
+    page:
+        options:
+            - status
+        comments: COMMENT_NODE_HIDDEN
+        submitted: false
+        menus:
+            - main-menu

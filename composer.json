@@ -1,4 +1,9 @@
 {
+    "name": "drupal/baseprofile",
+    "description": "Base profile for Drupal setup",
+    "autoload": {
+        "psr-0": { "BaseProfile": "lib/" }
+    },
     "require": {
         "symfony/yaml": "2.1.*"
     }

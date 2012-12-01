@@ -6,7 +6,9 @@
  * Creates node content structured as hierarchical menu
  */
 
-class AddContentProfileTask extends ProfileTask {
+namespace BaseProfile\Task;
+
+class AddContent extends Task {
   /**
    * @param boolean
    *

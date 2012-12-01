@@ -4,7 +4,9 @@
  * Setup user roles and permissions.
  */
 
-class SetupUsersProfileTask extends ProfileTask {
+namespace BaseProfile\Task;
+
+class SetupUsers extends Task {
   /**
    * Roles and permissions
    *
@@ -55,7 +57,7 @@ class SetupUsersProfileTask extends ProfileTask {
       // Attempt to load existing role.
       $role = user_role_load_by_name($role_name);
       if ($role === FALSE) {
-        $role = new stdClass();
+        $role = new \stdClass();
         $role->name = $role_name;
       }
       $role->weight = ++$weight;
@@ -99,7 +101,7 @@ class SetupUsersProfileTask extends ProfileTask {
         'status' => 1,
         'roles' => $user_roles,
       );
-      user_save(new stdClass(), $user);
+      user_save(new \stdClass(), $user);
     }
   }
 

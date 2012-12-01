@@ -4,7 +4,9 @@
  * Setup taxonomy vocabulary.
  */
 
-class SetupTaxonomyProfileTask extends ProfileTask {
+namespace BaseProfile\Task;
+
+class SetupTaxonomy extends Task {
   /**
    * Vocabulary and terms.
    *
@@ -26,6 +28,17 @@ class SetupTaxonomyProfileTask extends ProfileTask {
    * @var array
    */
   protected $vocabularies;
+
+  /**
+   * Load up vocabularies.
+   */
+  public function settings() {
+    $settings = $this->loadSettings('taxonomy');
+
+    if (isset($settings['vocabularies'])) {
+      $this->vocabularies = $settings['vocabularies'];
+    }
+  }
 
   /**
    * Create new vocabulary and terms.

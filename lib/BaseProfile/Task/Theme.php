@@ -1,11 +1,12 @@
 <?php
-
 /**
  * @file
  * Sets up default theme settings.
  */
 
-class ThemeProfileTask extends ProfileTask {
+namespace BaseProfile\Task;
+
+class Theme extends Task {
   /**
    * @var string
    * Default theme.

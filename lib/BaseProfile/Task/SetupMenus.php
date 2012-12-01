@@ -4,7 +4,9 @@
  * Setup site menus.
  */
 
-class SetupMenusProfileTask extends ProfileTask {
+namespace BaseProfile\Task;
+
+class SetupMenus extends Task {
   /**
    * New menus to create.
    *
@@ -35,30 +37,30 @@ class SetupMenusProfileTask extends ProfileTask {
    * Setup default menus.
    */
   public function settings() {
-    // Add footer menu.
-    $this->menus[] = array(
-      'menu_name' => 'footer-menu',
-      'title' => st('Footer Menu'),
-      'description' => st('The footer menu displays links in the footer of the site.'),
-    );
+    $settings = $this->loadSettings('menu');
+
+    // Add menus.
+    $this->menus = $settings['menus'];
 
     // Set the main menu as the main menu.
-    $this->main_menu = 'main-menu';
+    $this->main_menu = $settings['main_menu'];
 
     // Set the footer menu as the secondary menu.
-    $this->secondary_menu = 'footer-menu';
+    $this->secondary_menu = $settings['secondary_menu'];
   }
 
-}
+  /**
+   * Add menus.
+   */
+  public function process() {
+    foreach ($this->menus as $menu) {
+      menu_save($menu);
+    }
 
-function baseprofile_setup_menus($install_state) {
-  foreach ($this->menus as $menu) {
-    menu_save($menu);
+    // Update the menu router information.
+    menu_rebuild();
+
+    variable_set('menu_main_links_source', $this->main_menu);
+    variable_set('menu_secondary_links_source', $this->secondary_menu);
   }
-
-  // Update the menu router information.
-  menu_rebuild();
-
-  variable_set('menu_main_links_source', $this->main_menu);
-  variable_set('menu_secondary_links_source', $this->secondary_menu);
 }

@@ -4,7 +4,9 @@
  * Setup default input formats.
  */
 
-class SetupInputFormatsProfileTask extends ProfileTask {
+namespace BaseProfile\Task;
+
+class SetupInputFormats extends Task {
   /**
    * Format settings.
    *

@@ -4,7 +4,9 @@
  * Setup site blocks.
  */
 
-class SetupBlocksProfileTask extends ProfileTask {
+namespace BaseProfile\Task;
+
+class SetupBlocks extends Task {
   /**
    * @param array
    * Blocks for the default theme
@@ -21,35 +23,9 @@ class SetupBlocksProfileTask extends ProfileTask {
    * Assign some default blocks.
    */
   public function settings() {
-    $this->default_blocks = array(
-      array(
-        'module' => 'system',
-        'delta' => 'main',
-        'region' => 'content',
-      ),
-      array(
-        'module' => 'system',
-        'delta' => 'help',
-        'region' => 'help',
-      ),
-    );
-    $this->admin_blocks = array(
-      array(
-        'module' => 'system',
-        'delta' => 'main',
-        'region' => 'content',
-      ),
-      array(
-        'module' => 'system',
-        'delta' => 'help',
-        'region' => 'help',
-      ),
-      array(
-        'module' => 'user',
-        'delta' => 'login',
-        'region' => 'content',
-      ),
-    );
+    $settings = $this->loadSettings('blocks');
+    $this->default_blocks = $settings['default_blocks'];
+    $this->admin_blocks = $settings['admin_blocks'];
   }
 
   /**

@@ -3,11 +3,6 @@ description = Base code for ombuprofile.
 version = 7.x-0.1
 core = 7.x
 
-files[] = tasks/ProfileTaskInterface.php
-files[] = tasks/ProfileTask.php
-files[] = tasks/ProfileTaskException.php
-
-files[] = tasks/ModulesProfileTask.php
 files[] = tasks/ThemeProfileTask.php
 files[] = tasks/SetupContentTypesProfileTask.php
 files[] = tasks/SetupVarsProfileTask.php

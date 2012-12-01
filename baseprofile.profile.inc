@@ -9,37 +9,37 @@
  */
 function baseprofile_site_install_tasks() {
   return array(
-    'ModulesProfileTask' => array(
+    'Modules' => array(
       'display_name' => st('Setup Modules'),
     ),
-    'ThemeProfileTask' => array(
+    'Theme' => array(
       'display_name' => st('Setup Themes'),
     ),
-    'SetupContentTypesProfileTask' => array(
+    'SetupContentTypes' => array(
       'display_name' => st('Setup Content Types'),
     ),
-    'SetupVarsProfileTask' => array(
+    'SetupVars' => array(
       'display_name' => st('Setup Site Variables'),
     ),
-    'SetupTaxonomyProfileTask' => array(
+    'SetupTaxonomy' => array(
       'display_name' => st('Setup Taxonomy'),
     ),
-    'SetupMenusProfileTask' => array(
+    'SetupMenus' => array(
       'display_name' => st('Setup Menus'),
     ),
-    'SetupBlocksProfileTask' => array(
+    'SetupBlocks' => array(
       'display_name' => st('Setup Blocks'),
     ),
-    'SetupInputFormatsProfileTask' => array(
+    'SetupInputFormats' => array(
       'display_name' => st('Setup Input Formats'),
     ),
-    'SetupUsersProfileTask' => array(
+    'SetupUsers' => array(
       'display_name' => st('Setup Roles & Users'),
     ),
-    'AddContentProfileTask' => array(
+    'AddContent' => array(
       'display_name' => st('Add Content'),
     ),
-    'PostSetupProfileTask' => array(
+    'PostSetup' => array(
       'display_name' => st('Post Setup'),
     ),
   );
@@ -60,10 +60,10 @@ function baseprofile_site_install_tasks() {
  */
 function baseprofile_install_task_router($task, $info, $install_state) {
   // Allow active profile to extend default tasks to alter settings and
-  // processing.
-  $task_class = $install_state['parameters']['profile'] . $task;
+  // processing by having the same class namespaces by the profile.
+  $task_class = $install_state['parameters']['profile'] . '\\Task\\' . $task;
   if (!class_exists($task_class)) {
-    $task_class = $task;
+    $task_class = 'BaseProfile\\Task\\' . $task;
   }
 
   if (class_exists($task_class)) {
@@ -79,7 +79,7 @@ function baseprofile_install_task_router($task, $info, $install_state) {
 
       return TRUE;
     }
-    catch (ProfileTaskException $e) {
+    catch (Exception $e) {
       if (function_exists('drush_log')) {
         drush_log(st('Error executing task @task: @message', array(
           '@task' => $info['display_name'],

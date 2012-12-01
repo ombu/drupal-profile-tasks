@@ -1,11 +1,12 @@
 <?php
-
 /**
  * @file
  * Setup content types.
  */
 
-class SetupContentTypesProfileTask extends ProfileTask {
+namespace BaseProfile\Task;
+
+class SetupContentTypes extends Task {
   /**
    * @var boolean
    * TRUE to create basic page content type.
@@ -48,13 +49,11 @@ class SetupContentTypesProfileTask extends ProfileTask {
    * Basic setings for page content type.
    */
   public function settings() {
-    $this->create_page_type = TRUE;
-    $this->node_settings['page'] = array(
-      'options' => array('status'),
-      'comments' => COMMENT_NODE_HIDDEN,
-      'submitted' => FALSE,
-      'menus' => array('main-menu'),
-    );
+    // Load settings.
+    $settings = $this->loadSettings('content_types');
+
+    $this->create_page_type = $settings['create_page_type'];
+    $this->node_settings = $settings['node_settings'];
   }
 
   /**

@@ -5,7 +5,9 @@
  * Enables default modules for a site install.
  */
 
-class ModulesProfileTask extends ProfileTask {
+namespace BaseProfile\Task;
+
+class Modules extends Task {
   /**
    * @var array
    * Array of modules to enable.

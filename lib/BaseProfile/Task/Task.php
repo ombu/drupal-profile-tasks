@@ -5,10 +5,12 @@
  * Base class for profile tasks.
  */
 
+namespace BaseProfile\Task;
+
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Exception\ParseException;
 
-class ProfileTask implements ProfileTaskInterface {
+class Task implements TaskInterface {
   /**
    * An array of information about the current install state.
    *
@@ -86,13 +88,15 @@ class ProfileTask implements ProfileTaskInterface {
       $config_file = drupal_get_path('module', 'baseprofile') . '/config/' . $base_name . '.yml';
 
       if (!file_exists($config_file)) {
-        throw new ProfileTaskException('Config file ' . $base_name . '.yml does not exist');
+        // There's no settings file, return empty array.
+        return array();
       }
     }
 
     try {
       $parser = new Parser();
-      $settings = $parser->parse(file_get_contents($default_file));
+      $settings = $parser->parse(file_get_contents($config_file));
+      return $settings;
     }
     catch (ParseException $e) {
       throw new ProfileTaskException(st('Unable to parse YAML string for !file: !error', array(
@@ -112,7 +116,7 @@ class ProfileTask implements ProfileTaskInterface {
    *   A new prepared node object.
    */
   protected function setupNode($type = 'page') {
-    $node = new stdClass();
+    $node = new \stdClass();
     $node->type = $type;
     node_object_prepare($node);
     $node->language = LANGUAGE_NONE;

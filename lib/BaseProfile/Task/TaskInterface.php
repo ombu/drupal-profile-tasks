@@ -5,7 +5,9 @@
  * Interface for a basic profile task.
  */
 
-interface ProfileTaskInterface {
+namespace BaseProfile\Task;
+
+interface TaskInterface {
   /**
    * @abstract
    * Populates the settings for this task.
