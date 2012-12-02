@@ -129,15 +129,25 @@ class Installer {
    *   Fully namespaced class name for task.
    */
   protected function discoverTaskClass($task) {
-    // First check if active profile has task defined.
-    $task_class = $this->install_state['parameters']['profile'] . '\\Task\\' . $task;
+    $class_list = array(
+      // First check if active profile has task defined.
+      $this->install_state['parameters']['profile'] . '\\Task\\' . $task,
 
-    // Otherwise, check this module.
-    if (!class_exists($task_class)) {
-      $task_class = 'BaseProfile\\Task\\' . $task;
+      // Otherwise, check baseprofile module.
+      'BaseProfile\\Task\\' . $task,
+
+      // Last chance, just check task name.
+      $task,
+    );
+
+    foreach ($class_list as $class) {
+      if (class_exists($class)) {
+        $task_class = $class;
+        break;
+      }
     }
 
-    if (!class_exists($task_class)) {
+    if (empty($task_class)) {
       throw new InstallerException(sprintf('Unable to find task %s', array($task)));
     }
 

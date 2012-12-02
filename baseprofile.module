@@ -82,9 +82,12 @@ function baseprofile_404_page() {
 }
 
 /**
- * Load all profile support code.
+ * Instantiates and registers Compser autoloader.
+ *
+ * @return \Composer\Autoload\ClassLoader
+ *   Composer autoloader.
  */
-function baseprofile_load_profile_includes() {
-  module_load_include('inc', 'baseprofile', 'baseprofile.profile');
-  module_load_include('php', 'baseprofile', '/vendor/autoload');
+function baseprofile_autoload() {
+  $loader = require drupal_get_path('module', 'baseprofile') . '/vendor/autoload.php';
+  return $loader;
 }
