@@ -1,0 +1,3 @@
+default_theme: bartik
+admin_theme: ombuadmin
+node_admin_theme: true

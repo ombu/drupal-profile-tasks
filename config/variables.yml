@@ -5,7 +5,7 @@ site_default_country: US
 date_first_day: 1
 
 # Default 404 page.
-site_404: baseprofile_404
+site_404: ombucore_404
 
 # Date & time settings.
 date_default_timezone_name: America/Los_Angeles

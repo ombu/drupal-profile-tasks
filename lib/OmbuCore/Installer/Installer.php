@@ -133,7 +133,7 @@ class Installer {
       // First check if active profile has task defined.
       $this->install_state['parameters']['profile'] . '\\Task\\' . $task,
 
-      // Otherwise, check baseprofile module.
+      // Otherwise, check ombucore module.
       'OmbuCore\\Task\\' . $task,
 
       // Last chance, just check task name.

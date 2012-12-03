@@ -68,7 +68,7 @@ class Task implements TaskInterface {
   /**
    * Load settings from a file.
    *
-   * Will load up default settings from baseprofile.module, and will also look
+   * Will load up default settings from ombucore.module, and will also look
    * in the current active profile for additional settings. Uses base name to
    * determine file names.
    *
@@ -85,7 +85,7 @@ class Task implements TaskInterface {
     $config_file = drupal_get_path('profile', $this->profile) . '/config/' . $base_name . '.yml';
     if (!file_exists($config_file)) {
       // Otherwise load up the default settings.
-      $config_file = drupal_get_path('module', 'baseprofile') . '/config/' . $base_name . '.yml';
+      $config_file = drupal_get_path('module', 'ombucore') . '/config/' . $base_name . '.yml';
 
       if (!file_exists($config_file)) {
         // There's no settings file, return empty array.

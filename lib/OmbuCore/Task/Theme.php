@@ -31,18 +31,10 @@ class Theme extends Task {
    * Setup theme defaults.
    */
   public function settings() {
-    $this->default_theme = OMBUBASE_DEFAULT_THEME;
-    $this->admin_theme = 'ombuadmin';
-    $this->node_admin_theme = TRUE;
-
-    // $settings = array(
-    //   'default_theme' => $this->default_theme,
-    //   'admin_theme' => $this->admin_theme,
-    //   'node_admin_theme' => $this->node_admin_theme,
-    // );
-    // $dumper = new Dumper();
-    // $yaml = $dumper->dump($settings, 4);
-    // file_put_contents(drupal_get_path('module', 'baseprofile') . '/config/theme.yml', $yaml);
+    $settings = $this->loadSettings('theme');
+    $this->default_theme = $settings['default_theme'];
+    $this->admin_theme = $settings['admin_theme'];
+    $this->node_admin_theme = $settings['node_admin_theme'];
   }
 
   /**
