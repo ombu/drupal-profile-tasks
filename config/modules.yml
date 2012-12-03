@@ -1,0 +1,35 @@
+# Core modules
+- block
+- contextual
+- image
+- list
+- menu
+- number
+- options
+- path
+- taxonomy
+- dblog
+- search
+- overlay
+- field_ui
+- file
+- rdf
+- php
+- statistics
+
+# Contrib modules
+- views
+- views_ui
+- views_bulk_operations
+- wysiwyg
+- pathauto
+- context
+- media
+- oembedcore
+- media_internet
+- media_oembed
+
+# Custom modules
+- ombucleanup
+- ombudashboard
+- ombuseo
