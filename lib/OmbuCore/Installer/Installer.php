@@ -5,9 +5,9 @@
  * Installer for base profile.
  */
 
-namespace Baseprofile\Installer;
+namespace OmbuCore\Installer;
 
-use BaseProfile\Task\TaskException;
+use OmbuCore\Task\TaskException;
 
 class Installer {
   /**
@@ -134,7 +134,7 @@ class Installer {
       $this->install_state['parameters']['profile'] . '\\Task\\' . $task,
 
       // Otherwise, check baseprofile module.
-      'BaseProfile\\Task\\' . $task,
+      'OmbuCore\\Task\\' . $task,
 
       // Last chance, just check task name.
       $task,

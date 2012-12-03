@@ -9,13 +9,13 @@
 /**
  * Implements hook_menu().
  */
-function baseprofile_menu() {
+function ombucore_menu() {
   $items = array();
 
-  $items['baseprofile_404'] = array(
+  $items['ombucore_404'] = array(
     'title' => t('Page not found'),
     'access callback' => TRUE,
-    'page callback' => 'baseprofile_404_page',
+    'page callback' => 'ombucore_404_page',
     'type' => MENU_CALLBACK,
   );
 
@@ -25,7 +25,7 @@ function baseprofile_menu() {
 /**
  * Implements hook_ctools_plugin_api().
  */
-function baseprofile_ctools_plugin_api($module, $api) {
+function ombucore_ctools_plugin_api($module, $api) {
   if ($module == 'context' && $api == 'plugins') {
     return array('version' => 3);
   }
@@ -34,11 +34,11 @@ function baseprofile_ctools_plugin_api($module, $api) {
 /**
  * Implements hook_context_plugins().
  */
-function baseprofile_context_plugins() {
+function ombucore_context_plugins() {
   $plugins = array();
   $plugins['context_condition_frontend'] = array(
     'handler' => array(
-      'path' => drupal_get_path('module', 'baseprofile') . '/plugins',
+      'path' => drupal_get_path('module', 'ombucore') . '/plugins',
       'file' => 'context_condition_frontend.inc',
       'class' => 'context_condition_frontend',
       'parent' => 'context_condition',
@@ -50,7 +50,7 @@ function baseprofile_context_plugins() {
 /**
  * Implements of hook_context_registry().
  */
-function baseprofile_context_registry() {
+function ombucore_context_registry() {
   $registry = array();
 
   $registry['conditions'] = array(
@@ -66,7 +66,7 @@ function baseprofile_context_registry() {
 /**
  * Implements of hook_context_page_reaction().
  */
-function baseprofile_context_page_condition() {
+function ombucore_context_page_condition() {
   global $theme;
   if ($plugin = context_get_plugin('condition', 'frontend')) {
     $plugin->execute($theme);
@@ -76,7 +76,7 @@ function baseprofile_context_page_condition() {
 /**
  * 404 page callback.
  */
-function baseprofile_404_page() {
+function ombucore_404_page() {
   drupal_set_title(t('Page not found'));
   return t('The requested page could not be found.');
 }
@@ -87,7 +87,7 @@ function baseprofile_404_page() {
  * @return \Composer\Autoload\ClassLoader
  *   Composer autoloader.
  */
-function baseprofile_autoload() {
-  $loader = require drupal_get_path('module', 'baseprofile') . '/vendor/autoload.php';
+function ombucore_autoload() {
+  $loader = require drupal_get_path('module', 'ombucore') . '/vendor/autoload.php';
   return $loader;
 }

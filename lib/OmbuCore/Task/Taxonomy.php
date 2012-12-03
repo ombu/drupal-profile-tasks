@@ -4,7 +4,7 @@
  * Setup taxonomy vocabulary.
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
 
 class Taxonomy extends Task {
   /**

@@ -4,7 +4,7 @@
  * Setup site menus.
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
 
 class Menus extends Task {
   /**

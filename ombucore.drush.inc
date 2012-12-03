@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Drush integration for baseprofile.
+ * Drush integration for ombucore.
  */
 
 /**
  * Implements hook_drush_command().
  */
-function baseprofile_drush_command() {
+function ombucore_drush_command() {
   $items['dump-roles-perms'] = array(
     'description' => dt('Dumps the current user roles and permissions into a file.'),
     'arguments' => array(),
@@ -29,7 +29,7 @@ function baseprofile_drush_command() {
  *
  *   drush dump-roles-perms
  */
-function drush_baseprofile_dump_roles_perms() {
+function drush_ombucore_dump_roles_perms() {
   $install_profile = variable_get('install_profile', 'ombuprofile');
 
   $export_file_path = drupal_get_path('profile', $install_profile) . '/config/roles.yml';
@@ -47,7 +47,7 @@ function drush_baseprofile_dump_roles_perms() {
     $content[$role] = array_keys($perms[$rid]);
   }
 
-  drush_baseprofile_write_yml($content, $export_file_path);
+  drush_ombucore_write_yml($content, $export_file_path);
   drush_print('Users and Roles written to: ' . $export_file_path);
 }
 
@@ -56,7 +56,7 @@ function drush_baseprofile_dump_roles_perms() {
  *
  *   drush dump-formats
  */
-function drush_baseprofile_dump_formats() {
+function drush_ombucore_dump_formats() {
   $install_profile = variable_get('install_profile', 'ombuprofile');
 
   $export_file_path = drupal_get_path('profile', $install_profile) . '/config/formats.yml';
@@ -78,7 +78,7 @@ function drush_baseprofile_dump_formats() {
     $formats[$format_name] = (array) $format;
   }
 
-  drush_baseprofile_write_yml($formats, $export_file_path);
+  drush_ombucore_write_yml($formats, $export_file_path);
   drush_print('Formats written to: ' . $export_file_path);
 }
 
@@ -87,7 +87,7 @@ function drush_baseprofile_dump_formats() {
  *
  *   drush dump-wysiwyg
  */
-function drush_baseprofile_dump_wysiwyg() {
+function drush_ombucore_dump_wysiwyg() {
   $install_profile = variable_get('install_profile', 'ombuprofile');
 
   $export_file_path = drupal_get_path('profile', $install_profile) . '/config/wysiwyg.yml';
@@ -101,15 +101,15 @@ function drush_baseprofile_dump_wysiwyg() {
     $wysiwyg[$profile_name] = (array) $profile;
   }
 
-  drush_baseprofile_write_yml($wysiwyg, $export_file_path);
+  drush_ombucore_write_yml($wysiwyg, $export_file_path);
   drush_print('WYSIWYG settings written to: ' . $export_file_path);
 }
 
 /**
  * Writes a yml file to disk.
  */
-function drush_baseprofile_write_yml($contents, $file) {
-  baseprofile_load_profile_includes();
+function drush_ombucore_write_yml($contents, $file) {
+  ombucore_load_profile_includes();
   $dumper = new Symfony\Component\Yaml\Dumper();
 
   // Make sure directory exists and is writable.

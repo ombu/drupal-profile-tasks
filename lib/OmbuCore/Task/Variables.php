@@ -4,7 +4,7 @@
  * Setup variables for site install.
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
 
 class Variables extends Task {
   /**

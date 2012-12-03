@@ -9,8 +9,8 @@ Setup
 To use the base installer and default tasks, use the following code in the
 profile `hook_install_tasks` task function:
 
-    $loader = baseprofile_autoload();
-    $installer = new BaseProfile\Installer\Installer($install_state);
+    $loader = ombucore_autoload();
+    $installer = new OmbuCore\Installer\Installer($install_state);
     $installer->processTasks();
 
 Configuration
@@ -45,7 +45,7 @@ create a new file at `lib/ombuprofile/Task/Blocks.php` that looks like:
 
     namespace ombuprofile\Task;
 
-    class Blocks extends \BaseProfile\Task\Blocks {
+    class Blocks extends \OmbuCore\Task\Blocks {
       public function process() {
         parent::process();
 
@@ -56,7 +56,7 @@ create a new file at `lib/ombuprofile/Task/Blocks.php` that looks like:
 And change the installer code to the following to setup proper autoloading for
 the profile:
 
-    $loader = baseprofile_autoload();
+    $loader = ombucore_autoload();
     $loader->add('ombuprofile', __DIR__ . drupal_get_path('profile', 'ombuprofile') . '/lib');
-    $installer = new BaseProfile\Installer\Installer($install_state);
+    $installer = new OmbuCore\Installer\Installer($install_state);
     $installer->processTasks();

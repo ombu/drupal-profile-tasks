@@ -4,7 +4,7 @@
  * Setup WYSIWYG setting.
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
 
 class Wysiwyg extends Task {
   /**

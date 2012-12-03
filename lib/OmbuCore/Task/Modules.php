@@ -5,7 +5,7 @@
  * Enables default modules for a site install.
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
 
 class Modules extends Task {
   /**
@@ -18,7 +18,7 @@ class Modules extends Task {
    * Provide a list of default modules most sites need.
    */
   public function settings() {
-    $this->modules = $this->getSettings('modules');
+    $this->modules = $this->loadSettings('modules');
   }
 
   /**

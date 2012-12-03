@@ -4,7 +4,7 @@
  * Setup user roles and permissions.
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
 
 class Users extends Task {
   /**

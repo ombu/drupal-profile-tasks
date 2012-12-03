@@ -4,7 +4,7 @@
  * Setup site blocks.
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
 
 class Blocks extends Task {
   /**

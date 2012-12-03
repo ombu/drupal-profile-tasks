@@ -5,7 +5,7 @@
  * Interface for a basic profile task.
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
 
 interface TaskInterface {
   /**

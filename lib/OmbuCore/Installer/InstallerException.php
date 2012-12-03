@@ -5,7 +5,7 @@
  * Exception class for profile installer.
  */
 
-namespace BaseProfile\Installer;
+namespace OmbuCore\Installer;
 
 class InstallerException extends Exception {
 }

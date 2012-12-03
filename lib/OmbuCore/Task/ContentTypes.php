@@ -4,7 +4,7 @@
  * Setup content types.
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
 
 class ContentTypes extends Task {
   /**

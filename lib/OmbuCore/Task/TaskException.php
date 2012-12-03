@@ -5,6 +5,6 @@
  * Profile Task Exception.
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
 
 class TaskException extends Exception {}

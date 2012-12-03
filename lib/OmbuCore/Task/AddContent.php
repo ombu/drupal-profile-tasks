@@ -6,7 +6,7 @@
  * Creates node content structured as hierarchical menu
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
 
 class AddContent extends Task {
   /**

@@ -1,8 +1,8 @@
 {
-    "name": "drupal/baseprofile",
-    "description": "Base profile for Drupal setup",
+    "name": "drupal/ombucore",
+    "description": "Core profile task setup for Drupal",
     "autoload": {
-        "psr-0": { "BaseProfile": "lib/" }
+        "psr-0": { "OmbuCore": "lib/" }
     },
     "require": {
         "symfony/yaml": "2.1.*"

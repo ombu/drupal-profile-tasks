@@ -5,7 +5,7 @@
  * Base class for profile tasks.
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
 
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Exception\ParseException;

@@ -4,7 +4,7 @@
  * Setup default input formats.
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
 
 class InputFormats extends Task {
   /**

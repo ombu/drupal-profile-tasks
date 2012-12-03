@@ -4,7 +4,9 @@
  * Sets up default theme settings.
  */
 
-namespace BaseProfile\Task;
+namespace OmbuCore\Task;
+use Symfony\Component\Yaml\Dumper;
+
 
 class Theme extends Task {
   /**
@@ -32,6 +34,15 @@ class Theme extends Task {
     $this->default_theme = OMBUBASE_DEFAULT_THEME;
     $this->admin_theme = 'ombuadmin';
     $this->node_admin_theme = TRUE;
+
+    // $settings = array(
+    //   'default_theme' => $this->default_theme,
+    //   'admin_theme' => $this->admin_theme,
+    //   'node_admin_theme' => $this->node_admin_theme,
+    // );
+    // $dumper = new Dumper();
+    // $yaml = $dumper->dump($settings, 4);
+    // file_put_contents(drupal_get_path('module', 'baseprofile') . '/config/theme.yml', $yaml);
   }
 
   /**
