@@ -23,6 +23,7 @@
 - views_bulk_operations
 - wysiwyg
 - pathauto
+- redirect
 - context
 - media
 - oembedcore
