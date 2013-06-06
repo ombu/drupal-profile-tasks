@@ -21,6 +21,17 @@ function ombucore_drush_command() {
     'description' => dt('Dumps the current wysiwyg settings.'),
     'arguments' => array(),
   );
+  $items['dump-variables'] = array(
+    'description' => dt('Dumps variable settings.'),
+    'arguments' => array(
+      'name' => 'A string to filter the variables by. Variables whose name contains the string will be listed.',
+    ),
+    'examples' => array(
+      'drush dump-variables' => 'Dump all variables and values.',
+      'drush dump-variables user' => 'Dump all variables containing the string "user".',
+      'drush dump-variables site_mail' => 'Dump the variable with the exact key "site_mail".',
+    ),
+  );
   return $items;
 }
 
@@ -106,7 +117,69 @@ function drush_ombucore_dump_wysiwyg() {
 }
 
 /**
+ * Command callback. Dump variable settings.
+ *
+ *   drush dump-settings
+ */
+function drush_ombucore_dump_variables() {
+  $install_profile = variable_get('install_profile', 'ombuprofile');
+
+  $export_file_path = drupal_get_path('profile', $install_profile) . '/config/variables.yml';
+  if (file_exists($export_file_path)) {
+    if (!drush_confirm(dt("The file $export_file_path already exists.\nWould you like to overwrite it?"))) {
+      drush_die('Aborting.');
+    }
+  }
+
+  // Retrieve variables from drush.
+  $variables = call_user_func_array('drush_variable_get', func_get_args());
+
+  // Retrieve variable from current yml file.
+  $data = drush_ombucore_read_yml('variables');
+
+  // Override and add new variables.
+  $data = $variables + $data;
+
+  drush_ombucore_write_yml($data, $export_file_path);
+  drush_print('Variable settings written to: ' . $export_file_path);
+}
+
+/**
+ * Reads a yml file from disk.
+ *
+ * @param string $type
+ *   The type of yml file to read from (e.g. variables or modules).
+ *
+ * @return array
+ *   Array representation of yml data.
+ */
+function drush_ombucore_read_yml($type) {
+  $array = array();
+
+  ombucore_autoload();
+
+  // Create a dummy Task object. Task expects an array of the install_state,
+  // which contains the current install profile, so a dummy install_state array
+  // needs to be passed in. This could be better handled by splitting
+  // loadSettings out into a separate object.
+  $install_state = array(
+    'parameters' => array(
+      'profile' => variable_get('install_profile', 'ombuprofile'),
+    ),
+  );
+  $task = new OmbuCore\Task\Task($install_state);
+  $array = $task->loadSettings($type);
+
+  return $array;
+}
+
+/**
  * Writes a yml file to disk.
+ *
+ * @param array $contents
+ *   Data to write to the yml file.
+ * @param string $file
+ *   Path to the yml file relative to Drupal root.
  */
 function drush_ombucore_write_yml($contents, $file) {
   ombucore_autoload();

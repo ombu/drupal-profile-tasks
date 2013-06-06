@@ -62,15 +62,13 @@ class Task implements TaskInterface {
   }
 
   /**
-   * Helper Methods.
-   */
-
-  /**
    * Load settings from a file.
    *
    * Will load up default settings from ombucore.module, and will also look
    * in the current active profile for additional settings. Uses base name to
    * determine file names.
+   *
+   * @todo This should be pulled out into a separate object.
    *
    * @param string $base_name
    *   The name of setting to load. E.g. if $base_name is 'role', then the
@@ -80,7 +78,7 @@ class Task implements TaskInterface {
    * @return array
    *   The final settings for given $base_name.
    */
-  protected function loadSettings($base_name) {
+  public function loadSettings($base_name) {
     // Check if current active profile has a file.
     $config_file = drupal_get_path('profile', $this->profile) . '/config/' . $base_name . '.yml';
     if (!file_exists($config_file)) {
@@ -105,6 +103,10 @@ class Task implements TaskInterface {
       )));
     }
   }
+
+  /**
+   * Helper Methods.
+   */
 
   /**
    * Setup a new node object.

@@ -2,13 +2,11 @@
     - 'access content'
     - 'search content'
     - 'use text format comment'
-    - 'view media'
 'authenticated user':
     - 'access content'
     - 'use text format comment'
     - 'add media from remote sources'
     - 'import media'
-    - 'view media'
 admin:
     - 'access all views'
     - 'access content'
@@ -43,7 +41,6 @@ admin:
     - 'view post access counter'
     - 'view revisions'
     - 'view the administration theme'
-    - 'edit media'
 editor:
     - 'access content overview'
     - 'access contextual links'
@@ -67,4 +64,3 @@ editor:
     - 'use text format default'
     - 'view revisions'
     - 'view the administration theme'
-    - 'edit media'
