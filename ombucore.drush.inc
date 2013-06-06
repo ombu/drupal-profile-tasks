@@ -109,7 +109,7 @@ function drush_ombucore_dump_wysiwyg() {
  * Writes a yml file to disk.
  */
 function drush_ombucore_write_yml($contents, $file) {
-  ombucore_load_profile_includes();
+  ombucore_autoload();
   $dumper = new Symfony\Component\Yaml\Dumper();
 
   // Make sure directory exists and is writable.
