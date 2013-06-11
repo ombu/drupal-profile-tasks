@@ -7,5 +7,5 @@
 
 namespace OmbuCore\Installer;
 
-class InstallerException extends Exception {
+class InstallerException extends \Exception {
 }

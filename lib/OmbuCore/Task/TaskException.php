@@ -7,4 +7,4 @@
 
 namespace OmbuCore\Task;
 
-class TaskException extends Exception {}
+class TaskException extends \Exception {}
