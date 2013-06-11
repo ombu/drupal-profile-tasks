@@ -57,6 +57,6 @@ And change the installer code to the following to setup proper autoloading for
 the profile:
 
     $loader = ombucore_autoload();
-    $loader->add('ombuprofile', __DIR__ . drupal_get_path('profile', 'ombuprofile') . '/lib');
+    $loader->add('ombuprofile', DRUPAL_ROOT . '/' . drupal_get_path('profile', 'ombuprofile') . '/lib');
     $installer = new OmbuCore\Installer\Installer($install_state);
     $installer->processTasks();
