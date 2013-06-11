@@ -31,7 +31,7 @@ class Modules extends Task {
       $module_data = system_rebuild_module_data();
       foreach ($this->modules as $module) {
         if (!isset($module_data[$module])) {
-          throw new ProfileTaskException('Missing module: ' . $module);
+          throw new TaskException('Missing module: ' . $module);
         }
       }
     }

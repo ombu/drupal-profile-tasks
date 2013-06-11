@@ -97,7 +97,7 @@ class Task implements TaskInterface {
       return $settings;
     }
     catch (ParseException $e) {
-      throw new ProfileTaskException(st('Unable to parse YAML string for !file: !error', array(
+      throw new TaskException(st('Unable to parse YAML string for !file: !error', array(
         '!file' => $base_name . '.yml',
         '!error' => $e->getMessage(),
       )));
