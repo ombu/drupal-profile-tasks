@@ -50,6 +50,7 @@ class Installer {
       'Menus'        => 'Setup Menus',
       'Blocks'       => 'Setup Blocks',
       'InputFormats' => 'Setup Input Formats',
+      'Wysiwyg'      => 'Setup WYSIWYG',
       'Users'        => 'Setup Roles & Users',
       'AddContent'   => 'Add Content',
       'PostSetup'    => 'Post Setup',
