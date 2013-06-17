@@ -35,5 +35,12 @@ class Modules extends Task {
         }
       }
     }
+
+    // Disable update module. The Drupal installer will run cron after
+    // installation is complete, which will in turn run update_cron(), which
+    // sends a mail to the admin with available updates. This breaks deployments
+    // on servers with sendmail disabled, and we don't want to expose update
+    // warnings to client sites anyway.
+    module_disable(array('update'));
   }
 }
