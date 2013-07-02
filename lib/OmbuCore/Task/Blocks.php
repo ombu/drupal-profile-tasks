@@ -32,40 +32,34 @@ class Blocks extends Task {
    * Insert/update block locations.
    */
   public function process() {
-    // Since this task runs after modules have been enabled, all blocks will be
-    // setup to use the default theme.  So blocks in the default theme need to
-    // be updated, while blocks for the admin theme need to be inserted.
-    $default_theme = variable_get('theme_default', OMBUBASE_DEFAULT_THEME);
-    foreach ($this->default_blocks as $record) {
-      // Set some sane defaults.
-      $record += array(
-        'theme' => $default_theme,
-        'status' => 1,
-        'weight' => 0,
-        'pages' => '',
-        'cache' => -1,
-      );
+    $theme_blocks = array(
+      variable_get('theme_default', OMBUBASE_DEFAULT_THEME) => $this->default_blocks,
+      variable_get('admin_theme', 'seven') => $this->admin_blocks,
+    );
 
-      $query = db_update('block');
-      $query->fields($record);
-      $query->condition('module', $record['module']);
-      $query->condition('delta', $record['delta']);
-      $query->execute();
-    }
+    foreach ($theme_blocks as $theme => $blocks) {
+      _block_rehash($theme);
+      foreach ($blocks as $record) {
+        // Set some sane defaults.
+        $record += array(
+          'status' => 1,
+          'weight' => 0,
+          'pages' => '',
+          'cache' => -1,
+        );
 
-    $admin_theme = variable_get('admin_theme', 'seven');
-    $query = db_insert('block')->fields(array('module', 'delta', 'theme', 'status', 'weight', 'region', 'pages', 'cache'));
-    foreach ($this->admin_blocks as $record) {
-      // Set some sane defaults.
-      $record += array(
-        'theme' => $admin_theme,
-        'status' => 1,
-        'weight' => 0,
-        'pages' => '',
-        'cache' => -1,
-      );
-      $query->values($record);
+        $query = db_merge('block')
+          ->key(array(
+            'theme' => $theme,
+            'module' => $record['module'],
+            'delta' => $record['delta'],
+          ));
+
+        unset($record['module'], $record['delta']);
+        $query->fields($record);
+
+        $query->execute();
+      }
     }
-    $query->execute();
   }
 }
