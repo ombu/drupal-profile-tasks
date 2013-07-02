@@ -42,5 +42,12 @@ class Modules extends Task {
     // on servers with sendmail disabled, and we don't want to expose update
     // warnings to client sites anyway.
     module_disable(array('update'));
+
+    // Flush caches so feature fields are fully built and entities behave.
+    drupal_flush_all_caches();
+    db_truncate('cache');
+    entity_flush_caches();
+    drupal_get_complete_schema(TRUE);
+    drupal_static_reset('entity_get_controller');
   }
 }
