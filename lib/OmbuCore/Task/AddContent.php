@@ -87,9 +87,9 @@ class AddContent extends Task {
   }
 
   /**
-  * Build structured nodes into a menu system.
-  */
-  protected function buildMenu($nodes, $menu_name, $parent = NULL) {
+   * Build structured nodes into a menu system.
+   */
+  protected function buildMenu($menu_name, $nodes, $parent = NULL) {
     static $weight = -50;
 
     foreach ($nodes as $title => $content) {
