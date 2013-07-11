@@ -46,23 +46,74 @@ class Taxonomy extends Task {
   public function process() {
     if ($this->vocabularies) {
       foreach ($this->vocabularies as $machine_name => $info) {
-        // Check if vocabulary already exists.
-        if (!($vocab = taxonomy_vocabulary_machine_name_load($machine_name))) {
-          $vocab = (object) $info;
-          $vocab->machine_name = $machine_name;
-          taxonomy_vocabulary_save($vocab);
-        }
+        $info = $info + array(
+          'machine_name' => $machine_name
+        );
+        $vocab = $this->createVocabulary($info);
 
         // Create new terms.
         if ($info['terms']) {
-          foreach ($info['terms'] as $term_name) {
-            $term = new stdClass();
-            $term->vid = $vocab->vid;
-            $term->name = $term_name;
-            $term->description = $this->lorem();
-            taxonomy_term_save($term);
-          }
+          $this->processTerms($info['terms'], $vocab);
         }
+      }
+    }
+  }
+
+  /**
+   * Create a new vocabulary.
+   *
+   * @param array $info
+   *   Keyed array expected by taxonomy_vocabulary_save().
+   *
+   * @return object
+   *   Saved vocabulary.
+   */
+  protected function createVocabulary($info) {
+    // Check if vocabulary already exists.
+    if (!($vocab = taxonomy_vocabulary_machine_name_load($info['machine_name']))) {
+      $vocab = (object) $info;
+      taxonomy_vocabulary_save($vocab);
+    }
+
+    return $vocab;
+  }
+
+  /**
+   * Process terms array.
+   *
+   * @param array $terms
+   *   Array of terms to save
+   * @param object $vocab
+   *   Vocabulary object
+   * @param object $parent_term
+   *   Parent term, if creating sub terms.
+   */
+  protected function processTerms($terms, $vocab, $parent = NULL) {
+    static $weight = 0;
+    foreach ($terms as $key => $term_name) {
+      // If term is an array, then recursively create terms associated to
+      // correct parent.
+      $subterms = array();
+      if (is_array($term_name)) {
+        $subterms = $term_name;
+        $term_name = $key;
+      }
+
+      $term = new \stdClass();
+      $term->vid = $vocab->vid;
+      $term->name = $term_name;
+      $term->description = $this->lorem();
+      $term->weight = $weight++;
+
+      // Assign parent term if present.
+      if ($parent) {
+        $term->parent = $parent->tid;
+      }
+
+      taxonomy_term_save($term);
+
+      if ($subterms) {
+        $this->processTerms($subterms, $vocab, $term);
       }
     }
   }
