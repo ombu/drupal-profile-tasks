@@ -141,4 +141,15 @@ class AddContent extends Task {
       }
     }
   }
+
+  /**
+   * Simple alternative method to `lorem()` for obtaining content during a
+   * build.
+   */
+  protected function initialContent($name) {
+    return file_get_contents(
+      drupal_get_path('profile', 'comms') . "/initial-content/${name}.txt"
+    );
+  }
+
 }
