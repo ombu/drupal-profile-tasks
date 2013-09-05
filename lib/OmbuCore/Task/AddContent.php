@@ -148,7 +148,7 @@ class AddContent extends Task {
    */
   protected function initialContent($name) {
     return file_get_contents(
-      drupal_get_path('profile', 'comms') . "/initial-content/${name}"
+      drupal_get_path('profile', $this->profile) . "/initial-content/${name}"
     );
   }
 
