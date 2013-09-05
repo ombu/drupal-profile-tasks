@@ -101,8 +101,34 @@ class Users extends Task {
         'status' => 1,
         'roles' => $user_roles,
       );
-      user_save(new \stdClass(), $user);
+      $user = user_save(new \stdClass(), $user);
+
+      // Grand access section to editor role.
+      if ($role_name == 'editor') {
+        $this->grantAccessSection($user);
+      }
     }
+  }
+
+  /**
+   * Grant random access section to user.
+   */
+  protected function grantAccessSection($user) {
+    // Only proceed if workbench suite is enabled.
+    if (!module_exists('ombu_workbench')) {
+      return;
+    }
+
+    // Get a random term from the workbench vocabulary
+    $vocab = variable_get('workbench_access_taxonomy', array());
+    $vocab = array_filter($vocab);
+    if ($vocab) {
+      $vocab = taxonomy_vocabulary_machine_name_load(current($vocab));
+      $tree = taxonomy_get_tree($vocab->vid);
+      $term = $tree[array_rand($tree)];
+    }
+
+    workbench_access_user_section_save($user->uid, $term->tid, 'taxonomy');
   }
 
   /**
