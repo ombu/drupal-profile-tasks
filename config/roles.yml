@@ -20,6 +20,7 @@ admin:
     - 'administer nodes'
     - 'administer site configuration'
     - 'administer taxonomy'
+    - 'administer permissions'
     - 'administer users'
     - 'bypass node access'
     - 'configure ombu site'
