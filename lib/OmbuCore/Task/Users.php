@@ -78,8 +78,8 @@ class Users extends Task {
    * Create test users for each role.
    */
   protected function createTestUsers() {
-    $roles = array_flip(user_roles());
-    foreach ($roles as $role_name => $rid) {
+    $roles = user_roles();
+    foreach ($roles as $rid => $role_name) {
       if (in_array($role_name, array('anonymous user', 'authenticated user'))) {
         continue;
       }
@@ -88,9 +88,9 @@ class Users extends Task {
         $rid => $role_name,
       );
 
-      // Grant admin editor role as well.
-      if ($role_name == 'admin' && isset($roles['editor'])) {
-        $user_roles[$roles['editor']] = 'editor';
+      // Grant admin all roles.
+      if ($role_name == 'admin') {
+        $user_roles = $roles;
       }
 
       $slug = str_replace(' ', '_', $role_name);
