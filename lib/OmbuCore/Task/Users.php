@@ -115,7 +115,7 @@ class Users extends Task {
    */
   protected function grantAccessSection($user) {
     // Only proceed if workbench suite is enabled.
-    if (!module_exists('ombu_workbench')) {
+    if (!module_exists('ombubench')) {
       return;
     }
 
