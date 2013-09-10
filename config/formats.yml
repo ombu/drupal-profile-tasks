@@ -1,70 +1,3 @@
-comment:
-    format: comment
-    name: Comment
-    cache: '1'
-    status: '1'
-    weight: '0'
-    filters:
-        filter_url:
-            format: comment
-            module: filter
-            name: filter_url
-            weight: '0'
-            status: '1'
-            settings:
-                filter_url_length: 72
-            title: 'Convert URLs into links'
-        filter_html:
-            format: comment
-            module: filter
-            name: filter_html
-            weight: '1'
-            status: '1'
-            settings:
-                allowed_html: '<a><u><em><strong><p>'
-                filter_html_help: 1
-                filter_html_nofollow: 0
-            title: 'Limit allowed HTML tags'
-        filter_autop:
-            format: comment
-            module: filter
-            name: filter_autop
-            weight: '2'
-            status: '1'
-            settings: {  }
-            title: 'Convert line breaks into HTML (i.e. <code>&lt;br&gt;</code> and <code>&lt;p&gt;</code>)'
-        filter_htmlcorrector:
-            format: comment
-            module: filter
-            name: filter_htmlcorrector
-            weight: '10'
-            status: '1'
-            settings: {  }
-            title: 'Correct faulty and chopped off HTML'
-        filter_html_escape:
-            format: comment
-            module: filter
-            name: filter_html_escape
-            weight: '10'
-            status: '0'
-            settings: {  }
-            title: 'Display any HTML as plain text'
-        media_filter:
-            format: comment
-            module: media
-            name: media_filter
-            weight: '10'
-            status: '0'
-            settings: {  }
-            title: 'Convert Media tags to markup'
-        php_code:
-            format: comment
-            module: php
-            name: php_code
-            weight: '10'
-            status: '0'
-            settings: {  }
-            title: 'PHP evaluator'
 default:
     format: default
     name: Default
@@ -77,12 +10,24 @@ default:
             module: filter
             name: filter_html
             weight: '0'
-            status: '1'
+            status: '0'
             settings:
                 allowed_html: '<a><u><em><strong><ul><ol><li><span><img><h2><h3><h4><h5><h6><dl><dt><dd><br><hr><p><blockquote><table><th><tr><td>'
                 filter_html_help: 1
                 filter_html_nofollow: 0
             title: 'Limit allowed HTML tags'
+        htmlpurifier:
+            format: default
+            module: htmlpurifier
+            name: htmlpurifier
+            weight: '0'
+            status: '1'
+            settings:
+                htmlpurifier_config_name: htmlpurifier_advanced
+                htmlpurifier_help: 1
+                htmlpurifier_filter_tips: 'HTML tags will be transformed to conform to HTML standards.'
+                htmlpurifier_config: { Attr.AllowedClasses: "lead\r\nbtn\r\npull-left\r\npull-right", Attr.AllowedFrameTargets: '', Attr.AllowedRel: '', Attr.AllowedRev: '', Null_Attr.ClassUseCDATA: '1', Null_Attr.DefaultImageAlt: '1', Attr.DefaultInvalidImage: '', Attr.DefaultInvalidImageAlt: 'Invalid image', Attr.DefaultTextDir: ltr, Attr.EnableID: '0', Attr.ForbiddenClasses: '', Attr.IDBlacklist: '', Null_Attr.IDBlacklistRegexp: '1', Attr.IDPrefix: '', Attr.IDPrefixLocal: '', AutoFormat.AutoParagraph: '0', AutoFormat.Custom: '', AutoFormat.DisplayLinkURI: '0', AutoFormat.Linkify: '0', AutoFormat.PurifierLinkify.DocURL: '#%s', AutoFormat.PurifierLinkify: '0', AutoFormat.RemoveEmpty.RemoveNbsp.Exceptions: "td\r\nth", AutoFormat.RemoveEmpty.RemoveNbsp: '0', AutoFormat.RemoveEmpty: '0', AutoFormat.RemoveSpansWithoutAttributes: '0', CSS.AllowImportant: '0', CSS.AllowTricky: '0', Null_CSS.AllowedFonts: '1', Null_CSS.AllowedProperties: '1', CSS.ForbiddenProperties: '', CSS.MaxImgLength: 1200px, CSS.Proprietary: '0', CSS.Trusted: '0', Cache.DefinitionImpl: Drupal, Null_Cache.SerializerPath: '1', Cache.SerializerPermissions: '493', Core.AggressivelyFixLt: '1', Core.CollectErrors: '0', Core.ColorKeywords: "maroon:#800000\r\nred:#FF0000\r\norange:#FFA500\r\nyellow:#FFFF00\r\nolive:#808000\r\npurple:#800080\r\nfuchsia:#FF00FF\r\nwhite:#FFFFFF\r\nlime:#00FF00\r\ngreen:#008000\r\nnavy:#000080\r\nblue:#0000FF\r\naqua:#00FFFF\r\nteal:#008080\r\nblack:#000000\r\nsilver:#C0C0C0\r\ngray:#808080\r\n", Core.ConvertDocumentToFragment: '1', Core.DirectLexLineNumberSyncInterval: '0', Core.DisableExcludes: '0', Core.EnableIDNA: '0', Core.Encoding: utf-8, Core.EscapeInvalidChildren: '0', Core.EscapeInvalidTags: '0', Core.EscapeNonASCIICharacters: '0', Core.HiddenElements: "script\r\nstyle", Core.Language: en, Null_Core.LexerImpl: '1', Null_Core.MaintainLineNumbers: '1', Core.NormalizeNewlines: '1', Core.RemoveInvalidImg: '1', Core.RemoveProcessingInstructions: '0', Null_Core.RemoveScriptContents: '1', Filter.Custom: '', Filter.ExtractStyleBlocks.Escaping: '1', Null_Filter.ExtractStyleBlocks.Scope: '1', Null_Filter.ExtractStyleBlocks.TidyImpl: '1', Filter.ExtractStyleBlocks: '0', Filter.YouTube: '0', Null_HTML.Allowed: '1', Null_HTML.AllowedAttributes: '1', HTML.AllowedComments: '', Null_HTML.AllowedCommentsRegexp: '1', HTML.AllowedElements: 'p, strong, b, em, i, ul, ol, li, h2, h3, h4, h5, h6, br, blockquote, small, img, a, table, tbody, thead, tr, td, tfoot', Null_HTML.AllowedModules: '1', HTML.Attr.Name.UseCDATA: '0', HTML.BlockWrapper: p, HTML.CoreModules: "Structure\r\nText\r\nHypertext\r\nList\r\nNonXMLCommonAttributes\r\nXMLCommonAttributes\r\nCommonAttributes", Null_HTML.CustomDoctype: '1', HTML.Doctype: 'XHTML 1.0 Transitional', HTML.FlashAllowFullScreen: '0', HTML.ForbiddenAttributes: '', HTML.ForbiddenElements: '', HTML.MaxImgLength: '1200', HTML.Nofollow: '0', HTML.Parent: div, HTML.Proprietary: '0', HTML.SafeEmbed: '0', HTML.SafeIframe: '0', HTML.SafeObject: '0', HTML.SafeScripting: '', HTML.Strict: '0', HTML.TargetBlank: '0', HTML.TidyAdd: '', HTML.TidyLevel: medium, HTML.TidyRemove: '', HTML.Trusted: '0', HTML.XHTML: '1', Output.CommentScriptContents: '1', Output.FixInnerHTML: '1', Output.FlashCompat: '0', Null_Output.Newline: '1', Output.SortAttr: '0', Output.TidyFormat: '0', Test.ForceNoIconv: '0', URI.AllowedSchemes: "http\r\nhttps\r\nmailto\r\nftp\r\nnntp\r\nnews", Null_URI.Base: '1', URI.DefaultScheme: http, URI.Disable: '0', URI.DisableExternal: '0', URI.DisableExternalResources: '0', URI.DisableResources: '0', URI.Host: '*.dev', URI.HostBlacklist: '', URI.MakeAbsolute: '0', Null_URI.Munge: '1', URI.MungeResources: '0', Null_URI.MungeSecretKey: '1', URI.OverrideAllowedSchemes: '1', Null_URI.SafeIframeRegexp: '1' }
+            title: 'HTML Purifier'
         media_filter:
             format: default
             module: media
@@ -96,7 +41,7 @@ default:
             module: filter
             name: filter_url
             weight: '2'
-            status: '1'
+            status: '0'
             settings:
                 filter_url_length: '72'
             title: 'Convert URLs into links'
@@ -105,7 +50,7 @@ default:
             module: filter
             name: filter_autop
             weight: '3'
-            status: '1'
+            status: '0'
             settings: {  }
             title: 'Convert line breaks into HTML (i.e. <code>&lt;br&gt;</code> and <code>&lt;p&gt;</code>)'
         filter_htmlcorrector:
@@ -124,14 +69,6 @@ default:
             status: '0'
             settings: {  }
             title: 'Display any HTML as plain text'
-        php_code:
-            format: default
-            module: php
-            name: php_code
-            weight: '10'
-            status: '0'
-            settings: {  }
-            title: 'PHP evaluator'
 plain_text:
     format: plain_text
     name: 'Plain text'
@@ -139,6 +76,17 @@ plain_text:
     status: '1'
     weight: '10'
     filters:
+        filter_html:
+            format: plain_text
+            module: filter
+            name: filter_html
+            weight: '-10'
+            status: '0'
+            settings:
+                allowed_html: '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd>'
+                filter_html_help: 1
+                filter_html_nofollow: 0
+            title: 'Limit allowed HTML tags'
         filter_html_escape:
             format: plain_text
             module: filter
@@ -164,17 +112,6 @@ plain_text:
             status: '1'
             settings: {  }
             title: 'Convert line breaks into HTML (i.e. <code>&lt;br&gt;</code> and <code>&lt;p&gt;</code>)'
-        filter_html:
-            format: plain_text
-            module: filter
-            name: filter_html
-            weight: '10'
-            status: '0'
-            settings:
-                allowed_html: '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd>'
-                filter_html_help: 1
-                filter_html_nofollow: 0
-            title: 'Limit allowed HTML tags'
         filter_htmlcorrector:
             format: plain_text
             module: filter
@@ -183,86 +120,3 @@ plain_text:
             status: '0'
             settings: {  }
             title: 'Correct faulty and chopped off HTML'
-        media_filter:
-            format: plain_text
-            module: media
-            name: media_filter
-            weight: '10'
-            status: '0'
-            settings: {  }
-            title: 'Convert Media tags to markup'
-        php_code:
-            format: plain_text
-            module: php
-            name: php_code
-            weight: '10'
-            status: '0'
-            settings: {  }
-            title: 'PHP evaluator'
-php_code:
-    format: php_code
-    name: 'PHP code'
-    cache: '0'
-    status: '1'
-    weight: '11'
-    filters:
-        php_code:
-            format: php_code
-            module: php
-            name: php_code
-            weight: '0'
-            status: '1'
-            settings: {  }
-            title: 'PHP evaluator'
-        filter_autop:
-            format: php_code
-            module: filter
-            name: filter_autop
-            weight: '10'
-            status: '0'
-            settings: {  }
-            title: 'Convert line breaks into HTML (i.e. <code>&lt;br&gt;</code> and <code>&lt;p&gt;</code>)'
-        filter_html:
-            format: php_code
-            module: filter
-            name: filter_html
-            weight: '10'
-            status: '0'
-            settings:
-                allowed_html: '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd>'
-                filter_html_help: 1
-                filter_html_nofollow: 0
-            title: 'Limit allowed HTML tags'
-        filter_htmlcorrector:
-            format: php_code
-            module: filter
-            name: filter_htmlcorrector
-            weight: '10'
-            status: '0'
-            settings: {  }
-            title: 'Correct faulty and chopped off HTML'
-        filter_html_escape:
-            format: php_code
-            module: filter
-            name: filter_html_escape
-            weight: '10'
-            status: '0'
-            settings: {  }
-            title: 'Display any HTML as plain text'
-        filter_url:
-            format: php_code
-            module: filter
-            name: filter_url
-            weight: '10'
-            status: '0'
-            settings:
-                filter_url_length: 72
-            title: 'Convert URLs into links'
-        media_filter:
-            format: php_code
-            module: media
-            name: media_filter
-            weight: '10'
-            status: '0'
-            settings: {  }
-            title: 'Convert Media tags to markup'

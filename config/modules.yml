@@ -29,6 +29,8 @@
 - oembedcore
 - media_internet
 - media_oembed
+- libraries
+- htmlpurifier
 
 # Custom modules
 - ombucleanup
