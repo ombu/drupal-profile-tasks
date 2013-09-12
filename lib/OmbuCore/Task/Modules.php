@@ -29,10 +29,18 @@ class Modules extends Task {
       // If module enable fails, that means a module is missing.  Give a useful
       // error message to site installer.
       $module_data = system_rebuild_module_data();
+      $missing_modules = array();
       foreach ($this->modules as $module) {
         if (!isset($module_data[$module])) {
-          throw new TaskException('Missing module: ' . $module);
+          $missing_modules[] = $module;
         }
+      }
+
+      if ($missing_modules) {
+        $string = format_plural(count($missing_modules), 'Missing module: !module', 'Missing modules: !module', array(
+          '!module' => implode(' ', $missing_modules),
+        ));
+        throw new TaskException($string);
       }
     }
 
