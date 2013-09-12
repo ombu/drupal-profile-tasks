@@ -1,10 +1,8 @@
 'anonymous user':
     - 'access content'
     - 'search content'
-    - 'use text format comment'
 'authenticated user':
     - 'access content'
-    - 'use text format comment'
     - 'add media from remote sources'
     - 'import media'
 admin:
@@ -35,7 +33,6 @@ admin:
     - 'redirect from admin to dashboard'
     - 'revert revisions'
     - 'show dashboard toolbar'
-    - 'use text format comment'
     - 'use text format default'
     - 'use tinymce html button'
     - 'view own unpublished content'
@@ -61,7 +58,6 @@ editor:
     - 'redirect from admin to dashboard'
     - 'revert revisions'
     - 'show dashboard toolbar'
-    - 'use text format comment'
     - 'use text format default'
     - 'view revisions'
     - 'view the administration theme'
