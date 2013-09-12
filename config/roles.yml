@@ -3,8 +3,7 @@
     - 'search content'
 'authenticated user':
     - 'access content'
-    - 'add media from remote sources'
-    - 'import media'
+    - 'search content'
 admin:
     - 'access all views'
     - 'access content'
