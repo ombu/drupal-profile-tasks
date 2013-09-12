@@ -31,8 +31,11 @@
 - media_oembed
 - libraries
 - htmlpurifier
+- bean
 
 # Custom modules
 - ombucleanup
 - ombudashboard
 - ombuseo
+- tiles
+- ombubeans
