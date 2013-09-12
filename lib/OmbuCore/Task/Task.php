@@ -7,7 +7,7 @@
 
 namespace OmbuCore\Task;
 
-use Symfony\Component\Yaml\Parser;
+use OmbuCore\Settings\Parser;
 use Symfony\Component\Yaml\Exception\ParseException;
 
 class Task implements TaskInterface {
@@ -20,6 +20,8 @@ class Task implements TaskInterface {
 
   /**
    * The current profile name.
+   *
+   * @param string
    */
   protected $profile;
 
@@ -59,42 +61,25 @@ class Task implements TaskInterface {
    *   TRUE if all processing is successful, FALSE otherwise.
    */
   public function process() {
+    return TRUE;
   }
 
   /**
-   * Load settings from a file.
+   * Load settings from a config file.
    *
-   * Will load up default settings from ombucore.module, and will also look
-   * in the current active profile for additional settings. Uses base name to
-   * determine file names.
-   *
-   * @todo This should be pulled out into a separate object.
+   * Any overrides from the profile will also be applied.
    *
    * @param string $base_name
    *   The name of setting to load. E.g. if $base_name is 'role', then the
-   *   role.yml file will be loaded and parsed. If the active profile has a
-   *   role.yml file, that will be used instead.
+   *   role.yml file will be loaded and parsed.
    *
    * @return array
    *   The final settings for given $base_name.
    */
   public function loadSettings($base_name) {
-    // Check if current active profile has a file.
-    $config_file = drupal_get_path('profile', $this->profile) . '/config/' . $base_name . '.yml';
-    if (!file_exists($config_file)) {
-      // Otherwise load up the default settings.
-      $config_file = drupal_get_path('module', 'ombucore') . '/config/' . $base_name . '.yml';
-
-      if (!file_exists($config_file)) {
-        // There's no settings file, return empty array.
-        return array();
-      }
-    }
-
     try {
-      $parser = new Parser();
-      $settings = $parser->parse(file_get_contents($config_file));
-      return $settings;
+      $parser = new Parser($base_name, $this->profile);
+      return $parser->parse();
     }
     catch (ParseException $e) {
       throw new TaskException(st('Unable to parse YAML string for !file: !error', array(
