@@ -41,15 +41,6 @@ function ombucore_drush_command() {
  *   drush dump-roles-perms
  */
 function drush_ombucore_dump_roles_perms() {
-  $install_profile = variable_get('install_profile', 'ombuprofile');
-
-  $export_file_path = drupal_get_path('profile', $install_profile) . '/config/roles.yml';
-  if (file_exists($export_file_path)) {
-    if (!drush_confirm(dt("The file $export_file_path already exists.\nWould you like to overwrite it?"))) {
-      drush_die('Aborting.');
-    }
-  }
-
   $content = array();
   $roles = user_roles();
 
@@ -58,8 +49,7 @@ function drush_ombucore_dump_roles_perms() {
     $content[$role] = array_keys($perms[$rid]);
   }
 
-  drush_ombucore_write_yml($content, $export_file_path);
-  drush_print('Users and Roles written to: ' . $export_file_path);
+  drush_ombucore_write_yml($content, 'roles');
 }
 
 /**
@@ -68,15 +58,6 @@ function drush_ombucore_dump_roles_perms() {
  *   drush dump-formats
  */
 function drush_ombucore_dump_formats() {
-  $install_profile = variable_get('install_profile', 'ombuprofile');
-
-  $export_file_path = drupal_get_path('profile', $install_profile) . '/config/formats.yml';
-  if (file_exists($export_file_path)) {
-    if (!drush_confirm(dt("The file $export_file_path already exists.\nWould you like to overwrite it?"))) {
-      drush_die('Aborting.');
-    }
-  }
-
   $formats = array();
   foreach (filter_formats() as $format_name => $format) {
     // Get the filters.
@@ -89,8 +70,7 @@ function drush_ombucore_dump_formats() {
     $formats[$format_name] = (array) $format;
   }
 
-  drush_ombucore_write_yml($formats, $export_file_path);
-  drush_print('Formats written to: ' . $export_file_path);
+  drush_ombucore_write_yml($formats, 'formats');
 }
 
 /**
@@ -99,21 +79,11 @@ function drush_ombucore_dump_formats() {
  *   drush dump-wysiwyg
  */
 function drush_ombucore_dump_wysiwyg() {
-  $install_profile = variable_get('install_profile', 'ombuprofile');
-
-  $export_file_path = drupal_get_path('profile', $install_profile) . '/config/wysiwyg.yml';
-  if (file_exists($export_file_path)) {
-    if (!drush_confirm(dt("The file $export_file_path already exists.\nWould you like to overwrite it?"))) {
-      drush_die('Aborting.');
-    }
-  }
-
   foreach (wysiwyg_profile_load_all() as $profile_name => $profile) {
     $wysiwyg[$profile_name] = (array) $profile;
   }
 
-  drush_ombucore_write_yml($wysiwyg, $export_file_path);
-  drush_print('WYSIWYG settings written to: ' . $export_file_path);
+  drush_ombucore_write_yml($wysiwyg, 'wysiwyg');
 }
 
 /**
@@ -122,72 +92,35 @@ function drush_ombucore_dump_wysiwyg() {
  *   drush dump-settings
  */
 function drush_ombucore_dump_variables() {
-  $install_profile = variable_get('install_profile', 'ombuprofile');
+  // Retrieve variables from drush.
+  $data = call_user_func_array('drush_variable_get', func_get_args());
+  drush_ombucore_write_yml($data, 'variables');
+}
 
-  $export_file_path = drupal_get_path('profile', $install_profile) . '/config/variables.yml';
+/**
+ * Writes a yml file to disk.
+ *
+ * Will write any additions and/or deletions as overrides to profile config
+ * directory.
+ *
+ * @param array $settings
+ *   New settings for $base_name config.
+ * @param string $base_name
+ *   The name of the configuration.
+ */
+function drush_ombucore_write_yml($settings, $base_name) {
+  ombucore_autoload();
+  $dumper = new OmbuCore\Settings\Dumper($base_name, variable_get('install_profile', ''));
+
+  $export_file_path = $dumper->getFilePath();
+
   if (file_exists($export_file_path)) {
     if (!drush_confirm(dt("The file $export_file_path already exists.\nWould you like to overwrite it?"))) {
       drush_die('Aborting.');
     }
   }
 
-  // Retrieve variables from drush.
-  $variables = call_user_func_array('drush_variable_get', func_get_args());
+  $dumper->dump($settings);
 
-  // Retrieve variable from current yml file.
-  $data = drush_ombucore_read_yml('variables');
-
-  // Override and add new variables.
-  $data = $variables + $data;
-
-  drush_ombucore_write_yml($data, $export_file_path);
-  drush_print('Variable settings written to: ' . $export_file_path);
-}
-
-/**
- * Reads a yml file from disk.
- *
- * @param string $type
- *   The type of yml file to read from (e.g. variables or modules).
- *
- * @return array
- *   Array representation of yml data.
- */
-function drush_ombucore_read_yml($type) {
-  $array = array();
-
-  ombucore_autoload();
-
-  // Create a dummy Task object. Task expects an array of the install_state,
-  // which contains the current install profile, so a dummy install_state array
-  // needs to be passed in. This could be better handled by splitting
-  // loadSettings out into a separate object.
-  $install_state = array(
-    'parameters' => array(
-      'profile' => variable_get('install_profile', 'ombuprofile'),
-    ),
-  );
-  $task = new OmbuCore\Task\Task($install_state);
-  $array = $task->loadSettings($type);
-
-  return $array;
-}
-
-/**
- * Writes a yml file to disk.
- *
- * @param array $contents
- *   Data to write to the yml file.
- * @param string $file
- *   Path to the yml file relative to Drupal root.
- */
-function drush_ombucore_write_yml($contents, $file) {
-  ombucore_autoload();
-  $dumper = new Symfony\Component\Yaml\Dumper();
-
-  // Make sure directory exists and is writable.
-  file_prepare_directory(dirname($file), FILE_CREATE_DIRECTORY);
-
-  $yaml = $dumper->dump($contents, 5);
-  file_put_contents($file, $yaml);
+  drush_print(ucwords($base_name) . ' settings written to: ' . $export_file_path);
 }

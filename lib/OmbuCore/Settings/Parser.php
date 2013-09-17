@@ -70,10 +70,13 @@ class Parser {
   /**
    * Parse config yaml file.
    *
+   * @param bool $applyOverrides.
+   *   Whether to apply overrides from active profile.
+   *
    * @return array
-   *   The final settings for given $base_name, with any overrides applied.
+   *   The final settings for given $base_name.
    */
-  public function parse() {
+  public function parse($applyOverrides = TRUE) {
     // Load up default settings.
     $config_file = $this->getFileName('module', 'ombucore');
 
@@ -97,7 +100,9 @@ class Parser {
       $settings = $this->parser->parse(file_get_contents($config_file));
 
       // Apply any overrides.
-      $this->applyOverrides($settings);
+      if ($applyOverrides) {
+        $this->applyOverrides($settings);
+      }
     }
 
     return $settings;
