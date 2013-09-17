@@ -18,6 +18,8 @@
 - statistics
 
 # Contrib modules
+- libraries
+- htmlpurifier
 - views
 - views_ui
 - views_bulk_operations
@@ -28,9 +30,6 @@
 - media
 - oembedcore
 - media_internet
-- media_oembed
-- libraries
-- htmlpurifier
 - bean
 
 # Custom modules
