@@ -62,7 +62,7 @@ class Dumper {
    *   The absolute path to destination config file.
    */
   public function getFilePath() {
-    return $this->profile . '/config/' . $this->base_name . '.yml';
+    return drupal_get_path('profile', $this->profile) . '/config/' . $this->base_name . '.yml';
   }
 
   /**
