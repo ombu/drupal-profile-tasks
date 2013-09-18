@@ -1,9 +1,11 @@
 'anonymous user':
     - 'access content'
     - 'view any bean_rte_rte bean'
+    - 'view files'
 'authenticated user':
     - 'access content'
     - 'view any bean_rte_rte bean'
+    - 'view files'
 admin:
     - 'access all views'
     - 'access content'
@@ -19,6 +21,7 @@ admin:
     - 'administer taxonomy'
     - 'administer permissions'
     - 'administer users'
+    - 'bypass file access'
     - 'bypass node access'
     - 'configure ombu site'
     - 'create page content'
@@ -49,6 +52,7 @@ editor:
     - 'administer taxonomy'
     - 'administer tiles'
     - 'arrange tiles'
+    - 'bypass file access'
     - 'create any bean_rte_rte bean'
     - 'create page content'
     - 'create url aliases'
