@@ -30,6 +30,7 @@
 - media
 - oembedcore
 - media_internet
+- entity
 - bean
 
 # Custom modules
@@ -39,3 +40,8 @@
 - tiles
 - ombubeans
 - bean_rte
+- facebook_bean
+- bean_feed
+- linkbean
+- bean_container
+- ombuslide

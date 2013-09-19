@@ -29,6 +29,17 @@ class Modules extends Task {
       // If module enable fails, that means a module is missing.  Give a useful
       // error message to site installer.
       $module_data = system_rebuild_module_data();
+
+      // Add dependencies to module list.
+      foreach ($module_data as $module => $data) {
+        if (in_array($module, $this->modules)) {
+          foreach (array_keys($data->requires) as $dependency) {
+            $this->modules[] = $dependency;
+          }
+        }
+      }
+      $this->modules = array_unique($this->modules);
+
       $missing_modules = array();
       foreach ($this->modules as $module) {
         if (!isset($module_data[$module])) {
@@ -54,12 +65,15 @@ class Modules extends Task {
     // Flush caches so feature fields are fully built and entities behave.
     drupal_flush_all_caches();
     db_truncate('cache');
-    entity_flush_caches();
     drupal_get_complete_schema(TRUE);
-    drupal_static_reset('entity_get_controller');
+
+    if (module_exists('entity')) {
+      entity_flush_caches();
+      drupal_static_reset('entity_get_controller');
+    }
 
     // Rebuild all features.
-    if (function_exists('drush_invoke_process')) {
+    if (module_exists('features') && function_exists('drush_invoke_process')) {
       drush_set_option('strict', 0);
       drush_invoke('features-revert-all');
     }
