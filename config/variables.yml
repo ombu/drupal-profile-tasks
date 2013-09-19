@@ -54,4 +54,7 @@ pathauto_reduce_ascii: true
 pathauto_node_applytofeeds: ''
 
 # Default node pattern.
-pathauto_node_pattern: 'content/[node:title]'
+pathauto_node_pattern: '[node:title]'
+
+# Node pattern for pages, use menu structure.
+pathauto_node_page_pattern: '[node:menu-link:parents:join-path]/[node:title]'
