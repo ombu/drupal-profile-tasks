@@ -57,5 +57,11 @@ class Modules extends Task {
     entity_flush_caches();
     drupal_get_complete_schema(TRUE);
     drupal_static_reset('entity_get_controller');
+
+    // Rebuild all features.
+    if (function_exists('drush_invoke_process')) {
+      drush_set_option('strict', 0);
+      drush_invoke('features-revert-all');
+    }
   }
 }
