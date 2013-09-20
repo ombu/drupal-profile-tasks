@@ -33,7 +33,7 @@ class Blocks extends Task {
    */
   public function process() {
     $theme_blocks = array(
-      variable_get('theme_default', OMBUBASE_DEFAULT_THEME) => $this->default_blocks,
+      variable_get('theme_default', '') => $this->default_blocks,
       variable_get('admin_theme', 'seven') => $this->admin_blocks,
     );
 
