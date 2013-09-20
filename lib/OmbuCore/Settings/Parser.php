@@ -126,13 +126,41 @@ class Parser {
       }
 
       if (isset($overrides['add'])) {
-        $settings = array_merge_recursive($settings, $overrides['add']);
+        $settings = $this->addSettings($settings, $overrides['add']);
       }
+      print_r($settings);
 
       if (isset($overrides['remove'])) {
-        $settings = $this->removeSettings($settings, $overrides['add']);
+        $settings = $this->removeSettings($settings, $overrides['remove']);
       }
     }
+  }
+
+  /**
+   * Add values within a settings array.
+   *
+   * @param array $settings
+   *   Settings array
+   * @param array $overrides
+   *   Overrides array
+   *
+   * @return array
+   *   New settings array with all additions/edits from overrides.
+   */
+  protected function addSettings($settings, $overrides) {
+    foreach ($overrides as $key => $value) {
+      if (is_array($value) && isset($settings[$key]) && is_array($settings[$key])) {
+        $settings[$key] = $this->addSettings($settings[$key], $value);
+      }
+      elseif (is_int($key) && !is_array($value)) {
+        $settings[] = $value;
+      }
+      else {
+        $settings[$key] = $value;
+      }
+    }
+
+    return $settings;
   }
 
   /**
