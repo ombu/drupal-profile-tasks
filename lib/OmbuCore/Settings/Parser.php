@@ -128,7 +128,6 @@ class Parser {
       if (isset($overrides['add'])) {
         $settings = $this->addSettings($settings, $overrides['add']);
       }
-      print_r($settings);
 
       if (isset($overrides['remove'])) {
         $settings = $this->removeSettings($settings, $overrides['remove']);
