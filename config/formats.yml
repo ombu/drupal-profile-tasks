@@ -36,14 +36,6 @@ default:
                 htmlpurifier_help: 1
                 htmlpurifier_basic_config: { Attr.EnableID: '0', AutoFormat.AutoParagraph: '1', AutoFormat.Linkify: '1', AutoFormat.RemoveEmpty: '0', Null_HTML.Allowed: '1', HTML.ForbiddenAttributes: '', HTML.ForbiddenElements: '', HTML.SafeObject: '0', Output.FlashCompat: '0', URI.DisableExternalResources: '0', URI.DisableResources: '0', Null_URI.Munge: '1' }
             title: 'HTML Purifier'
-        php_code:
-            format: default
-            module: php
-            name: php_code
-            weight: '0'
-            status: '0'
-            settings: {  }
-            title: 'PHP evaluator'
         media_filter:
             format: default
             module: media
@@ -129,14 +121,6 @@ plain_text:
             settings:
                 htmlpurifier_help: true
             title: 'HTML Purifier'
-        php_code:
-            format: plain_text
-            module: php
-            name: php_code
-            weight: '0'
-            status: '0'
-            settings: {  }
-            title: 'PHP evaluator'
         filter_url:
             format: plain_text
             module: filter
@@ -164,65 +148,6 @@ plain_text:
             title: 'Convert Media tags to markup'
         filter_htmlcorrector:
             format: plain_text
-            module: filter
-            name: filter_htmlcorrector
-            weight: '10'
-            status: '0'
-            settings: {  }
-            title: 'Correct faulty and chopped off HTML'
-php_code:
-    format: php_code
-    name: 'PHP code'
-    cache: '0'
-    status: '1'
-    weight: '11'
-    filters:
-        filter_html:
-            format: php_code
-            module: filter
-            name: filter_html
-            weight: '-10'
-            status: '0'
-            settings:
-                allowed_html: '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd>'
-                filter_html_help: 1
-                filter_html_nofollow: 0
-            title: 'Limit allowed HTML tags'
-        filter_html_escape:
-            format: php_code
-            module: filter
-            name: filter_html_escape
-            weight: '-10'
-            status: '0'
-            settings: {  }
-            title: 'Display any HTML as plain text'
-        filter_autop:
-            format: php_code
-            module: filter
-            name: filter_autop
-            weight: '0'
-            status: '0'
-            settings: {  }
-            title: 'Convert line breaks into HTML (i.e. <code>&lt;br&gt;</code> and <code>&lt;p&gt;</code>)'
-        filter_url:
-            format: php_code
-            module: filter
-            name: filter_url
-            weight: '0'
-            status: '0'
-            settings:
-                filter_url_length: 72
-            title: 'Convert URLs into links'
-        php_code:
-            format: php_code
-            module: php
-            name: php_code
-            weight: '0'
-            status: '1'
-            settings: {  }
-            title: 'PHP evaluator'
-        filter_htmlcorrector:
-            format: php_code
             module: filter
             name: filter_htmlcorrector
             weight: '10'
