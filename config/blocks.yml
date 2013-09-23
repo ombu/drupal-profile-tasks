@@ -3,19 +3,11 @@ default_blocks:
         module: system
         delta: main
         region: content
-    -
-        module: system
-        delta: help
-        region: help
 admin_blocks:
     -
         module: system
         delta: main
         region: content
-    -
-        module: system
-        delta: help
-        region: help
     -
         module: user
         delta: login
