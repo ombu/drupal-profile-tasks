@@ -179,7 +179,7 @@ class Parser {
         $settings[$key] = $this->removeSettings($settings[$key], $value);
       }
       elseif (is_int($key) && !is_array($value)) {
-        unset($settings[array_search($settings, $value)]);
+        unset($settings[array_search($value, $settings)]);
       }
       else{
         unset($settings[$key]);

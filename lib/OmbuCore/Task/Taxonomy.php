@@ -35,7 +35,7 @@ class Taxonomy extends Task {
   public function settings() {
     $settings = $this->loadSettings('taxonomy');
 
-    if (isset($settings['vocabularies'])) {
+    if (!empty($settings['vocabularies'])) {
       $this->vocabularies = $settings['vocabularies'];
     }
   }
