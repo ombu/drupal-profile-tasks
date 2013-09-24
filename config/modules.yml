@@ -32,6 +32,9 @@
 - entity
 - bean
 - jquery_update
+- xmlsitemap
+- xmlsitemap_menu
+- xmlsitemap_node
 
 # Custom modules
 - ombucleanup
