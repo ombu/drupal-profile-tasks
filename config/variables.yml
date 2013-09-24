@@ -59,6 +59,9 @@ pathauto_node_pattern: '[node:title]'
 # Node pattern for pages, use menu structure.
 pathauto_node_page_pattern: '[node:menu-link:parents:join-path]/[node:title]'
 
+# Disable auto redirects.
+redirect_auto_redirect: 0
+
 # Update jQuery to 1.7. Needed in order for Bootstrap JS components to work.
 jquery_update_compression_type: 'min'
 jquery_update_jquery_cdn: 'none'

@@ -63,6 +63,7 @@ editor:
     - 'administer blocks'
     - 'administer menu'
     - 'administer nodes'
+    - 'administer redirects'
     - 'administer taxonomy'
     - 'administer tiles'
     - 'arrange tiles'
