@@ -90,14 +90,12 @@ class AddContent extends Task {
    * Build structured nodes into a menu system.
    */
   protected function buildMenu($menu_name, $nodes, $parent = NULL) {
-    static $weight = -50;
 
     foreach ($nodes as $title => $content) {
       // Check if a defined link exists
       if (isset($content['#link'])) {
-        $menu_link = array(
+        $menu_link = $this->defaultMenuOptions() + array(
           'menu_name' => $menu_name,
-          'weight' => ++$weight,
           'link_title' => $title,
           'link_path' => $content['#link'],
         );
@@ -112,19 +110,12 @@ class AddContent extends Task {
         $type = isset($content['#type']) ? $content['#type'] : 'page';
 
         // Create a new node.
-        $node = $this->setupNode($type);
-        $node->title = $title;
-
-        // Add lorem text to body.
-        $node->body[$node->language][0]['value'] = $this->lorem();
-        $node->body[$node->language][0]['format'] = 'default';
+        $node = $this->setupMenuNode($title, $type);
 
         // Make sure a menu item is created for this node.
-        $node->menu = array(
+        $node->menu = $this->defaultMenuOptions() + array(
           'menu_name' => $menu_name,
-          'enabled' => TRUE,
           'link_title' => $node->title,
-          'weight' => ++$weight,
         );
 
         if ($parent) {
@@ -140,6 +131,47 @@ class AddContent extends Task {
         $this->buildMenu($content['#children'], $menu_name, $menu_link);
       }
     }
+  }
+
+  /**
+   * Setup node for placement within a menu.
+   *
+   * @param string $title
+   *   The title for the new node.
+   * @param string $type
+   *   The type of node to create.
+   *
+   * @return object
+   *   A new prepared node object.
+   */
+  protected function setupMenuNode($title, $type = 'page') {
+    $node = $this->setupNode($type);
+    $node->title = $title;
+
+    // Add lorem text to body.
+    $node->body[$node->language][0]['value'] = $this->lorem();
+    $node->body[$node->language][0]['format'] = 'default';
+
+    return $node;
+  }
+
+
+  /**
+   * Setup default menu link options.
+   *
+   * Allows subclasses to setup alternate or additional options, such as
+   * 'expanded'.
+   *
+   * @return array
+   *   Array of menu link options as expected by menu_link_save().
+   */
+  protected function defaultMenuOptions() {
+    static $weight = 0;
+
+    return array(
+      'enabled' => TRUE,
+      'weight' => $weight++,
+    );
   }
 
   /**
