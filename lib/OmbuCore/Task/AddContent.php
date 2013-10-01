@@ -115,20 +115,21 @@ class AddContent extends Task {
         // Make sure a menu item is created for this node.
         $node->menu = $this->defaultMenuOptions() + array(
           'menu_name' => $menu_name,
-          'link_title' => $node->title,
+          'link_title' => isset($content['#link_title']) ? $content['#link_title'] : $node->title,
         );
 
         if ($parent) {
           $node->menu['plid'] = $parent['mlid'];
-          $menu_link = $node->menu;
         }
 
         node_save($node);
+
+        $menu_link = $node->menu;
       }
 
       // If there's children, build them too.
       if (!empty($content['#children'])) {
-        $this->buildMenu($content['#children'], $menu_name, $menu_link);
+        $this->buildMenu($menu_name, $content['#children'], $menu_link);
       }
     }
   }
