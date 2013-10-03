@@ -151,7 +151,7 @@ function ombucore_404_page() {
 }
 
 /**
- * Instantiates and registers Compser autoloader.
+ * Instantiates and registers Composer autoloader.
  *
  * @return \Composer\Autoload\ClassLoader
  *   Composer autoloader.
