@@ -74,8 +74,8 @@ class Modules extends Task {
 
     // Rebuild all features.
     if (module_exists('features') && function_exists('drush_invoke_process')) {
-      drush_set_option('strict', 0);
-      drush_invoke('features-revert-all');
+      drush_log(dt('Reverting features'), 'ok');
+      drush_invoke_process('', 'features-revert-all', array(), array('-y'));
     }
   }
 }
