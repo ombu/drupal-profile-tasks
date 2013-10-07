@@ -42,6 +42,10 @@ default_oembedcore_provider:
     qik: false
     revision3: false
     twitter: false
+media__wysiwyg_browser_plugins:
+  - upload
+  - media_default--media_browser_1
+  - media_internet
 
 # Update Action
 #  0 - Do nothing. Leave the old alias intact.

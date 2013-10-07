@@ -62,6 +62,7 @@ editor:
     - 'access overlay'
     - 'access the dashboard page'
     - 'add tiles'
+    - 'add media from remote sources'
     - 'administer blocks'
     - 'administer menu'
     - 'administer nodes'

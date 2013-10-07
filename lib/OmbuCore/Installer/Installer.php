@@ -51,6 +51,7 @@ class Installer {
       'Blocks'       => 'Setup Blocks',
       'InputFormats' => 'Setup Input Formats',
       'Wysiwyg'      => 'Setup WYSIWYG',
+      'Media'        => 'Setup Media',
       'Users'        => 'Setup Roles & Users',
       'AddContent'   => 'Add Content',
       'PostSetup'    => 'Post Setup',
