@@ -106,11 +106,17 @@ class AddContent extends Task {
       }
       // Otherwise treat as a regular node with possible children.
       else {
-        // Allow node type to be set.
-        $type = isset($content['#type']) ? $content['#type'] : 'page';
+        // Allow nodes to be loaded from file.
+        if (isset($content['#file'])) {
+          $node = $this->loadNodeFromFile($content['#file']);
+        }
+        else {
+          // Allow node type to be set.
+          $type = isset($content['#type']) ? $content['#type'] : 'page';
 
-        // Create a new node.
-        $node = $this->setupMenuNode($title, $type);
+          // Create a new node.
+          $node = $this->setupMenuNode($title, $type);
+        }
 
         // Make sure a menu item is created for this node.
         $node->menu = $this->defaultMenuOptions() + array(
@@ -176,13 +182,46 @@ class AddContent extends Task {
   }
 
   /**
-   * Simple alternative method to `lorem()` for obtaining content during a
-   * build.
+   * Load up node from include file.
+   *
+   * @param string $name
+   *   The name of the file to include.
+   *
+   * @return stdClass
+   *   The created node object.
    */
-  protected function initialContent($name) {
-    return file_get_contents(
-      drupal_get_path('profile', $this->profile) . "/initial-content/${name}"
-    );
-  }
+  protected function loadNodeFromFile($name) {
+    $path = drupal_get_path('profile', $this->profile) . "/initial-content/" . $name;
 
+    // Throw error if file isn't found.
+    if (!file_exists($path)) {
+      throw new TaskException('Unable to find content file: ' . $path);
+    }
+
+    try {
+      // Include content file. It should create a new \OmbuCore\Content\Wrapper
+      // object.
+      include $path;
+
+      // Try to find any variables defined of type Wrapper in order to return
+      // proper node to add to menu.
+      $vars = get_defined_vars();
+      foreach ($vars as $var) {
+        if ($var instanceof \OmbuCore\Content\Wrapper) {
+          $wrapper = $var;
+          break;
+        }
+      }
+
+      // Throw error if wrapper not found.
+      if (!$wrapper) {
+        throw new TaskException('Content file ' . $name . ' malformed, must create Wrapper object');
+      }
+
+      return $wrapper->value();
+    }
+    catch (WrapperException $e) {
+      throw new TaskException('Exception in content file ' . $name . ': ' . $e->getMessage());
+    }
+  }
 }
