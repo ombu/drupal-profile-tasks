@@ -73,4 +73,7 @@ jquery_update_jquery_version: '1.7'
 
 # Special menu items
 special_menu_items_separator: 0
-special_menu_items_separator_tag: '<a>'
+special_menu_items_nolink_tag: '<a>'
+
+# Show title in breadcrumbs
+breadcrumb_show_page_title: 1
