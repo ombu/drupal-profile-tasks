@@ -45,10 +45,12 @@ $wrapper->title = 'Page One';
 $wrapper->field_text = 'An example text field';
 
 // To set textarea fields, you have to explicitly set the value and format
-// properties. To avoid having a big block of HTML in this file, it's
-// recommended to load up an external html file.
-$wrapper->body->value = file_get_contents('page1.html');
-$wrapper->body->format = 'default';
+// properties using an array. To avoid having a big block of HTML in this file,
+// it's recommended to load up an external html file.
+$wrapper->body = array(
+  'value' => file_get_contents('page1.html'),
+  'format' => 'default',
+);
 
 // To assign an image, use the addFile() helper method.
 $path = drupal_get_path('profile', 'site_profile');
