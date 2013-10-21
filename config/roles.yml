@@ -27,6 +27,7 @@ admin:
     - 'access the dashboard page'
     - 'access user profiles'
     - 'administer blocks'
+    - 'administer files'
     - 'administer menu'
     - 'administer nodes'
     - 'administer site configuration'
