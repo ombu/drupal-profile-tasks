@@ -8,6 +8,8 @@
 
 namespace OmbuCore\Task;
 
+use OmbuCore\Content\WrapperException;
+
 class AddContent extends Task {
   /**
    * @param boolean

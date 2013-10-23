@@ -5,6 +5,6 @@
  * Wrapper Exception.
  */
 
-namespace OmbuCore\Wrapper;
+namespace OmbuCore\Content;
 
 class WrapperException extends \Exception {}

@@ -89,7 +89,7 @@ class Wrapper extends \EntityDrupalWrapper {
     }
     else {
       // Save a new file, replacing existing files on the file system.
-      if ($file = file_save_data($path . '/' . $filename, $destination, FILE_EXISTS_RENAME)) {
+      if ($file = file_save_data(file_get_contents($path . '/' . $filename), $destination, FILE_EXISTS_REPLACE)) {
         $fid = $file->fid;
       }
       else {
@@ -112,16 +112,16 @@ class Wrapper extends \EntityDrupalWrapper {
    *   Valid vocabulary.
    *
    *
-   * @return int
-   *   The tid of the term, either new or existing, appropriate for
-   *   use with an EntityMetadataWrapper field.
+   * @return stdObject
+   *   The term object, either new or existing, appropriate for use with an
+   *   EntityMetadataWrapper field.
    */
   public function addTerm($term_name, $vocabulary_name) {
     if (!($vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_name))) {
       throw new WrapperException('Vocabulary not found: ' . $vocabulary_name);
     }
 
-    $term = taxonomy_get_term_by_name($term_name, $vocabulary);
+    $term = taxonomy_get_term_by_name($term_name, $vocabulary_name);
     if ($term) {
       $term = current($term);
     }
@@ -133,7 +133,7 @@ class Wrapper extends \EntityDrupalWrapper {
       taxonomy_term_save($term);
     }
 
-    return $term->tid;
+    return $term;
   }
 
   /**
