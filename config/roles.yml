@@ -102,6 +102,7 @@ editor:
     - 'edit ombuseo fields'
     - 'edit own page content'
     - 'edit supplementary content'
+    - 'import media'
     - 'redirect from admin to dashboard'
     - 'revert revisions'
     - 'show dashboard toolbar'
