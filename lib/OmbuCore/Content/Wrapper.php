@@ -127,7 +127,7 @@ class Wrapper extends \EntityDrupalWrapper {
     }
     else {
       $term = new \stdClass();
-      $term->vid = $vocab->vid;
+      $term->vid = $vocabulary->vid;
       $term->name = $term_name;
       $term->description = '';
       taxonomy_term_save($term);
