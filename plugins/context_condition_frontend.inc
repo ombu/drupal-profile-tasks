@@ -11,8 +11,7 @@ class context_condition_frontend extends context_condition {
 
   function execute($theme) {
     foreach ($this->get_contexts() as $context) {
-      if ($theme == variable_get('theme_default', NULL) &&
-        strpos(drupal_get_path_alias(), "user") !== 0) {
+      if ($theme == variable_get('theme_default', NULL)) {
           $this->condition_met($context, $theme);
         }
     }
