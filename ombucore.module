@@ -65,7 +65,7 @@ function ombucore_block_view($delta = '') {
       $block['content'] = '';
       // Hide the title on the front page.
       // @todo: make this a setting, or at least more configurable.
-      if (!drupal_is_front_page()) {
+      if (!drupal_is_front_page() || !variable_get('ombucore_hide_title', FALSE)) {
         $block['content'] = array(
           'title' => array(
             '#markup' => drupal_get_title(),
