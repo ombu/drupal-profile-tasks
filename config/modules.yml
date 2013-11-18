@@ -36,6 +36,7 @@
 - xmlsitemap_menu
 - xmlsitemap_node
 - special_menu_items
+- smtp
 
 # Custom modules
 - ombucleanup
