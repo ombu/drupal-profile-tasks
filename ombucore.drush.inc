@@ -93,8 +93,25 @@ function drush_ombucore_dump_wysiwyg() {
  */
 function drush_ombucore_dump_variables() {
   // Retrieve variables from drush.
-  $data = call_user_func_array('drush_variable_get', func_get_args());
-  drush_ombucore_write_yml($data, 'variables');
+  $settings = call_user_func_array('drush_variable_get', func_get_args());
+
+  $profile = variable_get('install_profile', '');
+
+  // Handle special case of variables, since they are only additive.
+  ombucore_autoload();
+  $dumper = new Symfony\Component\Yaml\Dumper();
+  $parser = new Symfony\Component\Yaml\Parser();
+
+  $export_file_path = drupal_get_path('profile', $profile) . '/config/variables.yml';
+
+  // Make sure directory exists and is writable.
+  file_prepare_directory(dirname($export_file_path), FILE_CREATE_DIRECTORY);
+
+  $overrides = $parser->parse(file_get_contents($export_file_path));
+  $overrides['add'] = $settings + $overrides['add'];
+
+  $yaml = $dumper->dump($overrides, 5);
+  file_put_contents($export_file_path, $yaml);
 }
 
 /**
