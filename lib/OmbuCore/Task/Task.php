@@ -106,7 +106,11 @@ class Task implements TaskInterface {
     $node = new \stdClass();
     $node->type = $type;
     node_object_prepare($node);
-    $node->language = LANGUAGE_NONE;
+
+    // Set language to default language if locale module is enabled (to enable
+    // translations on content). Otherwise use language none.
+    $node->language = module_exists('locale') ? language_default()->language : LANGUAGE_NONE;
+
     $node->uid = 1;
 
     return $node;

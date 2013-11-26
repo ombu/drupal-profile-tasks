@@ -32,6 +32,12 @@ class Wrapper extends \EntityDrupalWrapper {
   public function __construct($type, $data = array(), $info = array()) {
     // Make sure created entity is always assigned to a user.
     $entity = entity_create($type, $data + array('uid' => 1));
+
+    // Set language to default language if locale module is enabled.
+    if ($type == 'node' && module_exists('locale')) {
+      $entity->language = language_default()->language;
+    }
+
     parent::__construct($type, $entity, $info);
     $this->setup();
   }
