@@ -1,0 +1,20 @@
+# Set to 1 to enable translations
+enabled: 0
+
+# List of languages to include.
+languages:
+  - 'es'
+
+# List of default translation modules to enable.
+modules:
+  - 'locale'
+  - 'i18n'
+  - 'i18n_menu'
+  - 'entity_translation'
+  - 'title'
+
+# List of entity types to enable translations on.
+entity_types:
+  - 'node'
+  - 'taxonomy_term'
+  - 'bean'

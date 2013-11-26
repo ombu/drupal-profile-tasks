@@ -53,6 +53,7 @@ class Installer {
       'Wysiwyg'      => 'Setup WYSIWYG',
       'Media'        => 'Setup Media',
       'Users'        => 'Setup Roles & Users',
+      'Translation'  => 'Setup Translations',
       'AddContent'   => 'Add Content',
       'PostSetup'    => 'Post Setup',
     );
