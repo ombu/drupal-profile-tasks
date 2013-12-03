@@ -11,6 +11,7 @@ modules:
   - 'i18n'
   - 'i18n_menu'
   - 'entity_translation'
+  - 'entity_translation_i18n_menu'
   - 'title'
 
 # List of entity types to enable translations on.
