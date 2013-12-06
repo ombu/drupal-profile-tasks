@@ -77,5 +77,21 @@ class Modules extends Task {
       drush_log(dt('Reverting features'), 'ok');
       drush_invoke_process('', 'features-revert-all', array(), array('-y'));
     }
+
+    // Revert default apachesolr environment.
+    if (module_exists('apachesolr')) {
+      $this->revertSolr();
+    }
+  }
+
+  /**
+   * Revert default apachesolr environment.
+   *
+   * There's a bug in apachesolr where the environment overrides in code don't
+   * get picked up until it is reverted, so this code attempts to revert the
+   * environment on build.
+   */
+  protected function revertSolr() {
+    apachesolr_environment_delete('solr');
   }
 }
