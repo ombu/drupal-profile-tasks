@@ -165,6 +165,16 @@ class AddContent extends Task {
     $node->body[$node->language][0]['value'] = $this->lorem();
     $node->body[$node->language][0]['format'] = 'default';
 
+    if (module_exists('ombubench')) {
+      $term = taxonomy_get_term_by_name('Administrators only');
+      $term = current($term);
+      if ($term) {
+        $node->field_access_section[LANGUAGE_NONE][0]['tid'] = $term->tid;
+      }
+
+      $node->workbench_moderation_state_new = 'published';
+    }
+
     return $node;
   }
 

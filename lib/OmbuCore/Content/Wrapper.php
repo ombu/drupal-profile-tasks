@@ -33,6 +33,19 @@ class Wrapper extends \EntityDrupalWrapper {
     // Make sure created entity is always assigned to a user.
     $entity = entity_create($type, $data + array('uid' => 1));
 
+    // Workbench moderation doesn't properly set required values on node
+    // creation, so do that here.
+    if ($type == 'node' && module_exists('workbench_moderation')) {
+      $term = taxonomy_get_term_by_name('Administrators only');
+      $term = current($term);
+      if ($term) {
+        $entity->field_access_section[LANGUAGE_NONE][0]['tid'] = $term->tid;
+      }
+
+      $entity->workbench_moderation_state_new = 'published';
+    }
+
+
     // Set language to default language if locale module is enabled.
     if ($type == 'node' && module_exists('locale')) {
       $entity->language = language_default()->language;
