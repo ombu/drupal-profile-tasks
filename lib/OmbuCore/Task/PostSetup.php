@@ -27,8 +27,8 @@ class PostSetup extends Task {
 
       // Add editor role to publisher user.
       $account = user_load_by_name('test_publisher');
-      $pub_role = user_role_load_by_name('publisher');
-      $editor_role = user_role_load_by_name('editor');
+      $pub_role = ombubench_get_publisher_role();
+      $editor_role = ombubench_get_editor_role();
       $account->roles[$pub_role->rid] = $pub_role->name;
       $account->roles[$editor_role->rid] = $editor_role->name;
       user_save($account);
