@@ -14,13 +14,35 @@ class PostSetup extends Task {
    * Implements parent::process().
    */
   public function process() {
-    // Set proper workbench access control schemas.
-    if (module_exists('workbench_access')) {
+    // Set proper workbench access control schemas and user sections. This needs
+    // to happen outside of ombubench.install because it needs to respond to
+    // Taxonomy::process() and User::process tasks during the installation
+    // process.
+    if (module_exists('ombubench')) {
       $active = workbench_access_get_active_tree();
       foreach ($active['tree'] as $item) {
         $data = array_merge($active['access_scheme'], $item);
         workbench_access_section_save($data);
       }
+
+      // Add editor role to publisher user.
+      $account = user_load_by_name('test_publisher');
+      $pub_role = user_role_load_by_name('publisher');
+      $editor_role = user_role_load_by_name('editor');
+      $account->roles[$pub_role->rid] = $pub_role->name;
+      $account->roles[$editor_role->rid] = $editor_role->name;
+      user_save($account);
+
+      $term = taxonomy_get_term_by_name('Administrators only');
+      $term = current($term);
+      workbench_access_user_section_save($account->uid, $term->tid, 'taxonomy');
+
+      // Disable workbench views.
+      $views_status = variable_get('views_defaults', array());
+      $views_status['workbench_moderation'] = TRUE;
+      $views_status['workbench_access_content'] = TRUE;
+      variable_set('views_defaults', $views_status);
+      views_invalidate_cache();
     }
   }
 }
