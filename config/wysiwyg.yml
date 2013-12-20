@@ -40,5 +40,5 @@ default:
         block_formats: 'p,h2,h3,h4,h5,h6,pre'
         css_setting: self
         css_path: '%b%t/css/wysiwyg.css'
-        css_classes: "Button=a.btn\r\nInline List=ul.inline\r\nLead Text=p.lead\r\nPull Right=p.pull-right\r\nPull Left=p.pull-left\r\nCall-to-action=p.cta"
+        css_classes: "Image Left=div.pull-left\r\nImage Right=div.pull-right\r\nButton=a.btn\r\nCall-to-action=a.cta\r\nPull Left=p.pull-left\r\nPull Right=p.pull-right\r\nLead Text=p.lead\r\nInline List=ul.inline"
     rdf_mapping: {  }
