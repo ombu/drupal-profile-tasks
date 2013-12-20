@@ -32,6 +32,15 @@ function ombucore_drush_command() {
       'drush dump-variables site_mail' => 'Dump the variable with the exact key "site_mail".',
     ),
   );
+  $items['ombucore-load-up'] = array(
+    'description' => dt('Helper command to load content from profile initial-content/ directory. Useful to test content creation without having to trigger a new build.'),
+    'arguments' => array(
+      'file' => 'The file name to load. Should exist in the [profile directory]/intial-content/ directory',
+    ),
+    'examples' => array(
+      'drush ombucore-load-up page.php' => 'Run content insertion in page.php file.',
+    ),
+  );
   return $items;
 }
 
@@ -141,3 +150,34 @@ function drush_ombucore_write_yml($settings, $base_name) {
 
   drush_print(ucwords($base_name) . ' settings written to: ' . $export_file_path);
 }
+
+/**
+ * Helper command to load up initial content build without a full rebuild.
+ *
+ * @param string $file
+ *  File name to run.
+ */
+function drush_ombucore_load_up($filename) {
+  $profile = variable_get('install_profile', '');
+  $file_path = drupal_get_path('profile', $profile) . '/initial-content/';
+
+  if (!is_dir($file_path) || !is_file($file_path . $filename)) {
+    $message = dt('The file !file cannot be found', array(
+      '!file' => $file_path . $filename,
+    ));
+    drush_die($message);
+  }
+
+  ombucore_autoload();
+  include $file_path . $filename;
+
+  // Assume $wrapper exists in content script.
+  if (isset($wrapper)) {
+    $message = dt('Created node: !title (!path)', array(
+      '!title' => $wrapper->title->value(),
+      '!path' => url('node/' . $wrapper->nid->value()),
+    ));
+    drush_print($message);
+  }
+}
+
