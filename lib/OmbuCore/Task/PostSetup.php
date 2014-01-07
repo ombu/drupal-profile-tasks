@@ -22,7 +22,14 @@ class PostSetup extends Task {
       $active = workbench_access_get_active_tree();
       foreach ($active['tree'] as $item) {
         $data = array_merge($active['access_scheme'], $item);
-        workbench_access_section_save($data);
+
+        $existing = db_query("SELECT access_id FROM {workbench_access} WHERE access_id = :access_id AND access_scheme = :access_scheme", array(
+          ':access_id' => $data['access_id'],
+          ':access_scheme' => $data['access_scheme'],
+        ))->fetchAssoc();
+        if (!$existing) {
+          workbench_access_section_save($data);
+        }
       }
 
       // Add editor role to publisher user.
