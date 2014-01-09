@@ -79,5 +79,5 @@ special_menu_items_nolink_tag: '<a>'
 breadcrumb_show_page_title: 1
 
 # Set default permissions for new directories and files.
-file_chmod_directory: 2770
-file_chmod_file: 2660
+file_chmod_directory: 02770
+file_chmod_file: 02660
