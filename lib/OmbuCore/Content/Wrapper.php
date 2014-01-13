@@ -42,6 +42,7 @@ class Wrapper extends \EntityDrupalWrapper {
         $entity->field_access_section[LANGUAGE_NONE][0]['tid'] = $term->tid;
       }
 
+      $entity->revision = 1;
       $entity->workbench_moderation_state_new = 'published';
     }
 
