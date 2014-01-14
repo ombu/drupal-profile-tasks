@@ -40,9 +40,17 @@ class PostSetup extends Task {
       $account->roles[$editor_role->rid] = $editor_role->name;
       user_save($account);
 
+      // Make sure publisher gets proper access section.
       $term = taxonomy_get_term_by_name('Administrators only');
       $term = current($term);
-      workbench_access_user_section_save($account->uid, $term->tid, 'taxonomy');
+
+      $existing = db_query("SELECT access_id FROM {workbench_access_user} WHERE uid = :uid AND access_id = :access_id AND access_scheme = 'taxonomy'", array(
+        ':uid' => $account->uid,
+        ':access_id' => $term->tid,
+      ))->fetchAssoc();
+      if (!$existing) {
+        workbench_access_user_section_save($account->uid, $term->tid, 'taxonomy');
+      }
 
       // Disable workbench views.
       $views_status = variable_get('views_defaults', array());
