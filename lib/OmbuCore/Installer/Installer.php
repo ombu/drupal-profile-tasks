@@ -42,6 +42,7 @@ class Installer {
    */
   protected function setupDefaultTasks() {
     $this->tasks = array(
+      'PreSetup'     => 'Pre Setup',
       'Modules'      => 'Setup Modules',
       'Theme'        => 'Setup Themes',
       'ContentTypes' => 'Setup Content Types',
