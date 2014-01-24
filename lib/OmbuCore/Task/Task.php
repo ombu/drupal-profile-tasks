@@ -79,7 +79,12 @@ class Task implements TaskInterface {
   public function loadSettings($base_name) {
     try {
       $parser = new Parser($base_name, $this->profile);
-      return $parser->parse();
+      $settings = $parser->parse();
+
+      // Allow other modules to alter settings.
+      drupal_alter('ombucore_settings', $base_name, $settings);
+
+      return $settings;
     }
     catch (ParseException $e) {
       throw new TaskException(st('Unable to parse YAML string for !file: !error', array(

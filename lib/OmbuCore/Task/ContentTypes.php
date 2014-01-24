@@ -117,6 +117,10 @@ class ContentTypes extends Task {
           case 'menus':
             variable_set('menu_options_' . $type, $value);
             break;
+
+          default:
+            variable_set($type, $value);
+            break;
         }
       }
     }
