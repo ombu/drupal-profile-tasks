@@ -84,6 +84,7 @@ class AddContent extends Task {
     $node = $this->setupNode();
     $node->title = 'Home';
     $node->body[$node->language][0]['value'] = $this->lorem();
+    $node->body[$node->language][0]['format'] = 'default';
     node_save($node);
     variable_set('site_frontpage', 'node/' . $node->nid);
   }

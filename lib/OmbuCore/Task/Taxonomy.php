@@ -103,6 +103,7 @@ class Taxonomy extends Task {
       $term->vid = $vocab->vid;
       $term->name = $term_name;
       $term->description = $this->lorem();
+      $term->format = 'default';
       $term->weight = $weight++;
 
       // Assign parent term if present.
