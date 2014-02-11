@@ -39,6 +39,9 @@
 - smtp
 - chosen
 - chosen_ajax
+- date
+- date_popup
+- date_popup_authored
 
 # Custom modules
 - ombucleanup
