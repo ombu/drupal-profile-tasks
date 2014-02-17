@@ -118,7 +118,7 @@ class AddContent extends Task {
           $type = isset($content['#type']) ? $content['#type'] : 'page';
 
           // Create a new node.
-          $node = $this->setupMenuNode($title, $type);
+          $node = $this->setupMenuNode($title, $type, $content);
         }
 
         // Make sure a menu item is created for this node.
@@ -154,11 +154,13 @@ class AddContent extends Task {
    *   The title for the new node.
    * @param string $type
    *   The type of node to create.
+   * @param array $content
+   *   Any additional settings defined in $menu_nodes.
    *
    * @return object
    *   A new prepared node object.
    */
-  protected function setupMenuNode($title, $type = 'page') {
+  protected function setupMenuNode($title, $type = 'page', $content = array()) {
     $node = $this->setupNode($type);
     $node->title = $title;
 
