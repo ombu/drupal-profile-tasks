@@ -172,6 +172,10 @@ class Wrapper extends \EntityDrupalWrapper {
    * @return Wrapper
    */
   public function save() {
+    // Prevent the menu from being rebuilt every time a new node is saved.
+    // Not sure who is requesting the menu rebuild (it doesn't need it), so
+    // always try and disable the rebuild during each node save.
+    variable_set('menu_rebuild_needed', FALSE);
     parent::save();
 
     // Save all of the beans associated with this content via tiles.
