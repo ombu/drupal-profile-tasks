@@ -71,6 +71,13 @@ class Wrapper extends \EntityDrupalWrapper {
    */
   public function addBean($type, $region = 'content', $width = 12) {
     $bean = entity_create('bean', array('type' => $type));
+
+    $bean->label = $type;
+
+    $bean->setValues(array(
+      'view_mode' => 'default',
+    ));
+
     $this->beans[] = array(
       'bean' => $bean,
       'region' => $region,
