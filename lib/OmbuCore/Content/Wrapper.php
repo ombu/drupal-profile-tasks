@@ -203,6 +203,14 @@ class Wrapper extends \EntityDrupalWrapper {
    * @return Wrapper
    */
   public function save() {
+    // Save field collections.
+    if ($this->field_collections) {
+      foreach ($this->field_collections as $field_collection) {
+        $field_collection->setHostEntity($this->type(), $this->value());
+        $field_collection->save(TRUE);
+      }
+    }
+
     // Prevent the menu from being rebuilt every time a new node is saved.
     // Not sure who is requesting the menu rebuild (it doesn't need it), so
     // always try and disable the rebuild during each node save.
@@ -230,14 +238,6 @@ class Wrapper extends \EntityDrupalWrapper {
       $uri = $this->uri();
       $context = tiles_create_context($uri['path']);
       tiles_assign_tiles($context, $blocks);
-    }
-
-    // Save field collections.
-    if ($this->field_collections) {
-      foreach ($this->field_collections as $field_collection) {
-        $field_collection->setHostEntity($this->type(), $this->value());
-        $field_collection->save();
-      }
     }
   }
 }
