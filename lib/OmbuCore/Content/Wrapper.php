@@ -19,6 +19,13 @@ class Wrapper extends \EntityDrupalWrapper {
   protected $beans;
 
   /**
+   * Array of field collection entities that will be associated to this content on save.
+   *
+   * @param array
+   */
+  protected $field_collections;
+
+  /**
    * Construct a new Wrapper object.
    *
    * @param string $type
@@ -84,6 +91,23 @@ class Wrapper extends \EntityDrupalWrapper {
       'width' => $width,
     );
     return entity_metadata_wrapper('bean', $bean);
+  }
+
+  /**
+   * Create a new field collection associated to this content and return wrapper object.
+   *
+   * @param string $type
+   *   The type of field collection to create.
+   *
+   * @return EntityDrupalWrapper
+   *   Wrapper around field collection object.
+   */
+  public function addFieldCollection($type) {
+    $field_collection_item = entity_create('field_collection_item', array('field_name' => $type));
+
+    $this->field_collections[] = $field_collection_item;
+
+    return entity_metadata_wrapper('field_collection_item', $field_collection_item);
   }
 
   /**
@@ -206,6 +230,14 @@ class Wrapper extends \EntityDrupalWrapper {
       $uri = $this->uri();
       $context = tiles_create_context($uri['path']);
       tiles_assign_tiles($context, $blocks);
+    }
+
+    // Save field collections.
+    if ($this->field_collections) {
+      foreach ($this->field_collections as $field_collection) {
+        $field_collection->setHostEntity($this->type(), $this->value());
+        $field_collection->save();
+      }
     }
   }
 }
