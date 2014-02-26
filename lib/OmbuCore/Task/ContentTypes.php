@@ -99,7 +99,24 @@ class ContentTypes extends Task {
       }
     }
 
-    foreach ($this->node_settings as $type => $settings) {
+    // If default settings have been set, use them as the base for all node
+    // types.
+    if (isset($this->node_settings['defaults'])) {
+      $default_settings = $this->node_settings['defaults'];
+      unset($this->node_settings['defaults']);
+    }
+
+    // Apply settings for each nodes.
+    $types = node_type_get_types();
+    foreach ($types as $type) {
+      $type = $type->type;
+
+      // If there's node specific settings, merge in with default settings.
+      $settings = $default_settings;
+      if (isset($this->node_settings[$type])) {
+        $settings = $this->node_settings[$type] + $default_settings;
+      }
+
       foreach ($settings as $key => $value) {
         switch ($key) {
           case 'options':
@@ -119,7 +136,9 @@ class ContentTypes extends Task {
             break;
 
           default:
-            variable_set($type, $value);
+            // Default setting, handle any node type placement by replacing
+            // [type] placeholder with node type.
+            variable_set(str_replace('[type]', $type, $key), $value);
             break;
         }
       }
