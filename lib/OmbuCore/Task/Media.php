@@ -21,7 +21,7 @@ class Media extends Task {
     $file_display = new \stdClass();
     $file_display->api_version = 1;
     $file_display->name = 'video__default__oembed';
-    $file_display->weight = 0;
+    $file_display->weight = -10;
     $file_display->status = TRUE;
     $file_display->settings = array(
       'width' => '560',
@@ -33,7 +33,7 @@ class Media extends Task {
     $file_display = new \stdClass();
     $file_display->api_version = 1;
     $file_display->name = 'video__default__oembed_thumbnail';
-    $file_display->weight = 0;
+    $file_display->weight = -10;
     $file_display->status = TRUE;
     $file_display->settings = array(
       'width' => '180',
@@ -44,22 +44,22 @@ class Media extends Task {
     $file_display = new \stdClass();
     $file_display->api_version = 1;
     $file_display->name = 'video__preview__oembed_thumbnail';
-    $file_display->weight = 0;
+    $file_display->weight = -10;
     $file_display->status = TRUE;
     $file_display->settings = array(
       'width' => '100',
-      'height' => '',
+      'height' => '75',
     );
     file_display_save($file_display);
 
     $file_display = new \stdClass();
     $file_display->api_version = 1;
     $file_display->name = 'video__teaser__oembed_thumbnail';
-    $file_display->weight = 0;
+    $file_display->weight = -10;
     $file_display->status = TRUE;
     $file_display->settings = array(
       'width' => '100',
-      'height' => '',
+      'height' => '75',
     );
     file_display_save($file_display);
 
