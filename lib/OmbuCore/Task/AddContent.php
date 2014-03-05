@@ -93,11 +93,13 @@ class AddContent extends Task {
    * Build structured nodes into a menu system.
    */
   protected function buildMenu($menu_name, $nodes, $parent = NULL) {
+    $weight = -50;
 
     foreach ($nodes as $title => $content) {
       // Check if a defined link exists
       if (isset($content['#link'])) {
-        $menu_link = $this->defaultMenuOptions() + array(
+        $menu_link = $this->defaultMenuOptions($content) + array(
+          'weight' => $weight++,
           'menu_name' => $menu_name,
           'link_title' => $title,
           'link_path' => $content['#link'],
@@ -122,7 +124,8 @@ class AddContent extends Task {
         }
 
         // Make sure a menu item is created for this node.
-        $node->menu = $this->defaultMenuOptions() + array(
+        $node->menu = $this->defaultMenuOptions($content) + array(
+          'weight' => $weight++,
           'menu_name' => $menu_name,
           'link_title' => isset($content['#link_title']) ? $content['#link_title'] : $node->title,
         );
@@ -188,15 +191,15 @@ class AddContent extends Task {
    * Allows subclasses to setup alternate or additional options, such as
    * 'expanded'.
    *
+   * @param array $menu_link
+   *   Menu link definition as defined in $menu_nodes.
+   *
    * @return array
    *   Array of menu link options as expected by menu_link_save().
    */
-  protected function defaultMenuOptions() {
-    static $weight = 0;
-
+  protected function defaultMenuOptions($menu_link) {
     return array(
       'enabled' => TRUE,
-      'weight' => $weight++,
     );
   }
 
