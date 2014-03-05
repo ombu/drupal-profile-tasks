@@ -206,7 +206,10 @@ class Wrapper extends \EntityDrupalWrapper {
     // Save field collections.
     if ($this->field_collections) {
       foreach ($this->field_collections as $field_collection) {
-        $field_collection->setHostEntity($this->type(), $this->value());
+        // Ensure the correct language is set for the field on the host entity.
+        $langcode = entity_metadata_field_get_language($this->type(), $this->value(), $field_collection->fieldInfo());
+
+        $field_collection->setHostEntity($this->type(), $this->value(), $langcode);
         $field_collection->save(TRUE);
       }
     }
@@ -239,5 +242,7 @@ class Wrapper extends \EntityDrupalWrapper {
       $context = tiles_create_context($uri['path']);
       tiles_assign_tiles($context, $blocks);
     }
+
+    return $this;
   }
 }
