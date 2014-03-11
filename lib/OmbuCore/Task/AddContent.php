@@ -240,6 +240,16 @@ class AddContent extends Task {
         throw new TaskException('Content file ' . $name . ' malformed, must create Wrapper object');
       }
 
+      $node = $wrapper->value();
+
+      // In order to properly set the tokens for the node in the menu, the token
+      // menu cache for this node needs to be rebuilt.
+      // @see token_node_menu_link_load().
+      $cache =& drupal_static('token_node_menu_link_load', array());
+      if (isset($cache[$node->nid])) {
+        unset($cache[$node->nid]);
+      }
+
       return $wrapper->value();
     }
     catch (WrapperException $e) {
