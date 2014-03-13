@@ -71,10 +71,10 @@ jquery_update_compression_type: 'min'
 jquery_update_jquery_cdn: 'none'
 jquery_update_jquery_version: '1.7'
 
-# Apply chosen to all select fields, except chosen-ajax widgets.
-chosen_jquery_selector: 'select:not(".form-chosen-ajax")'
-chosen_placeholder_text_multiple: 'Select one or more'
-chosen_minimum_multiple: 'Always Apply'
+# Apply select2 to all select fields.
+select2_use_for_ac_elements: 1
+select2_use_for_all_select_elements: 1
+select2_use_for_all_select_elements_for_admin_pages: 1
 
 # Special menu items
 special_menu_items_separator: 0

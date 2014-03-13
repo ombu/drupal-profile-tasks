@@ -37,8 +37,7 @@
 - xmlsitemap_node
 - special_menu_items
 - smtp
-- chosen
-- chosen_ajax
+- select2
 - date
 - date_popup
 - date_popup_authored
