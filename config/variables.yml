@@ -75,6 +75,7 @@ jquery_update_jquery_version: '1.7'
 select2_use_for_ac_elements: 1
 select2_use_for_all_select_elements: 1
 select2_use_for_all_select_elements_for_admin_pages: 1
+select2_excluded_ids: 'core-content-select'
 
 # Special menu items
 special_menu_items_separator: 0
