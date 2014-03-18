@@ -53,9 +53,6 @@ class Taxonomy extends Task {
 
         // Create new terms.
         if ($info['terms']) {
-          if ($machine_name == 'map_category') {
-            print_r($info['terms']);
-          }
           $this->processTerms($info['terms'], $vocab);
         }
       }
