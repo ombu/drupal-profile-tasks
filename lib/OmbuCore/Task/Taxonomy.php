@@ -53,6 +53,9 @@ class Taxonomy extends Task {
 
         // Create new terms.
         if ($info['terms']) {
+          if ($machine_name == 'map_category') {
+            print_r($info['terms']);
+          }
           $this->processTerms($info['terms'], $vocab);
         }
       }
@@ -96,6 +99,9 @@ class Taxonomy extends Task {
       $subterms = array();
       if (is_array($term_name)) {
         $subterms = $term_name;
+        $term_name = $key;
+      }
+      elseif (is_null($term_name)) {
         $term_name = $key;
       }
 
