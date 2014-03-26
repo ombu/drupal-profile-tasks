@@ -190,7 +190,6 @@ function ombucore_image_scale_and_crop_effect(&$image, $data) {
   }
 
   $ratio = max($width_ratio, $height_ratio);
-  $image_ratio = $image_width / $image_height);
   $width = $image_width * $ratio;
   $height = $image_height * $ratio;
 
