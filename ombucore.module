@@ -143,6 +143,68 @@ function ombucore_context_page_condition() {
 }
 
 /**
+ * Implements hook_image_effect_info().
+ *
+ * New image effect to scale/crop with ability to select center point.
+ */
+function ombucore_image_effect_info() {
+  $effects = array(
+    'image_scale_and_crop_center' => array(
+      'label' => t('Scale and crop - centering'),
+      'help' => t('Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension with the ability to select center point.'),
+      'effect callback' => 'ombucore_image_scale_and_crop_effect',
+      'dimensions callback' => 'image_resize_dimensions',
+      'form callback' => 'image_crop_form',
+      'summary theme' => 'image_resize_summary',
+    ),
+  );
+
+  return $effects;
+}
+
+/**
+ * Image effect callback.
+ */
+function ombucore_image_scale_and_crop_effect(&$image, $data) {
+  // Set sane default values.
+  $data += array(
+    'anchor' => 'center-top',
+    'upscale' => TRUE,
+  );
+
+  // Figure out the correct aspect ratio to scale image to in order for the
+  // cropping to result in a true sized crop. This means that in some cases the
+  // height and the width will be greater than the dimensions expected for the
+  // crop.
+  $image_width = $image->info['width'];
+  $image_height = $image->info['height'];
+  $width = $data['width'];
+  $height = $data['height'];
+  if ($image_width >= $image_height) {
+    $width_ratio = $height / $image_width;
+    $height_ratio = $width / $image_height;
+  }
+  else {
+    $width_ratio = $width / $image_width;
+    $height_ratio = $height / $image_height;
+  }
+
+  $ratio = max($width_ratio, $height_ratio);
+  $image_ratio = $image_width / $image_height);
+  $width = $image_width * $ratio;
+  $height = $image_height * $ratio;
+
+  if (image_resize($image, $width, $height)) {
+    list($x, $y) = explode('-', $data['anchor']);
+    $x = image_filter_keyword($x, $image->info['width'], $data['width']);
+    $y = image_filter_keyword($y, $image->info['height'], $data['height']);
+
+    return image_crop($image, $x, $y, $data['width'], $data['height']);
+  }
+  return FALSE;
+}
+
+/**
  * 404 page callback.
  */
 function ombucore_404_page() {
