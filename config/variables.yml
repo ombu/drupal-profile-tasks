@@ -69,7 +69,7 @@ redirect_auto_redirect: 0
 # Update jQuery to 1.7. Needed in order for Bootstrap JS components to work.
 jquery_update_compression_type: 'min'
 jquery_update_jquery_cdn: 'none'
-jquery_update_jquery_version: '1.7'
+jquery_update_jquery_version: '1.10'
 
 # Apply select2 to all select fields.
 select2_use_for_ac_elements: 1
