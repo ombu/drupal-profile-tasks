@@ -104,7 +104,7 @@ class Users extends Task {
       $user = user_save(new \stdClass(), $user);
 
       // Grand access section to editor role.
-      if ($role_name == 'editor') {
+      if ($role_name != 'admin') {
         $this->grantAccessSection($user);
       }
     }

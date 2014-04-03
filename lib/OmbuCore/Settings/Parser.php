@@ -70,10 +70,13 @@ class Parser {
   /**
    * Parse config yaml file.
    *
+   * @param bool $applyOverrides.
+   *   Whether to apply overrides from active profile.
+   *
    * @return array
-   *   The final settings for given $base_name, with any overrides applied.
+   *   The final settings for given $base_name.
    */
-  public function parse() {
+  public function parse($applyOverrides = TRUE) {
     // Load up default settings.
     $config_file = $this->getFileName('module', 'ombucore');
 
@@ -97,7 +100,9 @@ class Parser {
       $settings = $this->parser->parse(file_get_contents($config_file));
 
       // Apply any overrides.
-      $this->applyOverrides($settings);
+      if ($applyOverrides) {
+        $this->applyOverrides($settings);
+      }
     }
 
     return $settings;
@@ -121,13 +126,40 @@ class Parser {
       }
 
       if (isset($overrides['add'])) {
-        $settings = array_merge_recursive($settings, $overrides['add']);
+        $settings = $this->addSettings($settings, $overrides['add']);
       }
 
       if (isset($overrides['remove'])) {
-        $settings = $this->removeSettings($settings, $overrides['add']);
+        $settings = $this->removeSettings($settings, $overrides['remove']);
       }
     }
+  }
+
+  /**
+   * Add values within a settings array.
+   *
+   * @param array $settings
+   *   Settings array
+   * @param array $overrides
+   *   Overrides array
+   *
+   * @return array
+   *   New settings array with all additions/edits from overrides.
+   */
+  protected function addSettings($settings, $overrides) {
+    foreach ($overrides as $key => $value) {
+      if (is_array($value) && isset($settings[$key]) && is_array($settings[$key])) {
+        $settings[$key] = $this->addSettings($settings[$key], $value);
+      }
+      elseif (is_int($key) && !is_array($value)) {
+        $settings[] = $value;
+      }
+      else {
+        $settings[$key] = $value;
+      }
+    }
+
+    return $settings;
   }
 
   /**
@@ -147,7 +179,7 @@ class Parser {
         $settings[$key] = $this->removeSettings($settings[$key], $value);
       }
       elseif (is_int($key) && !is_array($value)) {
-        unset($settings[array_search($settings, $value)]);
+        unset($settings[array_search($value, $settings)]);
       }
       else{
         unset($settings[$key]);

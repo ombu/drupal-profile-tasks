@@ -35,7 +35,7 @@ class Taxonomy extends Task {
   public function settings() {
     $settings = $this->loadSettings('taxonomy');
 
-    if (isset($settings['vocabularies'])) {
+    if (!empty($settings['vocabularies'])) {
       $this->vocabularies = $settings['vocabularies'];
     }
   }
@@ -98,11 +98,15 @@ class Taxonomy extends Task {
         $subterms = $term_name;
         $term_name = $key;
       }
+      elseif (is_null($term_name)) {
+        $term_name = $key;
+      }
 
       $term = new \stdClass();
       $term->vid = $vocab->vid;
       $term->name = $term_name;
       $term->description = $this->lorem();
+      $term->format = 'default';
       $term->weight = $weight++;
 
       // Assign parent term if present.

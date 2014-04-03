@@ -42,6 +42,7 @@ class Installer {
    */
   protected function setupDefaultTasks() {
     $this->tasks = array(
+      'PreSetup'     => 'Pre Setup',
       'Modules'      => 'Setup Modules',
       'Theme'        => 'Setup Themes',
       'ContentTypes' => 'Setup Content Types',
@@ -51,6 +52,8 @@ class Installer {
       'Blocks'       => 'Setup Blocks',
       'InputFormats' => 'Setup Input Formats',
       'Wysiwyg'      => 'Setup WYSIWYG',
+      'Media'        => 'Setup Media',
+      'Translation'  => 'Setup Translations',
       'Users'        => 'Setup Roles & Users',
       'AddContent'   => 'Add Content',
       'PostSetup'    => 'Post Setup',

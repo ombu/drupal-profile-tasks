@@ -1,11 +1,11 @@
 menus:
-    -
-        menu_name: header-menu
-        title: 'Header Menu'
-        description: 'The header menu displays links in the header of the site.'
-    -
-        menu_name: footer-menu
-        title: 'Footer Menu'
-        description: 'The footer menu displays links in the footer of the site.'
+  header_menu:
+    menu_name: header-menu
+    title: 'Header Menu'
+    description: 'The header menu displays links in the header of the site.'
+  footer_menu:
+    menu_name: footer-menu
+    title: 'Footer Menu'
+    description: 'The footer menu displays links in the footer of the site.'
 main_menu: main-menu
 secondary_menu: footer-menu

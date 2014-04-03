@@ -79,7 +79,12 @@ class Task implements TaskInterface {
   public function loadSettings($base_name) {
     try {
       $parser = new Parser($base_name, $this->profile);
-      return $parser->parse();
+      $settings = $parser->parse();
+
+      // Allow other modules to alter settings.
+      drupal_alter('ombucore_settings', $base_name, $settings);
+
+      return $settings;
     }
     catch (ParseException $e) {
       throw new TaskException(st('Unable to parse YAML string for !file: !error', array(
@@ -106,7 +111,11 @@ class Task implements TaskInterface {
     $node = new \stdClass();
     $node->type = $type;
     node_object_prepare($node);
-    $node->language = LANGUAGE_NONE;
+
+    // Set language to default language if locale module is enabled (to enable
+    // translations on content). Otherwise use language none.
+    $node->language = module_exists('locale') ? language_default()->language : LANGUAGE_NONE;
+
     $node->uid = 1;
 
     return $node;
@@ -116,6 +125,6 @@ class Task implements TaskInterface {
    * Lorem ipsum generator.
    */
   protected function lorem() {
-    return 'Urna dolor, dolor lectus porttitor cum? Scelerisque scelerisque rhoncus nec. Arcu proin. Nunc elit ultricies et tristique et mauris aliquet dolor ultrices cras eu lorem adipiscing? Sed cras, aenean sit eros a, pulvinar, placerat aenean ultrices nascetur nunc adipiscing porta! Platea velit. Odio augue, tempor cursus? Pellentesque eu, lorem sagittis, ut elementum sit tempor lorem natoque? Facilisis magna rhoncus turpis? Ut scelerisque mid porttitor dignissim. Vel! Massa scelerisque quis ultricies natoque magna, et odio elementum. Risus, urna proin dis parturient! Risus. Nunc vut tempor, arcu, natoque ac cras scelerisque duis. In lundium nunc turpis tempor odio scelerisque tempor, natoque vel, sagittis dignissim, ac odio. Dictumst in vel natoque, eros dictumst tincidunt aliquet? Sit velit, nunc dapibus porttitor vel porta porta.';
+    return '<p>Urna dolor, dolor lectus porttitor cum? Scelerisque scelerisque rhoncus nec. Arcu proin. Nunc elit ultricies et tristique et mauris aliquet dolor ultrices cras eu lorem adipiscing? Sed cras, aenean sit eros a, pulvinar, placerat aenean ultrices nascetur nunc adipiscing porta! Platea velit. Odio augue, tempor cursus? Pellentesque eu, lorem sagittis, ut elementum sit tempor lorem natoque? Facilisis magna rhoncus turpis? Ut scelerisque mid porttitor dignissim. Vel! Massa scelerisque quis ultricies natoque magna, et odio elementum. Risus, urna proin dis parturient! Risus. Nunc vut tempor, arcu, natoque ac cras scelerisque duis. In lundium nunc turpis tempor odio scelerisque tempor, natoque vel, sagittis dignissim, ac odio. Dictumst in vel natoque, eros dictumst tincidunt aliquet? Sit velit, nunc dapibus porttitor vel porta porta.</p>';
   }
 }

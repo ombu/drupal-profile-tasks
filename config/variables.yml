@@ -8,7 +8,7 @@ date_first_day: 1
 site_404: ombucore_404
 
 # Date & time settings.
-date_default_timezone_name: America/Los_Angeles
+date_default_timezone: America/Los_Angeles
 configurable_timezones: 0
 
 # Error reporting:
@@ -42,6 +42,10 @@ default_oembedcore_provider:
     qik: false
     revision3: false
     twitter: false
+media__wysiwyg_browser_plugins:
+  - upload
+  - media_default--media_browser_1
+  - media_internet
 
 # Update Action
 #  0 - Do nothing. Leave the old alias intact.
@@ -54,4 +58,35 @@ pathauto_reduce_ascii: true
 pathauto_node_applytofeeds: ''
 
 # Default node pattern.
-pathauto_node_pattern: 'content/[node:title]'
+pathauto_node_pattern: '[node:title]'
+
+# Node pattern for pages, use menu structure.
+pathauto_node_page_pattern: '[node:menu-link:parents:join-path]/[node:title]'
+
+# Disable auto redirects.
+redirect_auto_redirect: 0
+
+# Update jQuery to 1.7. Needed in order for Bootstrap JS components to work.
+jquery_update_compression_type: 'min'
+jquery_update_jquery_cdn: 'none'
+jquery_update_jquery_version: '1.10'
+
+# Apply select2 to all select fields.
+select2_use_for_ac_elements: 1
+select2_use_for_all_select_elements: 1
+select2_use_for_all_select_elements_for_admin_pages: 1
+select2_excluded_ids: 'core-content-select'
+
+# Special menu items
+special_menu_items_separator: 0
+special_menu_items_nolink_tag: '<a>'
+
+# Show title in breadcrumbs
+breadcrumb_show_page_title: 1
+
+# Set default permissions for new directories and files.
+# Note that these are decimal representations of octal numbers:
+#  1528 = 02770
+#  432  = 0660
+file_chmod_directory: 1528
+file_chmod_file: 432
