@@ -41,6 +41,7 @@
 - date
 - date_popup
 - date_popup_authored
+- field_group
 
 # Custom modules
 - ombucleanup
