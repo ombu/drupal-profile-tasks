@@ -1,7 +1,7 @@
-Base Profile
+Profile tasks
 ============
 
-Provides default configuration for OMBU profile installations.
+Provides default configuration and tasks for use in Drupal profiles.
 
 Setup
 -----
