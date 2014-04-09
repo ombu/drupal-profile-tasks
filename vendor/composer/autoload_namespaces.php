@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symfony\\Component\\Yaml' => $vendorDir . '/symfony/yaml/',
-    'OmbuCore' => $baseDir . '/lib/',
+    'ProfileTasks' => $baseDir . '/lib/',
 );

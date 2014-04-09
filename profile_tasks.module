@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ *
+ * Extensible task installer for Drupal profiles.
+ */
+
+/**
+ * Instantiates and registers Composer autoloader.
+ *
+ * @return \Composer\Autoload\ClassLoader
+ *   Composer autoloader.
+ */
+function profile_tasks_autoload() {
+  $loader = require drupal_get_path('module', 'profile_tasks') . '/vendor/autoload.php';
+  return $loader;
+}

@@ -44,6 +44,7 @@
 - field_group
 
 # Custom modules
+- profile_tasks
 - ombucleanup
 - ombudashboard
 - ombuseo

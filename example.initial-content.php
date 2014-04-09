@@ -28,7 +28,7 @@
  * array.
  */
 
-use OmbuCore\Content\Wrapper;
+use ProfileTasks\Content\Wrapper;
 
 // Create a new wrapper around a new node. The first parameter is the type of
 // entity to create (most often 'node'). Any parameters defined in the second

@@ -1,8 +1,8 @@
 {
-    "name": "drupal/ombucore",
+    "name": "drupal/profile_tasks",
     "description": "Core profile task setup for Drupal",
     "autoload": {
-        "psr-0": { "OmbuCore": "lib/" }
+        "psr-0": { "ProfileTasks": "lib/" }
     },
     "require": {
         "symfony/yaml": "2.1.*"
