@@ -22,6 +22,9 @@ statistics_enable_access_log: true
 # Set default contact status (gets added to the users data field)
 contact_default_status: 0;
 
+# Enable smtp module by default.
+smtp_on: 1
+
 # Registration settings:
 #  0 - Only site admins can create new accounts.
 #  1 - Visitors can create accounts without admin approval.
