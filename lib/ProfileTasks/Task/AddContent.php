@@ -85,7 +85,12 @@ class AddContent extends Task {
     $node->title = 'Home';
     $node->body[$node->language][0]['value'] = $this->lorem();
     $node->body[$node->language][0]['format'] = 'default';
+
+    // Disable XMLSitemap on frontpage.
+    $node->xmlsitemap['status'] = 0;
+
     node_save($node);
+
     variable_set('site_frontpage', 'node/' . $node->nid);
   }
 

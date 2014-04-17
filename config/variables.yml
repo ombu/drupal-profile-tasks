@@ -22,6 +22,9 @@ statistics_enable_access_log: true
 # Set default contact status (gets added to the users data field)
 contact_default_status: 0;
 
+# Enable smtp module by default.
+smtp_on: 1
+
 # Registration settings:
 #  0 - Only site admins can create new accounts.
 #  1 - Visitors can create accounts without admin approval.
@@ -80,6 +83,7 @@ select2_excluded_ids: 'core-content-select'
 # Special menu items
 special_menu_items_separator: 0
 special_menu_items_nolink_tag: '<a>'
+special_menu_items_separator_tag: '<div>'
 
 # Show title in breadcrumbs
 breadcrumb_show_page_title: 1
