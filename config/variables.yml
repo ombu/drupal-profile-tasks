@@ -20,7 +20,7 @@ error_level: 0
 statistics_enable_access_log: true
 
 # Set default contact status (gets added to the users data field)
-contact_default_status: 0;
+contact_default_status: 0
 
 # Enable smtp module by default.
 smtp_on: 1
@@ -29,10 +29,10 @@ smtp_on: 1
 #  0 - Only site admins can create new accounts.
 #  1 - Visitors can create accounts without admin approval.
 #  2 - Visitors can create accounts with admin approval.
-user_register: 0;
+user_register: 0
 
 # Require email varification when a visitor creates an account
-user_email_verification: 0;
+user_email_verification: 0
 
 # Enable SEO on page content types.
 ombuseo_node_page: 1
