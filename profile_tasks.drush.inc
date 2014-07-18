@@ -117,7 +117,7 @@ function drush_profile_tasks_dump_variables() {
   file_prepare_directory(dirname($export_file_path), FILE_CREATE_DIRECTORY);
 
   $overrides = $parser->parse(file_get_contents($export_file_path));
-  $overrides['add'] = $settings + $overrides['add'];
+  $overrides['add'] = $settings + (isset($overrides['add']) ? $overrides['add'] : array());
 
   $yaml = $dumper->dump($overrides, 5);
   file_put_contents($export_file_path, $yaml);
