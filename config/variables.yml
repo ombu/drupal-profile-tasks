@@ -75,6 +75,7 @@ jquery_update_jquery_cdn: 'none'
 jquery_update_jquery_version: '1.10'
 
 # Apply select2 to all select fields.
+select2_update_settings_by_ajax: 1
 select2_use_for_ac_elements: 1
 select2_use_for_all_select_elements: 1
 select2_use_for_all_select_elements_for_admin_pages: 1
