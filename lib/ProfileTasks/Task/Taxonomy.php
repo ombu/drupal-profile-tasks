@@ -89,7 +89,6 @@ class Taxonomy extends Task {
    *   Parent term, if creating sub terms.
    */
   protected function processTerms($terms, $vocab, $parent = NULL) {
-    static $weight = 0;
     foreach ($terms as $key => $term_name) {
       // If term is an array, then recursively create terms associated to
       // correct parent.
@@ -102,23 +101,53 @@ class Taxonomy extends Task {
         $term_name = $key;
       }
 
-      $term = new \stdClass();
-      $term->vid = $vocab->vid;
-      $term->name = $term_name;
-      $term->description = $this->lorem();
-      $term->format = 'default';
-      $term->weight = $weight++;
-
-      // Assign parent term if present.
-      if ($parent) {
-        $term->parent = $parent->tid;
-      }
-
-      taxonomy_term_save($term);
+      $term = $this->createTerm($term_name, $vocab->vid, $parent);
+      $this->saveTerm($term);
 
       if ($subterms) {
         $this->processTerms($subterms, $vocab, $term);
       }
     }
+  }
+
+  /**
+   * Creates a new taxonomy term object.
+   *
+   * @param string $term_name
+   *   Term name
+   * @param int $vid
+   *   Vocabulary id
+   * @param object $parent_term
+   *   Parent term, if creating sub terms.
+   *
+   * @return object
+   *   Fully loaded taxonomy term object.
+   */
+  protected function createTerm($term_name, $vid, $parent = NULL) {
+    static $weight = 0;
+
+    $term = new \stdClass();
+    $term->vid = $vid;
+    $term->name = $term_name;
+    $term->description = $this->lorem();
+    $term->format = 'default';
+    $term->weight = $weight++;
+
+    // Assign parent term if present.
+    if ($parent) {
+      $term->parent = $parent->tid;
+    }
+
+    return $term;
+  }
+
+  /**
+   * Saves a taxonomy term object.
+   *
+   * @param object $term
+   *   The taxonomy term object.
+   */
+  protected function saveTerm($term) {
+    return taxonomy_term_save($term);
   }
 }
