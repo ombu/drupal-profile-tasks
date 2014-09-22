@@ -75,6 +75,7 @@ jquery_update_jquery_cdn: 'none'
 jquery_update_jquery_version: '1.10'
 
 # Apply select2 to all select fields.
+select2_update_settings_by_ajax: 1
 select2_use_for_ac_elements: 1
 select2_use_for_all_select_elements: 1
 select2_use_for_all_select_elements_for_admin_pages: 1
@@ -82,7 +83,7 @@ select2_excluded_ids: 'core-content-select'
 
 # Special menu items
 special_menu_items_separator: 0
-special_menu_items_nolink_tag: '<a>'
+special_menu_items_nolink_tag: '<span>'
 special_menu_items_separator_tag: '<div>'
 
 # Show title in breadcrumbs
