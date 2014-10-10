@@ -64,7 +64,9 @@ class Users extends Task {
 
       user_role_save($role);
 
-      user_role_grant_permissions($role->rid, $perms);
+      if (!empty($perms)) {
+        user_role_grant_permissions($role->rid, $perms);
+      }
     }
 
     // Assign user 1 the "administrator" role.
