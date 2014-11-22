@@ -26,6 +26,8 @@ admin:
     - 'administer xmlsitemap'
     - 'bypass file access'
     - 'bypass node access'
+    - 'change content owner'
+    - 'change content author'
     - 'configure ombuseo'
     - 'configure ombu site'
     - 'create page content'
