@@ -239,8 +239,17 @@ class Wrapper extends \EntityDrupalWrapper {
       // Generate new tiles context based on entity path and assign all new
       // blocks in order.
       $uri = $this->uri();
-      $context = tiles_create_context($uri['path']);
-      tiles_assign_tiles($context, $blocks);
+      if (function_exists('tiles_create_context')) {
+        $context = tiles_create_context($uri['path']);
+        tiles_assign_tiles($context, $blocks);
+      }
+      else {
+        $layout = tiles_get_container('region')->getLayout($uri['path']);
+        foreach ($blocks as $tile) {
+          $layout->addBlock($tile);
+        }
+        $layout->save();
+      }
     }
 
     return $this;

@@ -63,5 +63,11 @@ class Media extends Task {
     );
     file_display_save($file_display);
 
+    // Default to "large" image style for default image file display.
+    $displays = file_displays_load('image', 'default');
+    if (empty($displays['image__default__file_field_image']->settings['image_style'])) {
+      $displays['image__default__file_field_image']->settings['image_style'] = 'large';
+      file_display_save($displays['image__default__file_field_image']);
+    }
   }
 }
