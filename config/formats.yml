@@ -88,7 +88,7 @@ default:
                   Filter.ExtractStyleBlocks: '0'
                   Filter.YouTube: '0'
                   Null_HTML.Allowed: '1'
-                  HTML.AllowedAttributes: "class\r\ndir\r\nhref\r\nid\r\nlang\r\nname\r\nrel\r\nrev\r\ntarget\r\ntitle\r\nxml:lang\r\nsrc\r\nwidth\r\nheight"
+                  HTML.AllowedAttributes: "class\r\ndir\r\nhref\r\nid\r\nlang\r\nname\r\nrel\r\nrev\r\ntarget\r\ntitle\r\nxml:lang\r\nsrc\r\nwidth\r\nheight\r\ncolspan"
                   HTML.AllowedComments: ''
                   Null_HTML.AllowedCommentsRegexp: '1'
                   HTML.AllowedElements: "p\r\npre\r\nstrong\r\nb\r\nem\r\ni\r\nul\r\nol\r\nli\r\nh2\r\nh3\r\nh4\r\nh5\r\nh6\r\nbr\r\nblockquote\r\nsmall\r\nimg\r\na\r\ntable\r\ntbody\r\nthead\r\ntr\r\nth\r\ntd\r\ntfoot\r\nhr\r\niframe"
