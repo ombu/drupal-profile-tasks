@@ -95,3 +95,7 @@ breadcrumb_show_page_title: 1
 #  432  = 0660
 file_chmod_directory: 1528
 file_chmod_file: 432
+
+# Set default indexable state for tiles
+tiles_bean_type_index_defaults:
+  bean_rte_rte: 1
