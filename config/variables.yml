@@ -86,8 +86,9 @@ special_menu_items_separator: 0
 special_menu_items_nolink_tag: '<span>'
 special_menu_items_separator_tag: '<div>'
 
-# Show title in breadcrumbs
+# Show menu title in breadcrumbs
 breadcrumb_show_page_title: 1
+breadcrumb_use_menu_title: 1
 
 # Set default permissions for new directories and files.
 # Note that these are decimal representations of octal numbers:
