@@ -79,6 +79,7 @@ select2_update_settings_by_ajax: 1
 select2_use_for_ac_elements: 1
 select2_use_for_all_select_elements: 1
 select2_use_for_all_select_elements_for_admin_pages: 1
+select2_excluded_cleasses: 'tabledrag-hide'
 select2_excluded_ids: 'core-content-select'
 
 # Special menu items
