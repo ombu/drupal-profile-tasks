@@ -7,6 +7,10 @@
     - 'view any ombubeans_iframe bean'
     - 'view any ombuslide bean'
     - 'view files'
+    - 'download any audio files'
+    - 'download any document files'
+    - 'download any image files'
+    - 'download any video files'
 'authenticated user':
     - 'access content'
     - 'view any bean_container bean'
@@ -16,6 +20,10 @@
     - 'view any ombubeans_iframe bean'
     - 'view any ombuslide bean'
     - 'view files'
+    - 'download any audio files'
+    - 'download any document files'
+    - 'download any image files'
+    - 'download any video files'
 admin:
     - 'access all views'
     - 'access content'
