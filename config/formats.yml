@@ -124,7 +124,7 @@ default:
                   Output.SortAttr: '0'
                   Output.TidyFormat: '0'
                   Test.ForceNoIconv: '0'
-                  URI.AllowedSchemes: "http\r\nhttps\r\nmailto\r\nftp\r\nnntp\r\nnews"
+                  URI.AllowedSchemes: "http\r\nhttps\r\nmailto\r\nftp\r\nnntp\r\nnews\r\ntel"
                   Null_URI.Base: '1'
                   URI.DefaultScheme: http
                   URI.Disable: '0'
