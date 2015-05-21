@@ -110,7 +110,7 @@ class AddContent extends Task {
           'weight' => $weight++,
           'menu_name' => $menu_name,
           'link_title' => $title,
-          'link_path' => $content['#link'],
+          'link_path' => drupal_get_normal_path($content['#link']),
         );
         if ($parent) {
           $menu_link['plid'] = $parent['mlid'];
