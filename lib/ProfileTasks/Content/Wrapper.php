@@ -33,6 +33,13 @@ class Wrapper extends \EntityDrupalWrapper {
   protected $tilesWidth = 12;
 
   /**
+   * Tiles width for main content block.
+   *
+   * @param int
+   */
+  protected $tilesWeight = 0;
+
+  /**
    * Construct a new Wrapper object.
    *
    * @param string $type
@@ -104,6 +111,13 @@ class Wrapper extends \EntityDrupalWrapper {
    */
   public function setWidth($width) {
     $this->tilesWidth = $width;
+  }
+
+  /**
+   * Set content region width for main content region for this entity.
+   */
+  public function setWeight($weight) {
+    $this->tilesWeight = $weight;
   }
 
   /**
@@ -252,8 +266,6 @@ class Wrapper extends \EntityDrupalWrapper {
    */
   protected function saveBeans() {
     if ($this->beans) {
-      $weight = 0;
-
       // Initialize blocks with system main (entity content).
       $blocks = array();
       $blocks[] = array(
@@ -261,7 +273,7 @@ class Wrapper extends \EntityDrupalWrapper {
         'delta' => 'main',
         'region' => 'content',
         'width' => $this->tilesWidth,
-        'weight' => $weight++,
+        'weight' => $this->tilesWeight,
       );
 
       foreach ($this->beans as $info) {
@@ -272,7 +284,7 @@ class Wrapper extends \EntityDrupalWrapper {
           'delta' => $info['bean']->delta,
           'region' => $info['region'],
           'width' => $info['width'],
-          'weight' => $weight++,
+          'weight' => $this->tilesWeight++,
         );
       }
 
