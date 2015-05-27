@@ -79,15 +79,15 @@ class Wrapper extends \EntityDrupalWrapper {
    * @param int $width
    *   The width of the bean for tiles. Defaults to 12.
    *
-   * @return EntityDrupalWrapper
+   * @return Wrapper
    *   Wrapper around bean object.
    */
   public function addBean($type, $region = 'content', $width = 12) {
-    $bean = entity_create('bean', array('type' => $type));
+    $bean = new Wrapper('bean', array('type' => $type));
 
     $bean->label = $type;
 
-    $bean->setValues(array(
+    $bean->value()->setValues(array(
       'view_mode' => 'default',
     ));
 
@@ -96,7 +96,7 @@ class Wrapper extends \EntityDrupalWrapper {
       'region' => $region,
       'width' => $width,
     );
-    return entity_metadata_wrapper('bean', $bean);
+    return $bean;
   }
 
   /**
@@ -269,7 +269,7 @@ class Wrapper extends \EntityDrupalWrapper {
 
         $blocks[] = array(
           'module' => 'bean',
-          'delta' => $info['bean']->delta,
+          'delta' => $info['bean']->delta->value(),
           'region' => $info['region'],
           'width' => $info['width'],
           'weight' => $weight++,
