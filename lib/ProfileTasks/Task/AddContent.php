@@ -104,7 +104,7 @@ class AddContent extends Task {
     $weight = -50;
 
     foreach ($nodes as $title => $content) {
-      // Check if a defined link exists
+      // Check if a defined link exists.
       if (isset($content['#link'])) {
         $menu_link = $this->defaultMenuOptions($content) + array(
           'weight' => $weight++,
@@ -112,6 +112,14 @@ class AddContent extends Task {
           'link_title' => $title,
           'link_path' => drupal_get_normal_path($content['#link']),
         );
+        // If there is a description move that to $item['options']['attributes']['title'].
+        if (isset($menu_link['description'])){
+          $menu_link['options'] = array(
+            'attributes' => array(
+              'title' => $menu_link['description'],
+            ),
+          );
+        }
         if ($parent) {
           $menu_link['plid'] = $parent['mlid'];
         }
