@@ -24,6 +24,8 @@ contact_default_status: 0
 
 # Enable smtp module by default.
 smtp_on: 1
+mail_system:
+  "default-system": SmtpMailSystem
 
 # Registration settings:
 #  0 - Only site admins can create new accounts.
