@@ -28,7 +28,7 @@ default:
                 htmlpurifier_filter_tips: 'HTML tags will be transformed to conform to HTML standards.'
                 htmlpurifier_config: 
                   Attr.AllowedClasses: "lead\r\nbtn\r\npull-left\r\npull-right\r\ncta"
-                  Attr.AllowedFrameTargets: ''
+                  Attr.AllowedFrameTargets: "__blank\r\n__top\r\n__self\r\n__parent"
                   Attr.AllowedRel: ''
                   Attr.AllowedRev: ''
                   Null_Attr.ClassUseCDATA: '1'
