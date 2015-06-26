@@ -120,26 +120,32 @@ class ContentTypes extends Task {
       foreach ($settings as $key => $value) {
         switch ($key) {
           case 'options':
-            variable_set('node_options_' . $type, $value);
+            $variable_key = 'node_options_' . $type;
             break;
 
           case 'comments':
-            variable_set('comment_' . $type, $value);
+            $variable_key = 'comment_' . $type;
             break;
 
           case 'submitted':
-            variable_set('node_submitted_' . $type, $value);
+            $variable_key = 'node_submitted_' . $type;
             break;
 
           case 'menus':
-            variable_set('menu_options_' . $type, $value);
+            $variable_key = 'menu_options_' . $type;
             break;
 
           default:
             // Default setting, handle any node type placement by replacing
             // [type] placeholder with node type.
-            variable_set(str_replace('[type]', $type, $key), $value);
+            $variable_key = str_replace('[type]', $type, $key);
             break;
+        }
+
+        // Only set variable if it hasn't been set (e.g. in a contrib module
+        // that provides it's own content type).
+        if (!variable_get($variable_key, FALSE)) {
+          variable_set($variable_key, $value);
         }
       }
     }

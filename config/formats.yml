@@ -25,9 +25,10 @@ default:
             settings:
                 htmlpurifier_config_name: 'htmlpurifier_advanced'
                 htmlpurifier_help: 1
+                htmlpurifier_filter_tips: 'HTML tags will be transformed to conform to HTML standards.'
                 htmlpurifier_config: 
                   Attr.AllowedClasses: "lead\r\nbtn\r\npull-left\r\npull-right\r\ncta"
-                  Attr.AllowedFrameTargets: ''
+                  Attr.AllowedFrameTargets: "_blank\r\n_top\r\n_self\r\n_parent"
                   Attr.AllowedRel: ''
                   Attr.AllowedRev: ''
                   Null_Attr.ClassUseCDATA: '1'
@@ -123,7 +124,7 @@ default:
                   Output.SortAttr: '0'
                   Output.TidyFormat: '0'
                   Test.ForceNoIconv: '0'
-                  URI.AllowedSchemes: "http\r\nhttps\r\nmailto\r\nftp\r\nnntp\r\nnews"
+                  URI.AllowedSchemes: "http\r\nhttps\r\nmailto\r\nftp\r\nnntp\r\nnews\r\ntel"
                   Null_URI.Base: '1'
                   URI.DefaultScheme: http
                   URI.Disable: '0'

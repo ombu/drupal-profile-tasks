@@ -24,6 +24,8 @@ contact_default_status: 0
 
 # Enable smtp module by default.
 smtp_on: 1
+mail_system:
+  "default-system": SmtpMailSystem
 
 # Registration settings:
 #  0 - Only site admins can create new accounts.
@@ -79,6 +81,8 @@ select2_update_settings_by_ajax: 1
 select2_use_for_ac_elements: 1
 select2_use_for_all_select_elements: 1
 select2_use_for_all_select_elements_for_admin_pages: 1
+# This variable is mispelled in select2.module
+select2_excluded_cleasses: "tabledrag-hide\r\nselect2-exclude"
 select2_excluded_ids: 'core-content-select'
 
 # Special menu items

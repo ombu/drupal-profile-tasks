@@ -72,12 +72,12 @@ class Media extends Task {
       $file_display->weight = -10;
       $file_display->status = TRUE;
       $file_display->settings = array(
-        'image_style' => 'large',
+        'image_style' => variable_get('image_default_image_style', 'large'),
       );
       file_display_save($file_display);
     }
     elseif (empty($displays['image__default__file_field_image']->settings['image_style'])) {
-      $displays['image__default__file_field_image']->settings['image_style'] = 'large';
+      $displays['image__default__file_field_image']->settings['image_style'] = variable_get('image_default_image_style', 'large');
       file_display_save($displays['image__default__file_field_image']);
     }
 

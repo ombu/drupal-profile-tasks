@@ -36,6 +36,9 @@ class AddContent extends Task {
    *             'How We Work' => array(),
    *             'Our Departments' => array(
    *               '#link' => 'about-us/our-team/our-departments',
+   *               '#options' => array(
+   *                 'expanded' => 1,
+   *               ),
    *             ),
    *             'Work With Us' => array(),
    *           ),
@@ -203,7 +206,7 @@ class AddContent extends Task {
    *   Array of menu link options as expected by menu_link_save().
    */
   protected function defaultMenuOptions($menu_link) {
-    return array(
+    return (isset($menu_link['#options']) ? $menu_link['#options'] : array()) + array(
       'enabled' => TRUE,
     );
   }

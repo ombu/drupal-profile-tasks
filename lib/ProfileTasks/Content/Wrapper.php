@@ -19,11 +19,18 @@ class Wrapper extends \EntityDrupalWrapper {
   protected $beans;
 
   /**
-   * Array of field collection entities that will be associated to this content on save.
+   * Array of field collection entities that will be associated to this content.
    *
    * @param array
    */
   protected $field_collections;
+
+  /**
+   * Tiles width for main content block.
+   *
+   * @param int
+   */
+  protected $tilesWidth = 12;
 
   /**
    * Construct a new Wrapper object.
@@ -53,7 +60,6 @@ class Wrapper extends \EntityDrupalWrapper {
       $entity->workbench_moderation_state_new = 'published';
     }
 
-
     // Set language to default language if locale module is enabled.
     if ($type == 'node' && module_exists('locale')) {
       $entity->language = language_default()->language;
@@ -73,15 +79,15 @@ class Wrapper extends \EntityDrupalWrapper {
    * @param int $width
    *   The width of the bean for tiles. Defaults to 12.
    *
-   * @return EntityDrupalWrapper
+   * @return Wrapper
    *   Wrapper around bean object.
    */
   public function addBean($type, $region = 'content', $width = 12) {
-    $bean = entity_create('bean', array('type' => $type));
+    $bean = new Wrapper('bean', array('type' => $type));
 
     $bean->label = $type;
 
-    $bean->setValues(array(
+    $bean->value()->setValues(array(
       'view_mode' => 'default',
     ));
 
@@ -90,11 +96,18 @@ class Wrapper extends \EntityDrupalWrapper {
       'region' => $region,
       'width' => $width,
     );
-    return entity_metadata_wrapper('bean', $bean);
+    return $bean;
   }
 
   /**
-   * Create a new field collection associated to this content and return wrapper object.
+   * Set content region width for main content region for this entity.
+   */
+  public function setWidth($width) {
+    $this->tilesWidth = $width;
+  }
+
+  /**
+   * Create a new field collection associated to this content.
    *
    * @param string $type
    *   The type of field collection to create.
@@ -162,7 +175,6 @@ class Wrapper extends \EntityDrupalWrapper {
    * @param string $vocabulary_name
    *   Valid vocabulary.
    *
-   *
    * @return stdObject
    *   The term object, either new or existing, appropriate for use with an
    *   EntityMetadataWrapper field.
@@ -203,7 +215,25 @@ class Wrapper extends \EntityDrupalWrapper {
    * @return Wrapper
    */
   public function save() {
-    // Save field collections.
+    $this->saveFieldCollections();
+
+    // Prevent the menu from being rebuilt every time a new node is saved.
+    // Not sure who is requesting the menu rebuild (it doesn't need it), so
+    // always try and disable the rebuild during each node save.
+    variable_set('menu_rebuild_needed', FALSE);
+    parent::save();
+
+    // Save beans once entity is saved since tiles needs entity URI in order to
+    // save layout.
+    $this->saveBeans();
+
+    return $this;
+  }
+
+  /**
+   * Save associated field collections for this entity.
+   */
+  protected function saveFieldCollections() {
     if ($this->field_collections) {
       foreach ($this->field_collections as $field_collection) {
         // Ensure the correct language is set for the field on the host entity.
@@ -213,26 +243,36 @@ class Wrapper extends \EntityDrupalWrapper {
         $field_collection->save(TRUE);
       }
     }
+  }
 
-    // Prevent the menu from being rebuilt every time a new node is saved.
-    // Not sure who is requesting the menu rebuild (it doesn't need it), so
-    // always try and disable the rebuild during each node save.
-    variable_set('menu_rebuild_needed', FALSE);
-    parent::save();
-
-    // Save all of the beans associated with this content via tiles.
+  /**
+   * Save associated beans for this entity.
+   *
+   * Also creates associated tiles layout for entity.
+   */
+  protected function saveBeans() {
     if ($this->beans) {
-      $blocks = array();
       $weight = 0;
+
+      // Initialize blocks with system main (entity content).
+      $blocks = array();
+      $blocks[] = array(
+        'module' => 'system',
+        'delta' => 'main',
+        'region' => 'content',
+        'width' => $this->tilesWidth,
+        'weight' => $weight++,
+      );
+
       foreach ($this->beans as $info) {
         $info['bean']->save();
 
         $blocks[] = array(
           'module' => 'bean',
-          'delta' => $info['bean']->delta,
+          'delta' => $info['bean']->delta->value(),
           'region' => $info['region'],
           'width' => $info['width'],
-          'weight' => $weight++
+          'weight' => $weight++,
         );
       }
 
@@ -251,7 +291,5 @@ class Wrapper extends \EntityDrupalWrapper {
         $layout->save();
       }
     }
-
-    return $this;
   }
 }
