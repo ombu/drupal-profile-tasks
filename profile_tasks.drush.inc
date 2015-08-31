@@ -3,12 +3,21 @@
 /**
  * @file
  * Drush integration for profile_tasks.
+ *
+ * Helpful drush commands for working with install profiles.
  */
 
 /**
  * Implements hook_drush_command().
  */
 function profile_tasks_drush_command() {
+  $items['bean-export'] = array(
+    'description' => dt('Export whole bean objects.'),
+    'arguments' => array(
+      'delta' => dt('The bean delta to export.'),
+    ),
+    'aliases' => array('be'),
+  );
   $items['dump-roles-perms'] = array(
     'description' => dt('Dumps the current user roles and permissions into a file.'),
     'arguments' => array(),
@@ -181,3 +190,32 @@ function drush_profile_tasks_load_up($filename) {
   }
 }
 
+/**
+ * Export whole bean objects.
+ */
+function drush_profile_tasks_bean_export($delta) {
+  $bean = bean_load_delta($delta);
+  $output = '$bean = bean_create(array(\'type\' => \'' . $bean->type . '\'));' . "\n";
+
+  foreach (array('label', 'title', 'delta') as $property) {
+    $output .= '$bean->' . $property . ' = \'' . $bean->$property . '\'' . ";\n";
+  }
+
+  require 'includes/utility.inc';
+  $output .= '$bean->setValues(' . drupal_var_export($bean->data) . ')' . ";\n";
+
+  // Export fields.
+  $fields = field_info_instances('bean', $bean->type);
+  foreach ($fields as $key => $info) {
+    switch ($info['widget']['type']) {
+      // @todo: handle images and files.
+      // @todo: handle field collections.
+      default:
+        $output .= '$bean->' . $key . ' = ' . drupal_var_export($bean->$key) . ";\n";
+        break;
+    }
+  }
+  $output .= 'bean_save($bean);';
+
+  drush_print($output);
+}
