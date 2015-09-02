@@ -75,6 +75,10 @@ redirect_auto_redirect: 0
 jquery_update_compression_type: 'min'
 jquery_update_jquery_cdn: 'none'
 jquery_update_jquery_version: '1.10'
+# Newer versions of jquery update module allow settings jquery version per
+# theme.  Make sure defaults for seven are 1.10 so select2 works.
+theme_seven_settings:
+    jquery_update_jquery_version: '1.10'
 
 # Apply select2 to all select fields.
 select2_update_settings_by_ajax: 1
