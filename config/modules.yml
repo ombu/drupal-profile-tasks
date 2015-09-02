@@ -50,12 +50,12 @@
 - ombuseo
 - bean_style
 - tiles
-- ombubeans
+- bean_embed
 - bean_rte
 - bean_feed
-- linkbean
+- bean_link
 - bean_container
 - ombuslide
-- featuredbean
+- bean_featured
 - customauthor
 - tagsadmin
