@@ -109,8 +109,6 @@ editor:
     - 'revert revisions'
     - 'create url aliases'
     - 'edit ombuseo fields'
-    - 'import media'
-    - 'add media from remote sources'
     - 'bypass file access'
     - 'use text format default'
 

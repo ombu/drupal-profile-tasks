@@ -26,9 +26,7 @@
 - pathauto
 - redirect
 - context
-- media
 - oembed
-- media_internet
 - entity
 - bean
 - jquery_update
@@ -59,3 +57,4 @@
 - bean_featured
 - customauthor
 - tagsadmin
+- ombumedia
