@@ -148,6 +148,7 @@ class Taxonomy extends Task {
    *   The taxonomy term object.
    */
   protected function saveTerm($term) {
+    variable_set('menu_rebuild_needed', FALSE);
     return taxonomy_term_save($term);
   }
 }
