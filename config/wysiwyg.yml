@@ -21,6 +21,8 @@ default:
                 Styles: 1
             ombucleanup:
                 ombucleanup: 1
+            ombumedia:
+                ombumedia: 1
             drupal:
                 media: 1
         toolbar_loc: top
@@ -38,4 +40,6 @@ default:
         css_setting: self
         css_path: '%b%t/css/wysiwyg.css'
         css_classes: "Pull left=p.pull-left\r\nPull right=p.pull-right\r\nImage left=pre.pull-left\r\nImage right=pre.pull-right\r\nBlockquote left=blockquote.pull-left\r\nBlockquote right=blockquote.pull-right\r\nButton=a.btn\r\nCall-to-action=a.cta\r\nLead Text=p.lead\r\nInline list=ul.inline"
+        ombumedia: 
+          view_modes: { }
     rdf_mapping: {  }
