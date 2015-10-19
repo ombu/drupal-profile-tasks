@@ -24,8 +24,6 @@ default:
                 ombucleanup: 1
             ombumedia:
                 ombumedia: 1
-            drupal:
-                media: 1
         toolbar_loc: top
         toolbar_align: left
         path_loc: bottom
