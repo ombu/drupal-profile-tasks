@@ -100,6 +100,7 @@ breadcrumb_use_menu_title: 1
 #  432  = 0660
 file_chmod_directory: 1528
 file_chmod_file: 432
+file_entity_default_allowed_extensions: 'jpg jpeg gif png txt doc docx xls xlsx pdf ppt pptx pps ppsx odt ods odp'
 
 # Set default indexable state for tiles
 tiles_bean_type_index_defaults:
