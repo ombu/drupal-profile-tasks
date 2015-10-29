@@ -38,7 +38,7 @@ default:
         block_formats: 'p,h2,h3,h4,h5,h6,pre'
         css_setting: self
         css_path: '%b%t/css/wysiwyg.css'
-        css_classes: "Pull left=p.pull-left\r\nPull right=p.pull-right\r\nImage left=pre.pull-left\r\nImage right=pre.pull-right\r\nBlockquote left=blockquote.pull-left\r\nBlockquote right=blockquote.pull-right\r\nButton=a.btn\r\nCall-to-action=a.cta\r\nLead Text=p.lead\r\nInline list=ul.inline"
+        css_classes: "Blockquote left=blockquote.pull-left\r\nBlockquote right=blockquote.pull-right\r\nButton=a.btn\r\nCall-to-action=a.cta\r\nLead Text=p.lead\r\nInline list=ul.inline"
         ombumedia:
           view_modes: { }
     rdf_mapping: {  }
