@@ -40,5 +40,11 @@ default:
         css_path: '%b%t/css/wysiwyg.css'
         css_classes: "Blockquote left=blockquote.pull-left\r\nBlockquote right=blockquote.pull-right\r\nButton=a.btn\r\nCall-to-action=a.cta\r\nLead Text=p.lead\r\nInline list=ul.inline"
         ombumedia:
-          view_modes: { }
+          view_modes:
+            video:
+              default: 'default'
+            image:
+              ombumedia_full: 'ombumedia_full'
+            document:
+              default: 'default'
     rdf_mapping: {  }
