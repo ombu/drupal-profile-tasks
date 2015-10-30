@@ -82,6 +82,10 @@ class Media extends Task {
     }
 
     $this->addCaptionField();
+
+    if (!variable_get('ombumedia_include_audio', FALSE)) {
+      file_type_disable('audio');
+    }
   }
 
   /**
