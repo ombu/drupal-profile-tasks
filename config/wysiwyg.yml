@@ -42,9 +42,9 @@ default:
         ombumedia:
           view_modes:
             video:
-              default: 'default'
+              full: 'full'
             image:
-              ombumedia_full: 'ombumedia_full'
+              full: 'full'
             document:
-              default: 'default'
+              full: 'full'
     rdf_mapping: {  }
