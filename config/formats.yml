@@ -12,7 +12,7 @@ default:
             weight: '0'
             status: '0'
             settings:
-                allowed_html: '<a><u><em><strong><ul><ol><li><span><img><h2><h3><h4><h5><h6><dl><dt><dd><br><hr><p><blockquote><table><th><tr><td>'
+                allowed_html: '<a><u><em><strong><ul><ol><li><span><img><h2><h3><h4><h5><h6><dl><dt><dd><br><hr><p><blockquote><table><th><tr><td><caption>'
                 filter_html_help: 1
                 filter_html_nofollow: 0
             title: 'Limit allowed HTML tags'
@@ -26,7 +26,7 @@ default:
                 htmlpurifier_config_name: 'htmlpurifier_advanced'
                 htmlpurifier_help: 1
                 htmlpurifier_filter_tips: 'HTML tags will be transformed to conform to HTML standards.'
-                htmlpurifier_config: 
+                htmlpurifier_config:
                   Attr.AllowedClasses: "lead\r\nbtn\r\npull-left\r\npull-right\r\ncta"
                   Attr.AllowedFrameTargets: "_blank\r\n_top\r\n_self\r\n_parent"
                   Attr.AllowedRel: ''
@@ -92,7 +92,7 @@ default:
                   HTML.AllowedAttributes: "class\r\ndir\r\nhref\r\nid\r\nlang\r\nname\r\nrel\r\nrev\r\ntarget\r\ntitle\r\nxml:lang\r\nsrc\r\nwidth\r\nheight\r\ncolspan\r\ndata-ombumedia"
                   HTML.AllowedComments: ''
                   Null_HTML.AllowedCommentsRegexp: '1'
-                  HTML.AllowedElements: "p\r\npre\r\nstrong\r\nb\r\nem\r\ni\r\nul\r\nol\r\nli\r\nh2\r\nh3\r\nh4\r\nh5\r\nh6\r\nbr\r\nblockquote\r\nsmall\r\nimg\r\na\r\ntable\r\ntbody\r\nthead\r\ntr\r\nth\r\ntd\r\ntfoot\r\nhr\r\niframe\r\nombumedia"
+                  HTML.AllowedElements: "p\r\npre\r\nstrong\r\nb\r\nem\r\ni\r\nul\r\nol\r\nli\r\nh2\r\nh3\r\nh4\r\nh5\r\nh6\r\nbr\r\nblockquote\r\nsmall\r\nimg\r\na\r\ntable\r\ncaption\r\ntbody\r\nthead\r\ntr\r\nth\r\ntd\r\ntfoot\r\nhr\r\niframe\r\nombumedia"
                   Null_HTML.AllowedModules: '1'
                   HTML.Attr.Name.UseCDATA: '0'
                   HTML.BlockWrapper: p
@@ -138,7 +138,7 @@ default:
                   URI.MungeResources: '0'
                   Null_URI.MungeSecretKey: '1'
                   URI.OverrideAllowedSchemes: '1'
-                  Null_URI.SafeIframeRegexp: '1' 
+                  Null_URI.SafeIframeRegexp: '1'
             title: 'HTML Purifier (advanced)'
         ombumedia:
             format: default

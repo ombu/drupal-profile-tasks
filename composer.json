@@ -5,6 +5,7 @@
         "psr-0": { "ProfileTasks": "lib/" }
     },
     "require": {
-        "symfony/yaml": "2.1.*"
+        "symfony/yaml": "2.1.*",
+        "fzaninotto/faker": "~1.5"
     }
 }

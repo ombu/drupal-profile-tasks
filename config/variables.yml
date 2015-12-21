@@ -82,7 +82,7 @@ select2_use_for_ac_elements: 1
 select2_use_for_all_select_elements: 1
 select2_use_for_all_select_elements_for_admin_pages: 1
 # This variable is mispelled in select2.module
-select2_excluded_cleasses: "tabledrag-hide\r\nselect2-exclude"
+select2_excluded_cleasses: "tabledrag-hide\r\nselect2-exclude\r\nphpdebugbar-datasets-switcher"
 select2_excluded_ids: 'core-content-select'
 
 # Special menu items
@@ -100,6 +100,7 @@ breadcrumb_use_menu_title: 1
 #  432  = 0660
 file_chmod_directory: 1528
 file_chmod_file: 432
+file_entity_default_allowed_extensions: 'jpg jpeg gif png txt doc docx xls xlsx pdf ppt pptx pps ppsx odt ods odp'
 
 # Set default indexable state for tiles
 tiles_bean_type_index_defaults:
