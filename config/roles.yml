@@ -1,6 +1,7 @@
 'anonymous user':
     - 'access content'
     - 'view any bean_container bean'
+    - 'view any bean_callout bean'
     - 'view any bean_rte_rte bean'
     - 'view any bean_featured bean'
     - 'view any bean_link bean'
@@ -14,6 +15,7 @@
 'authenticated user':
     - 'access content'
     - 'view any bean_container bean'
+    - 'view any bean_callout bean'
     - 'view any bean_rte_rte bean'
     - 'view any bean_featured bean'
     - 'view any bean_link bean'
@@ -83,6 +85,9 @@ editor:
     - 'create any bean_container bean'
     - 'delete any bean_container bean'
     - 'edit any bean_container bean'
+    - 'create any bean_callout bean'
+    - 'delete any bean_callout bean'
+    - 'edit any bean_callout bean'
     - 'create any bean_featured bean'
     - 'edit any bean_featured bean'
     - 'delete any bean_featured bean'
