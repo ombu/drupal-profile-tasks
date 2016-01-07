@@ -6,6 +6,7 @@
     - 'view any bean_featured bean'
     - 'view any bean_link bean'
     - 'view any bean_embed bean'
+    - 'view any bean_media bean'
     - 'view any ombugallery bean'
     - 'view files'
     - 'download any audio files'
@@ -20,6 +21,7 @@
     - 'view any bean_featured bean'
     - 'view any bean_link bean'
     - 'view any bean_embed bean'
+    - 'view any bean_media bean'
     - 'view any ombugallery bean'
     - 'view files'
     - 'download any audio files'
@@ -100,6 +102,9 @@ editor:
     - 'delete any ombugallery bean'
     - 'edit any bean_embed bean'
     - 'edit any ombugallery bean'
+    - 'create any bean_media bean'
+    - 'delete any bean_media bean'
+    - 'edit any bean_media bean'
 
     # Content/Node Permissions
     - 'access content overview'
