@@ -146,6 +146,13 @@ class Media extends Task {
           'type' => 'hidden',
           'weight' => 0,
         ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => 1,
+        ),
         'wysiwyg' => array(
           'label' => 'above',
           'settings' => array(),
