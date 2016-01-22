@@ -78,6 +78,8 @@ class AddContent extends Task {
         $this->buildMenu($menu, $nodes);
       }
     }
+
+    $this->createErrorPage();
   }
 
   /**
@@ -263,5 +265,22 @@ class AddContent extends Task {
     catch (WrapperException $e) {
       throw new TaskException('Exception in content file ' . $name . ': ' . $e->getMessage());
     }
+  }
+
+  /**
+   * Create 404 error page.
+   */
+  protected function createErrorPage() {
+    $node = $this->setupNode('page');
+    $node->title = 'Page not found';
+    $node->xmlsitemap['status'] = 0;
+
+    $node->body[LANGUAGE_NONE][0] = array(
+      'value' => '<p>The requested page could not be found.</p>',
+      'format' => 'default',
+    );
+
+    node_save($node);
+    variable_set('site_404', 'node/' . $node->nid);
   }
 }
