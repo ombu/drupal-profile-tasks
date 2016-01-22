@@ -5,8 +5,8 @@ node_settings:
             - status
         comments: COMMENT_NODE_HIDDEN
         submitted: false
-        base_content_fields: true
         menus:
             - main-menu
         node_preview_[type]: false
         pathauto_node_[type]_pattern: '[node:menu-link:parents:join-path]/[node:title]'
+        base_content_fields: 1

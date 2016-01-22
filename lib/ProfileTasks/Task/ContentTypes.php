@@ -118,6 +118,11 @@ class ContentTypes extends Task {
       }
 
       foreach ($settings as $key => $value) {
+        if ($key == 'base_content_fields' && $value) {
+          $this->createBaseContentFields($type);
+          continue;
+        }
+
         switch ($key) {
           case 'options':
             $variable_key = 'node_options_' . $type;
@@ -133,12 +138,6 @@ class ContentTypes extends Task {
 
           case 'menus':
             $variable_key = 'menu_options_' . $type;
-            break;
-
-          case 'base_content_fields':
-            if ($value) {
-              $this->createBaseContentFields($type);
-            }
             break;
 
           default:
