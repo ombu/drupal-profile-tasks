@@ -191,6 +191,12 @@ class AddContent extends Task {
       $node->workbench_moderation_state_new = 'published';
     }
 
+    // Set path if defined in menu structure.
+    if (isset($content['#path'])) {
+      $node->path['alias'] = $content['#path'];
+      $node->path['pathauto'] = 0;
+    }
+
     return $node;
   }
 
