@@ -7,6 +7,7 @@
     - 'view any bean_link bean'
     - 'view any bean_embed bean'
     - 'view any bean_media bean'
+    - 'view any bean_menu_block bean'
     - 'view any ombugallery bean'
     - 'view files'
     - 'download any audio files'
@@ -22,6 +23,7 @@
     - 'view any bean_link bean'
     - 'view any bean_embed bean'
     - 'view any bean_media bean'
+    - 'view any bean_menu_block bean'
     - 'view any ombugallery bean'
     - 'view files'
     - 'download any audio files'
@@ -105,6 +107,9 @@ editor:
     - 'create any bean_media bean'
     - 'delete any bean_media bean'
     - 'edit any bean_media bean'
+    - 'create any bean_menu_block bean'
+    - 'delete any bean_menu_block bean'
+    - 'edit any bean_menu_block bean'
 
     # Content/Node Permissions
     - 'access content overview'
