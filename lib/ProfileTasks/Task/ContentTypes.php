@@ -181,6 +181,12 @@ class ContentTypes extends Task {
         'bundle' => $type,
         'display' => array(
           'default' => array(
+            'label' => 'above',
+            'settings' => array(),
+            'type' => 'hidden',
+            'weight' => 1,
+          ),
+          'title_block' => array(
             'label' => 'hidden',
             'module' => 'text',
             'settings' => array(),
@@ -217,6 +223,12 @@ class ContentTypes extends Task {
         'bundle' => $type,
         'display' => array(
           'default' => array(
+            'label' => 'above',
+            'settings' => array(),
+            'type' => 'hidden',
+            'weight' => 1,
+          ),
+          'title_block' => array(
             'label' => 'hidden',
             'module' => 'ombumedia',
             'settings' => array(),
@@ -271,6 +283,12 @@ class ContentTypes extends Task {
         'bundle' => $type,
         'display' => array(
           'default' => array(
+            'label' => 'above',
+            'settings' => array(),
+            'type' => 'hidden',
+            'weight' => 1,
+          ),
+          'teaser' => array(
             'label' => 'hidden',
             'module' => 'ombumedia',
             'settings' => array(),
