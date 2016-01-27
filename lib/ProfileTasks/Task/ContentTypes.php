@@ -161,22 +161,22 @@ class ContentTypes extends Task {
    *
    * Currently the base content fields are:
    *   - Title (included by default with content types).
-   *   - Summary
+   *   - Subtitle
    *   - Banner image
    *   - Thumbnail
    */
   protected function createBaseContentFields($type) {
-    // Summary field.
-    if (!field_info_field('field_summary')) {
+    // Subtitle field.
+    if (!field_info_field('field_subtitle')) {
       $base = array(
-        'field_name' => 'field_summary',
+        'field_name' => 'field_subtitle',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_long',
       );
       field_create_field($base);
     }
-    if (!field_info_instance('node', 'field_summary', $type)) {
+    if (!field_info_instance('node', 'field_subtitle', $type)) {
       $instance = array(
         'bundle' => $type,
         'display' => array(
@@ -195,8 +195,8 @@ class ContentTypes extends Task {
           ),
         ),
         'entity_type' => 'node',
-        'field_name' => 'field_summary',
-        'label' => 'Summary',
+        'field_name' => 'field_subtitle',
+        'label' => 'Subtitle',
         'settings' => array(
           'text_processing' => 0,
           'user_register_form' => FALSE,
@@ -347,7 +347,7 @@ class ContentTypes extends Task {
     $field_group->weight = '0';
     $field_group->children = array(
       0 => 'title',
-      1 => 'field_summary',
+      1 => 'field_subtitle',
       2 => 'field_banner_image',
       3 => 'field_thumbnail_image',
       4 => 'body',
