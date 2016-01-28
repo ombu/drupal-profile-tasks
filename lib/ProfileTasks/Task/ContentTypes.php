@@ -348,9 +348,7 @@ class ContentTypes extends Task {
     $field_group->children = array(
       0 => 'title',
       1 => 'field_subtitle',
-      2 => 'field_banner_image',
-      3 => 'field_thumbnail_image',
-      4 => 'body',
+      2 => 'body',
     );
     $field_group->format_type = 'tab';
     $field_group->format_settings = array(
@@ -358,6 +356,34 @@ class ContentTypes extends Task {
       'instance_settings' => array(
         'description' => '',
         'classes' => 'group-base field-group-tab',
+        'required_fields' => 1,
+      ),
+    );
+    if (!field_group_load_field_group($field_group->group_name, $field_group->entity_type, $field_group->bundle, $field_group->mode)) {
+      field_group_group_save($field_group);
+    }
+
+    $field_group = new \stdClass();
+    $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+    $field_group->api_version = 1;
+    $field_group->identifier = 'group_media|node|' . $type . '|form';
+    $field_group->group_name = 'group_media';
+    $field_group->entity_type = 'node';
+    $field_group->bundle = $type;
+    $field_group->mode = 'form';
+    $field_group->parent_name = '';
+    $field_group->label = 'Media';
+    $field_group->weight = '1';
+    $field_group->children = array(
+      0 => 'field_banner_image',
+      1 => 'field_thumbnail_image',
+    );
+    $field_group->format_type = 'tab';
+    $field_group->format_settings = array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-media field-group-tab',
         'required_fields' => 1,
       ),
     );
