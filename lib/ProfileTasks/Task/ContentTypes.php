@@ -172,7 +172,7 @@ class ContentTypes extends Task {
         'field_name' => 'field_subtitle',
         'module' => 'text',
         'settings' => array(),
-        'type' => 'text_long',
+        'type' => 'text',
       );
       field_create_field($base);
     }
