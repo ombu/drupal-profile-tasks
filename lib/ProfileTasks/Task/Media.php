@@ -72,12 +72,12 @@ class Media extends Task {
       $file_display->weight = -10;
       $file_display->status = TRUE;
       $file_display->settings = array(
-        'image_style' => variable_get('image_default_image_style', 'large'),
+        'image_style' => variable_get('image_default_image_style', 'full'),
       );
       file_display_save($file_display);
     }
     elseif (empty($displays['image__default__file_field_image']->settings['image_style'])) {
-      $displays['image__default__file_field_image']->settings['image_style'] = variable_get('image_default_image_style', 'large');
+      $displays['image__default__file_field_image']->settings['image_style'] = variable_get('image_default_image_style', 'full');
       file_display_save($displays['image__default__file_field_image']);
     }
 
@@ -145,6 +145,13 @@ class Media extends Task {
           'settings' => array(),
           'type' => 'hidden',
           'weight' => 0,
+        ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => 1,
         ),
         'wysiwyg' => array(
           'label' => 'above',

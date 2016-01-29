@@ -118,6 +118,11 @@ class ContentTypes extends Task {
       }
 
       foreach ($settings as $key => $value) {
+        if ($key == 'base_content_fields' && $value) {
+          $this->createBaseContentFields($type);
+          continue;
+        }
+
         switch ($key) {
           case 'options':
             $variable_key = 'node_options_' . $type;
@@ -148,6 +153,242 @@ class ContentTypes extends Task {
           variable_set($variable_key, $value);
         }
       }
+    }
+  }
+
+  /**
+   * Sets up base content fields for a content type.
+   *
+   * Currently the base content fields are:
+   *   - Title (included by default with content types).
+   *   - Subtitle
+   *   - Banner image
+   *   - Thumbnail
+   */
+  protected function createBaseContentFields($type) {
+    // Subtitle field.
+    if (!field_info_field('field_subtitle')) {
+      $base = array(
+        'field_name' => 'field_subtitle',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text',
+      );
+      field_create_field($base);
+    }
+    if (!field_info_instance('node', 'field_subtitle', $type)) {
+      $instance = array(
+        'bundle' => $type,
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'settings' => array(),
+            'type' => 'hidden',
+            'weight' => 1,
+          ),
+          'title_block' => array(
+            'label' => 'hidden',
+            'module' => 'text',
+            'settings' => array(),
+            'type' => 'text_default',
+            'weight' => 2,
+          ),
+        ),
+        'entity_type' => 'node',
+        'field_name' => 'field_subtitle',
+        'label' => 'Subtitle',
+        'settings' => array(
+          'text_processing' => 0,
+          'user_register_form' => FALSE,
+        ),
+        'widget' => array(
+          'weight' => 1,
+        ),
+      );
+      field_create_instance($instance);
+    }
+
+    // Banner image.
+    if (!field_info_field('field_banner_image')) {
+      $base = array(
+        'field_name' => 'field_banner_image',
+        'module' => 'ombumedia',
+        'settings' => array(),
+        'type' => 'ombumedia',
+      );
+      field_create_field($base);
+    }
+    if (!field_info_instance('node', 'field_banner_image', $type)) {
+      $instance = array(
+        'bundle' => $type,
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'settings' => array(),
+            'type' => 'hidden',
+            'weight' => 1,
+          ),
+          'title_block' => array(
+            'label' => 'hidden',
+            'module' => 'ombumedia',
+            'settings' => array(),
+            'type' => 'ombumedia_render',
+            'weight' => 0,
+          ),
+        ),
+        'entity_type' => 'node',
+        'field_name' => 'field_banner_image',
+        'label' => 'Banner image',
+        'widget' => array(
+          'active' => 1,
+          'module' => 'ombumedia',
+          'settings' => array(
+            'allowed_schemes' => array(
+              'public' => 'public',
+            ),
+            'allowed_types' => array(
+              'audio' => 0,
+              'document' => 0,
+              'image' => 'image',
+              'video' => 0,
+            ),
+            'allowed_view_modes' => array(
+              'audio' => array(),
+              'document' => array(),
+              'image' => array(
+                'default' => 'default',
+              ),
+              'video' => array(),
+            ),
+          ),
+          'type' => 'ombumedia',
+          'weight' => 2,
+        ),
+      );
+      field_create_instance($instance);
+    }
+
+    // Thumbnail image.
+    if (!field_info_field('field_thumbnail_image')) {
+      $base = array(
+        'field_name' => 'field_thumbnail_image',
+        'module' => 'ombumedia',
+        'settings' => array(),
+        'type' => 'ombumedia',
+      );
+      field_create_field($base);
+    }
+    if (!field_info_instance('node', 'field_thumbnail_image', $type)) {
+      $instance = array(
+        'bundle' => $type,
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'settings' => array(),
+            'type' => 'hidden',
+            'weight' => 1,
+          ),
+          'teaser' => array(
+            'label' => 'hidden',
+            'module' => 'ombumedia',
+            'settings' => array(),
+            'type' => 'ombumedia_render',
+            'weight' => 0,
+          ),
+        ),
+        'entity_type' => 'node',
+        'field_name' => 'field_thumbnail_image',
+        'label' => 'Thumbnail image',
+        'widget' => array(
+          'active' => 1,
+          'module' => 'ombumedia',
+          'settings' => array(
+            'allowed_schemes' => array(
+              'public' => 'public',
+            ),
+            'allowed_types' => array(
+              'audio' => 0,
+              'document' => 0,
+              'image' => 'image',
+              'video' => 0,
+            ),
+            'allowed_view_modes' => array(
+              'audio' => array(),
+              'document' => array(),
+              'image' => array(
+                'default' => 'default',
+              ),
+              'video' => array(),
+            ),
+          ),
+          'type' => 'ombumedia',
+          'weight' => 3,
+        ),
+      );
+      field_create_instance($instance);
+    }
+
+    // Change weight of body field.
+    $field = field_info_instance('node', 'body', $type);
+    $field['widget']['weight'] = 4;
+    field_update_instance($field);
+
+    // Create field group for base fields.
+    $field_group = new \stdClass();
+    $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+    $field_group->api_version = 1;
+    $field_group->identifier = 'group_base|node|' . $type . '|form';
+    $field_group->group_name = 'group_base';
+    $field_group->entity_type = 'node';
+    $field_group->bundle = $type;
+    $field_group->mode = 'form';
+    $field_group->parent_name = '';
+    $field_group->label = 'Basic Info';
+    $field_group->weight = '0';
+    $field_group->children = array(
+      0 => 'title',
+      1 => 'field_subtitle',
+      2 => 'body',
+    );
+    $field_group->format_type = 'tab';
+    $field_group->format_settings = array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-base field-group-tab',
+        'required_fields' => 1,
+      ),
+    );
+    if (!field_group_load_field_group($field_group->group_name, $field_group->entity_type, $field_group->bundle, $field_group->mode)) {
+      field_group_group_save($field_group);
+    }
+
+    $field_group = new \stdClass();
+    $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+    $field_group->api_version = 1;
+    $field_group->identifier = 'group_media|node|' . $type . '|form';
+    $field_group->group_name = 'group_media';
+    $field_group->entity_type = 'node';
+    $field_group->bundle = $type;
+    $field_group->mode = 'form';
+    $field_group->parent_name = '';
+    $field_group->label = 'Media';
+    $field_group->weight = '1';
+    $field_group->children = array(
+      0 => 'field_banner_image',
+      1 => 'field_thumbnail_image',
+    );
+    $field_group->format_type = 'tab';
+    $field_group->format_settings = array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-media field-group-tab',
+        'required_fields' => 1,
+      ),
+    );
+    if (!field_group_load_field_group($field_group->group_name, $field_group->entity_type, $field_group->bundle, $field_group->mode)) {
+      field_group_group_save($field_group);
     }
   }
 }

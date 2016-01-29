@@ -9,3 +9,4 @@ node_settings:
             - main-menu
         node_preview_[type]: false
         pathauto_node_[type]_pattern: '[node:menu-link:parents:join-path]/[node:title]'
+        base_content_fields: 1
