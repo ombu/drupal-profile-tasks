@@ -1,4 +1,4 @@
 name = Profile Tasks
 description = Extensible task installer for Drupal profiles.
-version = 7.x-0.3
+version = 7.x-0.4
 core = 7.x
