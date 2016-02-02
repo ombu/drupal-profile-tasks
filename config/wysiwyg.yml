@@ -18,6 +18,7 @@ default:
                 Blockquote: 1
                 HorizontalRule: 1
                 Format: 1
+                RemoveFormat: 1
                 Styles: 1
                 Table: 1
             ombucleanup:
