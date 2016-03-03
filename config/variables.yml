@@ -34,7 +34,8 @@ user_register: 0
 user_email_verification: 0
 
 # Enable SEO on page content types.
-ombuseo_node_page: 1
+ombuseo_node_types:
+  - page
 
 # oEmbed
 default_oembedcore_provider:
