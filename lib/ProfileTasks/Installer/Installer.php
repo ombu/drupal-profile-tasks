@@ -117,7 +117,12 @@ class Installer {
 
     $this->log(sprintf('Executing task: %s', $this->tasks[$task_name]));
 
+    // Allow modules to react before and after task processes.
+    module_invoke_all('profile_tasks_pre_task_' . strtolower($task_name));
+
     $task->process();
+
+    module_invoke_all('profile_tasks_post_task_' . strtolower($task_name));
   }
 
   /**
