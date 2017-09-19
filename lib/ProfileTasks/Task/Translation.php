@@ -45,9 +45,9 @@ class Translation extends Task {
     $settings = $this->loadSettings('translation');
 
     $this->enabled = $settings['enabled'];
-    $this->modules = $settings['modules'];
+    $this->modules = isset($settings['modules']) ? $settings['modules'] : $this->modules;
     $this->languages = $settings['languages'];
-    $this->entity_types = $settings['entity_types'];
+    $this->entity_types = isset($settings['entity_types']) ? $settings['entity_types'] : $this->entity_types;
   }
 
   /**
@@ -60,7 +60,9 @@ class Translation extends Task {
     }
 
     // Enable translation modules.
-    module_enable($this->modules);
+    if ($this->modules) {
+      module_enable($this->modules);
+    }
 
 
     // Setup translation modules.
@@ -71,36 +73,40 @@ class Translation extends Task {
     $this->setupNegotiation();
 
     // Enable translations on menus
-    db_update('menu_custom')
-      ->fields(array(
-        'i18n_mode' => 5,
-      ))
-      ->condition('menu_name', array('footer-menu', 'header-menu', 'main-menu'), 'IN')
-      ->execute();
-
-    // Enable translations on entity types.
-    variable_set('entity_translation_entity_types', array_combine($this->entity_types, $this->entity_types));
+    if (in_array('i18n_menu', $this->modules)) {
+      db_update('menu_custom')
+        ->fields(array(
+          'i18n_mode' => 5,
+        ))
+        ->condition('menu_name', array('footer-menu', 'header-menu', 'main-menu'), 'IN')
+        ->execute();
+    }
 
     // Setup each node type.
-    foreach (node_type_get_types() as $type => $info) {
+    foreach ($this->entity_types as $type) {
       // Enable entity translation for each node type.
       variable_set('language_content_type_' . $type, 4);
 
       $this->entitySettings('node', $type);
     }
 
-    // Setup bean types for translation.
-    foreach (bean_get_types() as $type => $info) {
-      $this->entitySettings('bean', $type);
-    }
+    if (in_array('entity_translation', $this->modules)) {
+      // Enable translations on entity types.
+      variable_set('entity_translation_entity_types', array_combine($this->entity_types, $this->entity_types));
 
-    // Setup taxonomy.
-    foreach (taxonomy_vocabulary_get_names() as $vocab => $info) {
-      $this->entitySettings('taxonomy_term', $vocab);
-    }
+      // Setup bean types for translation.
+      foreach (bean_get_types() as $type => $info) {
+        $this->entitySettings('bean', $type);
+      }
 
-    entity_info_cache_clear();
-    menu_rebuild();
+      // Setup taxonomy.
+      foreach (taxonomy_vocabulary_get_names() as $vocab => $info) {
+        $this->entitySettings('taxonomy_term', $vocab);
+      }
+
+      entity_info_cache_clear();
+      menu_rebuild();
+    }
   }
 
   /**

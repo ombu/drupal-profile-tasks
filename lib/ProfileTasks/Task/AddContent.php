@@ -74,6 +74,14 @@ class AddContent extends Task {
     }
 
     if ($this->menu_nodes) {
+      // Attempt to rebuild menu, since some solr items can be missing due to
+      // hook_menu_alter() calls.
+      cache_clear_all();
+      drupal_static_reset('ctools_plugins');
+      ctools_export_load_object_reset();
+      drupal_static_reset('apachesolr_search_load_all_search_pages');
+      menu_rebuild();
+
       foreach ($this->menu_nodes as $menu => $nodes) {
         $this->buildMenu($menu, $nodes);
       }
