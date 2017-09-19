@@ -28,6 +28,7 @@
 - context
 - oembed
 - entity
+- file_entity
 - bean
 - jquery_update
 - xmlsitemap
